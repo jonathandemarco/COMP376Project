@@ -2,19 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 
-enum GameMode {STOCK, TIMER};
+public enum GameMode {STOCK, TIMER};
+
 public class GameState : MonoBehaviour {
 
-	public int winScore;
+	private static int winScore;
 
-	List<int> accumScore = new List<int>();
+	private static List<int> accumScore = new List<int>();
 
 	public static GameMode gameMode;
 
-	private int playerCount;
+	private static int playerCount;
 
 	public static void resetSettings() {
-		gameMode = null;		
+		gameMode = 0;		
 	}
 
 	public static int isGameOver() {
@@ -28,20 +29,20 @@ public class GameState : MonoBehaviour {
 	}
 
 	public static void setWinningPlayer(int index) {
-		accumScore [i]++;
+		accumScore [index]++;
 		int winningPlayer = isGameOver ();
 		if(winningPlayer != -1) {
 			gameOverScene (winningPlayer);
 		}
 	}
 
-	private void gameOverScene(int winningPlayer) {
+	private static void gameOverScene(int winningPlayer) {
 		//TODO: change to game over scene showing winning player
 	}
 
 	public void initializeSettings(GameMode gameMode, int playerCount, int winScore) {
-		this.gameMode = gameMode;
-		this.playerCount = playerCount;
-		this.winScore = winScore;
+		GameState.gameMode = gameMode;
+		GameState.playerCount = playerCount;
+		GameState.winScore = winScore;
 	}
 }
