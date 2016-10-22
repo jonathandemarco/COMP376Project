@@ -121,7 +121,7 @@ public class LevelManager : MonoBehaviour {
 		return time;
 	}
 
-	private void endRound (int winningPlayer) {
+	private void endRound (List<int> winningPlayers) {
 		//TODO: change scenes, display the winner of the round
 	}
 
