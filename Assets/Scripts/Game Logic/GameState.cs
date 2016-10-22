@@ -7,10 +7,10 @@ public enum GameMode {STOCK, TIMER};
 public class GameState : MonoBehaviour {
 
 	public static GameMode gameMode;
-
+	public static LevelManager currentLevelManager;
 	private static int winScore;
 	private static List<int> accumScore = new List<int>();
-	private static int playerCount;
+	public static int playerCount;
 
 	//returns index of winning player or -1
 	public static int isGameOver() {
