@@ -8,9 +8,10 @@ public class GameState : MonoBehaviour {
 
 	public static GameMode gameMode;
 	public static LevelManager currentLevelManager;
+	public static int playerCount;
+
 	private static int winScore;
 	private static List<int> accumScore = new List<int>();
-	public static int playerCount;
 
 	//returns index of winning player or -1
 	public static int isGameOver() {
@@ -39,6 +40,10 @@ public class GameState : MonoBehaviour {
 
 	private static void gameOverScene(int winningPlayer) {
 		//TODO: change to game over scene showing winning player
+	}
+
+	public static void loadScene(string levelName) {
+		//load level levelName
 	}
 
 }
