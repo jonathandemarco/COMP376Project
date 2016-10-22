@@ -12,6 +12,16 @@ public class Weapon : MonoBehaviour {
 
 	AudioSource weaponSound;
 
+	float t = 3;
+
+	void Update() {
+		t += Time.deltaTime;
+		if (t > 3) {
+			SetAnimation (true);
+			t = 0;
+		}
+	}
+
 	public void SetType(WeaponType t){
 		type = t;
 	}
@@ -34,6 +44,14 @@ public class Weapon : MonoBehaviour {
 
 	public void SetWeaponInactive(){
 		gameObject.SetActive (false);
+	}
+
+	public void SetAnimator(){
+		weaponAnimator = GetComponent<Animator> ();
+	}
+
+	public void SetAnimation(bool value){
+		weaponAnimator.SetBool ("StartAttack", value); 
 	}
 
 	public virtual void HoldAttack(){}
