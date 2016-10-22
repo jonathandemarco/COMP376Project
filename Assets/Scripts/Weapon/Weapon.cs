@@ -12,34 +12,34 @@ public class Weapon : MonoBehaviour {
 
 	AudioSource weaponSound;
 
-	public void StartAttack(){
-		// Play the animation
-		// animation.Play ();
-	}
-
-	public void setType(WeaponType t){
+	public void SetType(WeaponType t){
 		type = t;
 	}
 
-	public void setDamage(int dmg){
+	public void SetDamage(int dmg){
 		damage = dmg;
 	}
 
-	public void setAttackRate(float ar){
+	public void SetAttackRate(float ar){
 		attackRate = ar;
 	}
 
-	public void setAnimation(Animator a){
+	public void SetAnimation(Animator a){
 		weaponAnimator = a;
 	}
 
-	public virtual void holdAttack(){}
-
-	public virtual void pressAttack(){}
-
-	public virtual void releaseAttack(){
-		// stop the animation
-		// animation.Stop();
+	public void SetWeaponActive(){
+		gameObject.SetActive (true);
 	}
+
+	public void SetWeaponInactive(){
+		gameObject.SetActive (false);
+	}
+
+	public virtual void HoldAttack(){}
+
+	public virtual void PressAttack(){}
+
+	public virtual void ReleaseAttack(){}
 
 }

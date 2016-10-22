@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Gun : Weapon {
+public class Sword : Weapon {
 	void Start () {
-		SetType (WeaponType.Range);
-		SetDamage(5);
+		SetType (WeaponType.Melee);
+		SetDamage(4);
 		SetAttackRate (1.5f);
-		//setAnimation(GunAnimator);
+		//SetAnimation(SwordAnimator);
 	}
 
 	public override void PressAttack(){
 		// call the play animation;
 	}
-
 }

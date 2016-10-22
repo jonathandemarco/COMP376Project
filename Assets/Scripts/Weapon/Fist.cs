@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Fist : Weapon {
 	void Start () {
-		setType (WeaponType.Melee);
-		setDamage(1);
-		setAttackRate (0.5f);
-		//setAnimation(FistAnimator)
+		SetType (WeaponType.Melee);
+		SetDamage(1);
+		SetAttackRate (0.5f);
+		//SetAnimation(FistAnimator);
 	}
 
-	public override void pressAttack(){
-		// animation.Play ();
+	public override void PressAttack(){
+		// call the play animation;
 	}
 
 }
