@@ -17,14 +17,15 @@ public class LevelManager : MonoBehaviour {
 	
 		time -= Time.deltaTime;
 
-		int winningPlayer = isRoundOver ();
-		if (winningPlayer != -1) {
-			endRound (winningPlayer);
+		List<int> winningPlayers = isRoundOver ();
+		if (winningPlayers[0] != -1) {
+			endRound (winningPlayers);
 		}
 
 	}
 
-	int isRoundOver() {
+	//returns list of winners or -1 at index 0
+	List<int> isRoundOver() {
 		
 		foreach(GameObject player in playersList) {
 			switch (GameState.gameMode) {
@@ -35,44 +36,60 @@ public class LevelManager : MonoBehaviour {
 				return timerModeRoundOver ();
 			}
 		}
-		return -1;
+		List<int> winningplayers = new List<int>();
+		winningplayers [0] = -1;
+		return winningplayers;
 	}
 
-	int stockModeRoundOver () {
-		int winningplayer = -1;
+	List<int> stockModeRoundOver () {
+		List<int> winningplayers = new List<int>();
+		winningplayers [0] = -1;
 
 		for (int i = 0; i < playersList.Count; i++) {
 			PlayerManager script = (PlayerManager) playersList [i].GetComponent (typeof(PlayerManager));
 			if(script.getNumLives() > 0) {
 				//no one won
-				if (winningplayer > -1) {
-					return -1;
+				if (winningplayers[0] > -1) {
+					winningplayers.Clear;
+					winningplayers [0] = -1;
+					return winningplayers;
 				}
-				winningplayer = i;
+				winningplayers[0] = i;
 			}
 		}
 
 		//index of player who won
-		return winningplayer;
+		return winningplayers;
 	}
 
-	int timerModeRoundOver() {
+	List<int> timerModeRoundOver() {
+		List<int> winningplayers = new List<int>();
+		winningplayers [0] = -1;
+
 		if (time > 0) {
-			return -1;
+			return winningplayers;
 		} 
 		else {
-			int winningplayer = -1;
-
+			int count = 0;
+			int topScore = -1;
 			for(int i = 0; i < playersList.Count; i++) {
 				PlayerManager script = (PlayerManager) playersList [i].GetComponent (typeof(PlayerManager));
-				if (winningplayer == -1) {
-					winningplayer = script.getScore ();
+				if (topScore == -1) {
+					topScore = script.getScore ();
 				} 
-				else if (script.getScore () > winningplayer) {
-					winningplayer = i;
+				else if (script.getScore () > topScore) {
+					topScore = script.getScore ();
 				}
 			}
-			return winningplayer;
+
+			for (int i = 0; i < playersList.Count; i++) {
+				PlayerManager script = (PlayerManager) playersList [i].GetComponent (typeof(PlayerManager));
+				if (script.getScore () == topScore) {
+					winningplayers [count++] = i;
+				}
+			}
+		
+			return winningplayers;
 		}
 	}
 
