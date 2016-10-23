@@ -6,11 +6,17 @@ public class Sword : Weapon {
 		SetType (WeaponType.Melee);
 		SetDamage(4);
 		SetAttackRate (1.5f);
-		SetAnimator();
+		SetAnimator ();
+	}
+
+	//to-test
+	void Update(){
+		PressAttack ();
 	}
 
 	public override void PressAttack(){
+		// set conditions
 		// call the play animation;
-
+		YieldAttackAnimator();
 	}
 }

@@ -6,11 +6,11 @@ public class Fist : Weapon {
 		SetType (WeaponType.Melee);
 		SetDamage(1);
 		SetAttackRate (0.5f);
-		//SetAnimation(FistAnimator);
+		SetAnimator ();
 	}
 
 	public override void PressAttack(){
-		// call the play animation;
+		YieldAttackAnimator();
 	}
 
 }

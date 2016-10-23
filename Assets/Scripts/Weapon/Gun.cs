@@ -6,11 +6,11 @@ public class Gun : Weapon {
 		SetType (WeaponType.Range);
 		SetDamage(5);
 		SetAttackRate (1.5f);
-		//setAnimation(GunAnimator);
+		SetAnimator ();
 	}
 
 	public override void PressAttack(){
-		// call the play animation;
+		YieldAttackAnimator();
 	}
 
 }
