@@ -17,13 +17,14 @@ public class LevelManager : MonoBehaviour {
 	
 		time -= Time.deltaTime;
 
-		List<int> winningPlayers = isRoundOver ();
-		if (winningPlayers[0] != -1) {
-			endRound (winningPlayers);
-		}
+		//List<int> winningPlayers = isRoundOver ();
+		//if (winningPlayers[0] != -1) {
+		//	endRound (winningPlayers);
+		//}
 
 	}
 
+	/*
 	//returns list of winners or -1 at index 0
 	List<int> isRoundOver() {
 		
@@ -92,6 +93,7 @@ public class LevelManager : MonoBehaviour {
 			return winningplayers;
 		}
 	}
+	*/
 
 	void addPlayersToScene(int playerCount) {
 		
