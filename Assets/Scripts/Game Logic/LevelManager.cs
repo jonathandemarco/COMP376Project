@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
@@ -51,7 +50,7 @@ public class LevelManager : MonoBehaviour {
 			if(script.getNumLives() > 0) {
 				//no one won
 				if (winningplayers[0] > -1) {
-					winningplayers.Clear;
+					winningplayers.Clear();
 					winningplayers [0] = -1;
 					return winningplayers;
 				}
