@@ -12,14 +12,13 @@ public class Weapon : MonoBehaviour {
 
 	AudioSource weaponSound;
 
-	float t = 3;
+	void Start(){
+		weaponAnimator = GetComponent<Animator> ();
+	}
 
-	void Update() {
-		t += Time.deltaTime;
-		if (t > 3) {
-			SetAnimation (true);
-			t = 0;
-		}
+	void Update(){
+		bool attack = Input.GetButtonDown("B1");
+		weaponAnimator.SetBool ("isAttacking", attack);
 	}
 
 	public void SetType(WeaponType t){
@@ -51,7 +50,7 @@ public class Weapon : MonoBehaviour {
 	}
 
 	public void SetAnimation(bool value){
-		weaponAnimator.SetBool ("StartAttack", value); 
+		weaponAnimator.SetBool ("isAttacking", value); 
 	}
 
 	public virtual void HoldAttack(){}
