@@ -4,23 +4,29 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour {
-
-	float timeLeft;
+	public GameObject healthBarPrefabs;
+	private float timeLeft;
 	// Use this for initialization
 	void Start () {
-		
+		List<GameObject> playerReferences = GameState.currentLevelManager.getScenePlayers ();
+
+		for (int i = 0; i < playerReferences.Count; i++) {
+			GameObject healthBar = Instantiate (playerReferences) as GameObject;
+			healthBar.transform.SetParent (gameObject);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameState.gameMode == GameMode.TIMER) {
-			timeLeft -= Time.deltaTime;
-			//TODO: updtae time on HUD
-		}
-	}
+		List<GameObject> playerReferences = GameState.currentLevelManager.getScenePlayers ();
 
-	public void setTimeLeft(float t) {
-		timeLeft = t;
+		for (int i = 0; i < playerReferences.Count; i++)
+		{
+			PlayerManager player = playerReferences [i].GetComponent<PlayerManager> () as PlayerManager;
+			if(player.getNumLives() > 0)
+				GetChild(0).GetComponent<StatusBar>().value = player.getHealth();
+		}
+		
 	}
 
 	public void intializeHUD(GameObject[] playerObjects) {
@@ -30,4 +36,7 @@ public class HUDManager : MonoBehaviour {
 		}
 	}
 
+	public float getTime()
+	{
+	}
 }
