@@ -25,10 +25,14 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isAlive) {
-            timeSinceDeath += Time.deltaTime;
-            if (timeSinceDeath >= respawnTime)
-                respawn();
+        if (!isEliminated)
+        {
+            if (!isAlive)
+            {
+                timeSinceDeath += Time.deltaTime;
+                if (timeSinceDeath >= respawnTime)
+                    respawn();
+            }
         }
 
 	
@@ -40,6 +44,7 @@ public class PlayerManager : MonoBehaviour {
             die();
     }
     private void die() {
+
         isAlive = false;
         numLives--;
         timeSinceDeath = 0;
@@ -59,4 +64,13 @@ public class PlayerManager : MonoBehaviour {
     public int getNumLives() {
         return numLives;
     }
+
+
+    public void getMessage(int buttonID, ControlButton.ACTION action)
+    {
+
+        Debug.Log("ButtonID: "+buttonID);
+    }        
+
+
 }

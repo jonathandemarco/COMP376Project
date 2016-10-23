@@ -1,27 +1,91 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+
+
+public class ControlButton {
+
+    private int buttonID;
+    private string buttonName;
+    private PlayerManager manager;
+
+    public enum ACTION {PRESS,HOLD,RELEASE};
+
+    public ControlButton(string name,int id, PlayerManager m) {
+        setName(name);
+        setManager(m);
+        buttonID = id;
+        Debug.Log("BUTTON MADE");
+
+    }
+    private void setName(string name) {
+        buttonName = name;
+    }
+    private void setManager(PlayerManager m) {
+        manager = m;
+    }
+
+    public void check() {
+
+        if (Input.GetButton(buttonName))
+        {
+            press();
+
+        }
+        if (Input.GetButtonDown(buttonName))
+        {
+            hold();
+        }
+        if (Input.GetButtonUp(buttonName))
+        {
+            release();
+        }
+
+    }
+    void press() {
+        manager.getMessage(buttonID, ACTION.PRESS);
+    }
+
+    void hold() {
+        manager.getMessage(buttonID, ACTION.HOLD);
+
+    }
+
+    void release() {
+        manager.getMessage(buttonID, ACTION.RELEASE);
+
+    }
+}
 
 public class PlayerControls : MonoBehaviour {
 
     public float moveSpeed;
     public float rotationSpeed;
+    public int numOfButtons = 5;
 
-    private Transform player;
+    public GameObject player;
     
 
 
     private float horizontal;
     private float vertical;
 
-    void Start () {
-        player = gameObject.transform.parent;
-	}
+
+    private List<ControlButton> buttons;
+    void Awake () {
+        buttons = new List<ControlButton>();
+        for (int i = 1; i <= numOfButtons; i++) {
+            ControlButton b = new ControlButton("B"+i,i,player.GetComponent<PlayerManager>());
+            buttons.Add(b);
+            Debug.Log("BUTTON " + i +" size is "+numOfButtons);
+
+        }
+    }
 
     void Update() {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-      move();
+        move();
 
         checkButtons();
 
@@ -44,11 +108,17 @@ public class PlayerControls : MonoBehaviour {
     }
 
 
+    private void checkButtons() {
+        for (int i = 0; i <buttons.Count;i++){
+            buttons[i].check();
 
+        }
+
+    }
     // I hate this method, If I figure out how to pass functions as parameters this will be fixed
-    private void checkButtons()
+    /**private void checkButtons()
     {         // I hate this, If I figure out how to pass functions as parameters this will be fixed
-
+       
         if (Input.GetButton("B1")) {
             b1Hold();
         }
@@ -118,12 +188,14 @@ public class PlayerControls : MonoBehaviour {
             b5Release();
         }
     }
-
+    */
     //b1,b2,b3 are for attacks
 
     private void b1Press()
     {
         //get player inventory -> getWeapon(1)->pressAttack();
+        GetComponentInParent<PlayerManager>();
+        
     }
     private void b1Hold()
     {
