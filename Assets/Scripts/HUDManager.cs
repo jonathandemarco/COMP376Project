@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour {
-	public GameObject healthBarPrefabs;
+	public GameObject healthBarPrefab;
 	private float timeLeft;
 	// Use this for initialization
 	void Start () {
 		List<GameObject> playerReferences = GameState.currentLevelManager.getScenePlayers ();
 
 		for (int i = 0; i < playerReferences.Count; i++) {
-			GameObject healthBar = Instantiate (playerReferences) as GameObject;
-			healthBar.transform.SetParent (gameObject);
+			GameObject healthBar = Instantiate (healthBarPrefab) as GameObject;
+			healthBar.transform.SetParent (transform);
 		}
 	}
 	
@@ -23,8 +23,8 @@ public class HUDManager : MonoBehaviour {
 		for (int i = 0; i < playerReferences.Count; i++)
 		{
 			PlayerManager player = playerReferences [i].GetComponent<PlayerManager> () as PlayerManager;
-			if(player.getNumLives() > 0)
-				GetChild(0).GetComponent<StatusBar>().value = player.getHealth();
+//			if(player.getNumLives() > 0)
+//				transform.GetChild(i).GetComponent<StatusBar>().setValue(player.getHealth(), player.getMaxHealth());
 		}
 		
 	}
@@ -38,5 +38,6 @@ public class HUDManager : MonoBehaviour {
 
 	public float getTime()
 	{
+		return 0;
 	}
 }
