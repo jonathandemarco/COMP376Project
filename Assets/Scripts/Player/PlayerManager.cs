@@ -68,7 +68,6 @@ public class PlayerManager : MonoBehaviour {
 
     public void getMessage(int buttonID, ControlButton.ACTION action)
     {
-
         Debug.Log("ButtonID: "+buttonID);
     }        
 
