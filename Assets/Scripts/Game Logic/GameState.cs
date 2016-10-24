@@ -29,8 +29,10 @@ public class GameState : MonoBehaviour {
 		return winningPlayers;
 	}
 
-	public static void setWinningPlayer(int index) {
-        accumScoreList[index]++;
+	public static void setWinningPlayers(List<int> indexes) {
+		for(int i = 0; i < indexes.Count; i++) {
+			accumScoreList[i]++;
+		}
 		List<int> winningPlayers = isGameOver ();
 		if(winningPlayers[0] != -1) {
 			gameOverScene (winningPlayers);

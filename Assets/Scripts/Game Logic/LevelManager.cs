@@ -27,14 +27,13 @@ public class LevelManager : MonoBehaviour {
 	//returns list of winners or -1 at index 0 if theres no winner
 	private List<int> isRoundOver() {
 		
-		foreach(GameObject player in playersList) {
-			switch (GameState.gameMode) {
-			    case GameMode.STOCK:
-				    return stockModeRoundOver ();
-			    case GameMode.TIMER:
-				    return timerModeRoundOver ();
-			}
+		switch (GameState.gameMode) {
+			case GameMode.STOCK:
+				return stockModeRoundOver ();
+			case GameMode.TIMER:
+				return timerModeRoundOver ();
 		}
+
 		List<int> winningplayers = new List<int>();
 		winningplayers [0] = -1;
 		return winningplayers;
