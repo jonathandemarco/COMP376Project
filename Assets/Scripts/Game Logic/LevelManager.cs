@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	private List<GameObject> playersList = new List<GameObject> ();
-	private float time; 
+	private float timeLeft = 300.0f; 
 
 	// Use this for initialization
 	void Start () {
@@ -14,34 +14,32 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		time -= Time.deltaTime;
+		timeLeft -= Time.deltaTime;
 
-		//List<int> winningPlayers = isRoundOver ();
-		//if (winningPlayers[0] != -1) {
-		//	endRound (winningPlayers);
-		//}
+		List<int> winningPlayers = isRoundOver ();
+		if (winningPlayers[0] != -1) {
+			endRound (winningPlayers);
+		}
 
 	}
 
-	/*
-	//returns list of winners or -1 at index 0
-	List<int> isRoundOver() {
+	
+	//returns list of winners or -1 at index 0 if theres no winner
+	private List<int> isRoundOver() {
 		
-		foreach(GameObject player in playersList) {
-			switch (GameState.gameMode) {
-
+		switch (GameState.gameMode) {
 			case GameMode.STOCK:
 				return stockModeRoundOver ();
 			case GameMode.TIMER:
 				return timerModeRoundOver ();
-			}
 		}
+
 		List<int> winningplayers = new List<int>();
 		winningplayers [0] = -1;
 		return winningplayers;
 	}
 
-	List<int> stockModeRoundOver () {
+	private List<int> stockModeRoundOver () {
 		List<int> winningplayers = new List<int>();
 		winningplayers [0] = -1;
 
@@ -62,11 +60,11 @@ public class LevelManager : MonoBehaviour {
 		return winningplayers;
 	}
 
-	List<int> timerModeRoundOver() {
+	private List<int> timerModeRoundOver() {
 		List<int> winningplayers = new List<int>();
 		winningplayers [0] = -1;
 
-		if (time > 0) {
+		if (timeLeft > 0) {
 			return winningplayers;
 		} 
 		else {
@@ -92,9 +90,8 @@ public class LevelManager : MonoBehaviour {
 			return winningplayers;
 		}
 	}
-	*/
 
-	void addPlayersToScene(int playerCount) {
+	private void addPlayersToScene(int playerCount) {
 		
 		for (int i = 0; i < playerCount; i++) {
 			GameObject playerObj = Instantiate (playerPrefab);
@@ -109,24 +106,28 @@ public class LevelManager : MonoBehaviour {
 		return new Vector3 ();
 	}
 
-	public List<GameObject> getScenePlayers() {
+    private void endRound(List<int> winningPlayers)
+    {
+        //TODO: change scenes, display the winner/winners of the round
+    }
+
+    public List<GameObject> getScenePlayers() {
 		return playersList;
 	}
 
-	public Vector3 getRespawnPoint() {
-		//RETURN RESPAWN POINT
+    //called by player gameobject (in PlayerManager) when he needs a respawn point
+    //ex: transform.position = GameState.currentLevelManager.getRespawnPoint()
+    public Vector3 getRespawnPoint() {
+		//return respawn point randomized and based on location of other players
 		return new Vector3 ();
 	}
 
 	public float getTime() {
-		return time;
-	}
-
-	private void endRound (List<int> winningPlayers) {
-		//TODO: change scenes, display the winner of the round
+		return timeLeft;
 	}
 
 	public void setTimeLeft(float time) {
-		this.time = time;
+		this.timeLeft = time;
 	}
+
 }
