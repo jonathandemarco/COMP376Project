@@ -3,31 +3,40 @@ using System.Collections;
 
 public class InventoryManager : MonoBehaviour {
 
-	public  GameObject[] inventory = new GameObject[2];
-	public int holdingWep = 0;
+	public Weapon[] inventory;
+	public int maxInventorySize = 2;
+	private WeaponDatabase database;
 
+	void Start(){
+		inventory = new Weapon[maxInventorySize];
+		database = GameObject.FindGameObjectWithTag ("Weapon Database").GetComponent<WeaponDatabase> ();
+	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-			
-	}
-		
-	void OnTriggerEnter(Collider col){
-		if (col.tag == "Item") {
-			col.transform.parent = transform;
-			col.gameObject.SetActive (false);
+	public void AddToInventory(Weapon wep){
+		for (int i = 0; i < inventory.Length; i++) {
+			if (inventory [i] == null) {
+				inventory [i] = wep;
+				break;
+			}
 		}
+
 	}
 
+	public void DropFromInventory(int index){
+		inventory [index] = null;
+		//TODO Drop?
+	}
 
+	public int GetWeaponCount(){
+		int count = 0;
+		for (int i = 0; i < inventory.Length; i++) {
+			if (inventory [i] != null)
+				count++;
+		}
+		return count;
+	}
 
-
-
-
-
+	public WeaponDatabase GetWeaponDatabase(){
+		return database;
+	}
 }

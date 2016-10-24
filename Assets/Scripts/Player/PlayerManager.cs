@@ -9,13 +9,12 @@ public class PlayerManager : MonoBehaviour {
     public int numLives;
     public float respawnTime;
 
-
-
     private float health;
     private bool isAlive;
     private bool isEliminated;
     private int score;
     private float timeSinceDeath;
+
     void Start () {
         isAlive = true;
         health = maxHealth;
@@ -71,6 +70,8 @@ public class PlayerManager : MonoBehaviour {
 
         Debug.Log("ButtonID: "+buttonID);
     }        
+		
+
 
 
 }

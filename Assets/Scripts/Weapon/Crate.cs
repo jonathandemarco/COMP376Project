@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Crate : MonoBehaviour {
-	
+
+	public int IDValue; //To give the specefic item from database to player
+
 	public float delta = 1.5f;  // Amount to move left and right from the start point
 	public float speed = 2.0f; 
 	private Vector3 startPos;
@@ -10,10 +12,13 @@ public class Crate : MonoBehaviour {
 	bool grounded;
 
 	void Start(){
+		
+		IDValue = 0; //hardcoded sword.
+
 		grounded = false;
 		startPos = transform.position;
 	}
-
+		
 	void Update () {
 		if (!grounded) {
 			Vector3 v = startPos;
@@ -22,6 +27,7 @@ public class Crate : MonoBehaviour {
 			transform.position = v;
 		}
 	}
+		
 
 	void OnTriggerEnter(Collider coll){
 		if (coll.gameObject.layer == LayerMask.NameToLayer ("Terrain")) {
