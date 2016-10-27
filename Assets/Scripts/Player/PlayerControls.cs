@@ -26,34 +26,20 @@ public class ControlButton {
 
         if (Input.GetButton(buttonCallName))
         {
-            hold();
+            manager.getMessage(buttonID, ACTION.HOLD);
+            
         }
         if (Input.GetButtonDown(buttonCallName))
         {
-            press();
+            manager.getMessage(buttonID, ACTION.PRESS);
         }
         if (Input.GetButtonUp(buttonCallName))
         {
-            release();
+            manager.getMessage(buttonID, ACTION.RELEASE);
         }
 
     }
-    void press() {
-        manager.getMessage(buttonID, ACTION.PRESS);
-        Debug.Log("PRESS: " + buttonID);
-    }
 
-    void hold() {
-        manager.getMessage(buttonID, ACTION.HOLD);
-        Debug.Log("HOLD: " + buttonID);
-
-    }
-
-    void release() {
-        manager.getMessage(buttonID, ACTION.RELEASE);
-        Debug.Log("RELEASE: " + buttonID);
-
-    }
 }
 
 public class ControlJoysitck {
@@ -102,8 +88,7 @@ public class PlayerControls : MonoBehaviour {
     public float rotationSpeed;
     public int numOfButtons;
 
-    public char playerLetter;
-    public GameObject player;
+    private PlayerManager player;
 
     private string joystickCallNameHorizontal;
     private string joystickCallNameVertical;
@@ -111,45 +96,35 @@ public class PlayerControls : MonoBehaviour {
 
     private float horizontal;
     private float vertical;
-    public bool useKeyboard; // set outside of play modes
 
 
     private List<ControlButton> buttons;
-    void Awake () {
-        buttons = new List<ControlButton>();
-        for (int i = 0; i < numOfButtons; i++) {
-            ControlButton b;
-            if(!useKeyboard)
-                b = new ControlButton(""+playerLetter+i,i,player.GetComponent<PlayerManager>());
-            else
-                b = new ControlButton("K"+ i, i, player.GetComponent<PlayerManager>());
 
-            buttons.Add(b);
-            Debug.Log("BUTTON " + i +" size is "+numOfButtons);
-        }
-        if (useKeyboard)
-        {
-            joystickCallNameHorizontal = "Horizontal";
-            joystickCallNameVertical = "Vertical";
-        }
-        else
-        {
-            joystickCallNameHorizontal = playerLetter+"H";
-            joystickCallNameVertical = playerLetter+"V";
-        }
-    }
-
-    void Update() {
+    public void update() {
         horizontal = Input.GetAxis(joystickCallNameHorizontal);
         vertical = Input.GetAxis(joystickCallNameVertical);
-
-
         move();
         checkButtons();
 
     }
 
 
+    public void setPlayerChar(char c) {
+        buttons = new List<ControlButton>();
+        for (int i = 0; i < numOfButtons; i++)
+        {
+            ControlButton b;
+            b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>());
+            buttons.Add(b);
+        }
+
+            joystickCallNameHorizontal = c + "H";
+            joystickCallNameVertical = c + "V";
+    }
+    public void setPlayer(PlayerManager p) {
+        player = p;
+        setPlayerChar(p.getPlayerChar());
+    }
     private void move() {
         if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
         {
