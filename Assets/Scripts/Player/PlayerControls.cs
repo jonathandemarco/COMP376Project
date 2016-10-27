@@ -128,13 +128,13 @@ public class PlayerControls : MonoBehaviour {
     private void move() {
         if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
         {
-            float rotateStep = rotationSpeed * Time.deltaTime;
+            float rotateStep = player.settings.rotateSpeed * Time.deltaTime;
             Quaternion previous = player.transform.rotation;
             Vector3 direction = new Vector3(horizontal, 0.0f, vertical);
             direction = direction.normalized;
             Quaternion target = Quaternion.LookRotation(direction, Vector3.up);
             player.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-            player.transform.Translate(new Vector3(horizontal, 0, vertical).normalized * moveSpeed * Time.deltaTime);
+            player.transform.Translate(new Vector3(horizontal, 0, vertical).normalized * player.settings.moveSpeed * Time.deltaTime);
 
             player.transform.rotation = Quaternion.Slerp(previous, target, rotateStep);
         }
@@ -148,9 +148,5 @@ public class PlayerControls : MonoBehaviour {
         }
 
     }
-
-
-   
-
 
 }
