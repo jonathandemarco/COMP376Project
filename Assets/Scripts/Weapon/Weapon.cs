@@ -4,23 +4,13 @@ using System.Collections;
 public enum WeaponType{Melee, Range};
 
 public class Weapon : MonoBehaviour {
-
+	
 	private WeaponType type;
 	private int damage;
 	private float attackRate;
-	Animator weaponAnimator;
 
-	AudioSource weaponSound;
-
-	float t = 3;
-
-	void Update() {
-		t += Time.deltaTime;
-		if (t > 3) {
-			SetAnimation (true);
-			t = 0;
-		}
-	}
+	private AudioSource weaponSound;
+	private Animator weaponAnimator;
 
 	public void SetType(WeaponType t){
 		type = t;
@@ -34,24 +24,25 @@ public class Weapon : MonoBehaviour {
 		attackRate = ar;
 	}
 
-	public void SetAnimation(Animator a){
-		weaponAnimator = a;
-	}
-
-	public void SetWeaponActive(){
-		gameObject.SetActive (true);
-	}
-
-	public void SetWeaponInactive(){
-		gameObject.SetActive (false);
-	}
-
 	public void SetAnimator(){
 		weaponAnimator = GetComponent<Animator> ();
 	}
 
-	public void SetAnimation(bool value){
-		weaponAnimator.SetBool ("StartAttack", value); 
+	public void SetAudioSource(){
+		weaponSound = GetComponent<AudioSource> ();
+	}
+
+	public void YieldAttackAnimator(){
+		bool attack = Input.GetButtonDown("B1");
+		weaponAnimator.SetBool ("isAttacking", attack);
+	}
+
+	public void SetColliderActive(){
+		GetComponent<Collider> ().enabled = true;
+	}
+
+	public void SetColliderInactive(){
+		GetComponent<Collider> ().enabled = false;
 	}
 
 	public virtual void HoldAttack(){}

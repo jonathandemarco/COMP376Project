@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 
 public class ControlButton {
-
+    public string buttonCallName;
+    
     private int buttonID;
-    private string buttonName;
     private PlayerManager manager;
 
     public enum ACTION {PRESS,HOLD,RELEASE};
@@ -14,11 +14,9 @@ public class ControlButton {
         setName(name);
         setManager(m);
         buttonID = id;
-        Debug.Log("BUTTON MADE");
-
-    }
-    private void setName(string name) {
-        buttonName = name;
+   }
+    public void setName(string name) {
+        buttonCallName = name;
     }
     private void setManager(PlayerManager m) {
         manager = m;
@@ -26,44 +24,74 @@ public class ControlButton {
 
     public void check() {
 
-        if (Input.GetButton(buttonName))
+        if (Input.GetButton(buttonCallName))
         {
-            press();
-
+            manager.getMessage(buttonID, ACTION.HOLD);
+            
         }
-        if (Input.GetButtonDown(buttonName))
+        if (Input.GetButtonDown(buttonCallName))
         {
-            hold();
+            manager.getMessage(buttonID, ACTION.PRESS);
         }
-        if (Input.GetButtonUp(buttonName))
+        if (Input.GetButtonUp(buttonCallName))
         {
-            release();
+            manager.getMessage(buttonID, ACTION.RELEASE);
         }
 
     }
-    void press() {
-        manager.getMessage(buttonID, ACTION.PRESS);
-    }
 
-    void hold() {
-        manager.getMessage(buttonID, ACTION.HOLD);
-
-    }
-
-    void release() {
-        manager.getMessage(buttonID, ACTION.RELEASE);
-
-    }
 }
 
+public class ControlJoysitck {
+    public string joystickCallName;
+    public float deadzone;
+    private PlayerManager manager;
+    private int stickID;
+
+    public ControlJoysitck(string name, int id, PlayerManager m)
+    {
+        setName(name);
+        setManager(m);
+        stickID = id;
+        Debug.Log("STICK MADE");
+    }
+    public void setName(string name)
+    {
+        joystickCallName = name;
+    }
+    private void setManager(PlayerManager m)
+    {
+        manager = m;
+    }
+
+    public void check()
+    {
+        float horizontal = Input.GetAxis(joystickCallName+"H");
+        float vertical = Input.GetAxis(joystickCallName + "V");
+
+        Vector3 stickDirection = new Vector3(0, 0, 0);
+
+        if (Mathf.Abs(horizontal) > deadzone)
+            stickDirection += horizontal * Vector3.right;
+
+        if (Mathf.Abs(vertical) > deadzone)
+            stickDirection += horizontal * Vector3.forward;
+
+       // manager.getMessage(stickID, stickDirection);
+
+    }
+
+}
 public class PlayerControls : MonoBehaviour {
 
     public float moveSpeed;
     public float rotationSpeed;
-    public int numOfButtons = 5;
+    public int numOfButtons;
 
-    public GameObject player;
-    
+    private PlayerManager player;
+
+    private string joystickCallNameHorizontal;
+    private string joystickCallNameVertical;
 
 
     private float horizontal;
@@ -71,27 +99,32 @@ public class PlayerControls : MonoBehaviour {
 
 
     private List<ControlButton> buttons;
-    void Awake () {
-        buttons = new List<ControlButton>();
-        for (int i = 1; i <= numOfButtons; i++) {
-            ControlButton b = new ControlButton("B"+i,i,player.GetComponent<PlayerManager>());
-            buttons.Add(b);
-            Debug.Log("BUTTON " + i +" size is "+numOfButtons);
 
-        }
-    }
-
-    void Update() {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-
+    public void update() {
+        horizontal = Input.GetAxis(joystickCallNameHorizontal);
+        vertical = Input.GetAxis(joystickCallNameVertical);
         move();
-
         checkButtons();
 
     }
 
 
+    public void setPlayerChar(char c) {
+        buttons = new List<ControlButton>();
+        for (int i = 0; i < numOfButtons; i++)
+        {
+            ControlButton b;
+            b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>());
+            buttons.Add(b);
+        }
+
+            joystickCallNameHorizontal = c + "H";
+            joystickCallNameVertical = c + "V";
+    }
+    public void setPlayer(PlayerManager p) {
+        player = p;
+        setPlayerChar(p.getPlayerChar());
+    }
     private void move() {
         if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
         {
@@ -115,161 +148,9 @@ public class PlayerControls : MonoBehaviour {
         }
 
     }
-    // I hate this method, If I figure out how to pass functions as parameters this will be fixed
-    /**private void checkButtons()
-    {         // I hate this, If I figure out how to pass functions as parameters this will be fixed
-       
-        if (Input.GetButton("B1")) {
-            b1Hold();
-        }
-        if (Input.GetButtonDown("B1")) {
-            b1Press();
-        }
-        if (Input.GetButtonUp("B1"))
-        {
-            b1Release();
-        }
 
 
-
-        if (Input.GetButton("B2"))
-        {
-            b2Hold();
-        }
-        if (Input.GetButtonDown("B2"))
-        {
-            b2Press();
-        }
-        if (Input.GetButtonUp("B2"))
-        {
-            b2Release();
-        }
-
-
-
-        if (Input.GetButton("B3"))
-        {
-            b3Hold();
-        }
-        if (Input.GetButtonDown("B3"))
-        {
-            b3Press();
-        }
-        if (Input.GetButtonUp("B3"))
-        {
-            b3Release();
-        }
-
-
-        if (Input.GetButton("B4"))
-        {
-            b4Hold();
-        }
-        if (Input.GetButtonDown("B4"))
-        {
-            b4Press();
-        }
-        if (Input.GetButtonUp("B4"))
-        {
-            b4Release();
-        }
-
-
-        if (Input.GetButton("B5"))
-        {
-            b5Hold();
-        }
-        if (Input.GetButtonDown("B5"))
-        {
-            b5Press();
-        }
-        if (Input.GetButtonUp("B5"))
-        {
-            b5Release();
-        }
-    }
-    */
-    //b1,b2,b3 are for attacks
-
-    private void b1Press()
-    {
-        //get player inventory -> getWeapon(1)->pressAttack();
-        GetComponentInParent<PlayerManager>();
-        
-    }
-    private void b1Hold()
-    {
-        //get player inventory -> getWeapon(1)->holdAttack();
-
-    }
-    private void b1Release()
-    {
-        //get player inventory -> getWeapon(1)->releaseAttack();
-
-    }
-
-
-    private void b2Press()
-    {
-
-    }
-    private void b2Hold()
-    {
-
-    }
-    private void b2Release()
-    {
-
-    }
-
-
-    private void b3Press()
-    {
-        Debug.Log("B Pressed");
-    }
-    private void b3Hold()
-    {
-        Debug.Log("B hold");
-
-    }
-    private void b3Release()
-    {
-        Debug.Log("B release");
-
-    }
-
-
-    //b4,b5 are to cycle through weapons
-    private void b4Press()
-    {
-        Debug.Log("B Pressed");
-    }
-    private void b4Hold()
-    {
-        Debug.Log("B hold");
-
-    }
-    private void b4Release()
-    {
-        Debug.Log("B release");
-
-    }
-
-
-    private void b5Press()
-    {
-        Debug.Log("B Pressed");
-    }
-    private void b5Hold()
-    {
-        Debug.Log("B hold");
-
-    }
-    private void b5Release()
-    {
-        Debug.Log("B release");
-
-    }
+   
 
 
 }
