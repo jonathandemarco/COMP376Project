@@ -77,18 +77,22 @@ public class PlayerManager : MonoBehaviour {
         health -= damage;
         if (health <= 0)
             die();
+        notify();
     }
     public void heal(float heal)
     {
         health += heal;
         if (health > maxHealth)
             health = maxHealth;
+        notify();
     }
     public void addScore(int s) {
         score += s;
+        notify();
     }
     public void resetScore() {
         score = 0;
+        notify();
     }
 
     public int getScore() {
@@ -118,6 +122,9 @@ public class PlayerManager : MonoBehaviour {
         GetComponent<MeshRenderer>().enabled = false; // replace with mesh child
         if (numLives <= 0)
             isEliminated = true;
+
+        notify();
+
     }
     private void respawn()
     {
@@ -125,6 +132,7 @@ public class PlayerManager : MonoBehaviour {
         health = maxHealth;
         transform.position = getSpawnPoint();
         GetComponent<MeshRenderer>().enabled = true; // replace with mesh child
+        notify();
     }
 
     private Vector3 getSpawnPoint()
@@ -149,7 +157,7 @@ public class PlayerManager : MonoBehaviour {
 
     private void dash() {
 
-        transform.Translate(transform.forward * settings.dashForce);
+        GetComponent<Rigidbody>().AddForce(transform.forward * settings.dashForce);
     }
 
 
@@ -211,7 +219,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            //press Button2;
+            takeDamage(10);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
