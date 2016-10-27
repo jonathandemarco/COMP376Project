@@ -1,6 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class PlayerSettings {
+    public float dashForce;
+    public float jumpForce;
+    public float moveSpeed;
+    public float rotateSpeed;
+    public int inventorySize;
+
+    public float groundDistance;
+}
 public class PlayerManager : MonoBehaviour {
 
     // Use this for initialization
@@ -9,14 +19,23 @@ public class PlayerManager : MonoBehaviour {
     public int numLives;
     public float respawnTime;
     public char playerChar;
+    public char team;
+
+
+    public PlayerSettings settings;
 
     private float health;
     private bool isAlive;
     private bool isEliminated;
-    private bool canMove;
     private int score;
     private float timeSinceDeath;
     private PlayerControls playerController;
+
+    private bool grounded;
+    private bool canMove;
+
+
+
 
     void Awake() {
         playerController = GetComponentInChildren<PlayerControls>();
@@ -46,9 +65,16 @@ public class PlayerManager : MonoBehaviour {
                     playerController.update();
             }
         }
-
-	
 	}
+
+    private void notify() {
+        //HUDManager.currentHud.update(this);  
+    }
+
+    private bool checkGround() {
+        grounded =  Physics.CheckCapsule(transform.position+ 0.5f * Vector3.up , transform.position- 0.5f * Vector3.up, GetComponentInParent<CapsuleCollider>().height);
+        return grounded;
+    }
 
     public void takeDamage(float damage) {
         health -= damage;
@@ -61,31 +87,18 @@ public class PlayerManager : MonoBehaviour {
         if (health > maxHealth)
             health = maxHealth;
     }
-
-    private void die() {
-
-        isAlive = false;
-        numLives--;
-        timeSinceDeath = 0;
-        GetComponent<MeshRenderer>().enabled = false; // replace with mesh child
-        if (numLives <= 0)
-            isEliminated = true;
+    public void addScore(int s) {
+        score += s;
     }
-    private void respawn() {
-        isAlive = true;
-        health = maxHealth;
-        transform.position = getSpawnPoint();
-        GetComponent<MeshRenderer>().enabled = true; // replace with mesh child
-
-    }
-
-    private Vector3 getSpawnPoint() {
-        // Get spawn point from level manager
-        return Vector3.up;
+    public void resetScore() {
+        score = 0;
     }
 
     public int getScore() {
         return score;
+    }
+    public float getHealth() {
+        return health;
     }
     public int getNumLives() {
         return numLives;
@@ -93,6 +106,50 @@ public class PlayerManager : MonoBehaviour {
     public char getPlayerChar() {
         return playerChar;
     }
+    public char getTeam() {
+        return team;
+    }
+    public void setTeam(char c) {
+        team = c;
+    }
+    
+    private void die()
+    {
+        isAlive = false;
+        numLives--;
+        timeSinceDeath = 0;
+        GetComponent<MeshRenderer>().enabled = false; // replace with mesh child
+        if (numLives <= 0)
+            isEliminated = true;
+    }
+    private void respawn()
+    {
+        isAlive = true;
+        health = maxHealth;
+        transform.position = getSpawnPoint();
+        GetComponent<MeshRenderer>().enabled = true; // replace with mesh child
+    }
+
+    private Vector3 getSpawnPoint()
+    {
+        GameObject manager = GameObject.FindGameObjectWithTag("LevelManager");
+        return manager.GetComponent<LevelManager>().getRespawnPoint();
+    }
+    
+    private void attack(int slot) {
+
+    }
+    private void jump() {
+        if(checkGround())
+        GetComponent<Rigidbody>().AddForce(Vector3.up*settings.jumpForce);
+    }
+
+    private void dash() {
+
+        transform.Translate(transform.forward * settings.dashForce);
+    }
+
+
 
 
     public void getMessage(int buttonID, ControlButton.ACTION action)
@@ -117,10 +174,10 @@ public class PlayerManager : MonoBehaviour {
 
     }
 
+    
     public void button0(ControlButton.ACTION action) {
         if (action == ControlButton.ACTION.PRESS) {
-            Debug.Log("Recieved Message!");
-            die();
+            jump();
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
@@ -136,7 +193,7 @@ public class PlayerManager : MonoBehaviour {
         if (action == ControlButton.ACTION.PRESS)
         {
             //press Button1;
-            respawn();
+            dash();
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
@@ -147,7 +204,6 @@ public class PlayerManager : MonoBehaviour {
             //release Button1;
         }
     }
-
     public void button2(ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
@@ -163,7 +219,6 @@ public class PlayerManager : MonoBehaviour {
             //release Button2;
         }
     }
-
     public void button3(ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
@@ -179,7 +234,6 @@ public class PlayerManager : MonoBehaviour {
             //release Button3;
         }
     }
-
     public void button4(ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
@@ -195,6 +249,7 @@ public class PlayerManager : MonoBehaviour {
             //release Button4;
         }
     }
+
 
 
 }
