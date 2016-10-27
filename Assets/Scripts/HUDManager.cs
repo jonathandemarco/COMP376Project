@@ -46,7 +46,7 @@ public class HUDManager : MonoBehaviour {
 	{
 		for (int i = 0; i < players.Length; i++)
 			if (players [i] == player) {
-				transform.GetComponentsInChildren<StatusBar> () [i].setValue (0, 0);
+				transform.GetComponentsInChildren<StatusBar> () [i].setValue (player.getHealth(), player.getMaxHealth());
 				return;
 			}
 	}
