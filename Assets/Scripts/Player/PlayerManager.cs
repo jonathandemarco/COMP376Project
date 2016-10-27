@@ -3,13 +3,17 @@ using System.Collections;
 
 [System.Serializable]
 public class PlayerSettings {
-    public float dashForce;
+    public float dashSpeed;
+    public float dashTime;
+    public float dashCoolDownTime;
     public float jumpForce;
+    public float jumpCooldownTime;
     public float moveSpeed;
     public float rotateSpeed;
     public int inventorySize;
 
     public float groundDistance;
+    public float frontDistance;
 }
 public class PlayerManager : MonoBehaviour {
 
@@ -33,6 +37,11 @@ public class PlayerManager : MonoBehaviour {
 
     private bool grounded;
     private bool canMove;
+
+    private float nextDash = 0;
+    private float dashStopTime;
+
+    private float nextJump = 0;
 
 
 
@@ -64,6 +73,7 @@ public class PlayerManager : MonoBehaviour {
                 if (canMove)
                     playerController.update();
             }
+            manageAbilies();
         }
 	}
 
@@ -101,6 +111,9 @@ public class PlayerManager : MonoBehaviour {
     public float getHealth() {
         return health;
     }
+    public float getMaxHealth() {
+        return maxHealth;
+    }
     public int getNumLives() {
         return numLives;
     }
@@ -137,31 +150,53 @@ public class PlayerManager : MonoBehaviour {
 
     private Vector3 getSpawnPoint()
     {
-        GameObject manager = GameObject.FindGameObjectWithTag("LevelManager");
-        return manager.GetComponent<LevelManager>().getRespawnPoint();
+        // GameObject manager = GameObject.FindGameObjectWithTag("LevelManager");
+        //return manager.GetComponent<LevelManager>().getRespawnPoint();
+        return new Vector3(0, 0, 0);
     }
     
     private void attack(int slot) {
 
     }
     private void jump() {
-        if(checkGround())
-        GetComponent<Rigidbody>().AddForce(Vector3.up*settings.jumpForce);
+        if (checkGround() && Time.time > nextJump )
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.up * settings.jumpForce);
+            nextJump = Time.time + settings.jumpCooldownTime;
+        }
         
     }
     private bool checkGround()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height*settings.groundDistance);
+        grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height*settings.groundDistance*transform.localScale.y);
         return grounded;
     }
+    private bool frontCollision() {
+        bool noCollision = !Physics.Raycast(transform.position, transform.forward, GetComponentInParent<CapsuleCollider>().radius * settings.frontDistance);
+        if(!noCollision)
+            Debug.Log("Stopped Dash");
+        return noCollision;
 
-    private void dash() {
-
-        GetComponent<Rigidbody>().AddForce(transform.forward * settings.dashForce);
     }
 
+    private void dash()
+    {
+        if (checkGround() && Time.time >nextDash)
+        {
+            nextDash = Time.time + settings.dashCoolDownTime;
+            dashStopTime = Time.time + settings.dashTime;
+            canMove = false;
+        }
+    }
 
+    private void manageAbilies() {
+        if (dashStopTime > Time.time && frontCollision() ) {
+            transform.Translate(Vector3.forward * settings.dashSpeed * Time.deltaTime);            
+        }
 
+        else canMove = true;
+
+    }
 
     public void getMessage(int buttonID, ControlButton.ACTION action)
     {
@@ -196,7 +231,10 @@ public class PlayerManager : MonoBehaviour {
         }
         else if (action == ControlButton.ACTION.RELEASE)
         {
-            //release Button0;
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if(rb.velocity.y >0)
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y/2, rb.velocity.z);
+            
         }
     }
     public void button1(ControlButton.ACTION action)
@@ -232,13 +270,14 @@ public class PlayerManager : MonoBehaviour {
     }
     public void button3(ControlButton.ACTION action)
     {
+        
         if (action == ControlButton.ACTION.PRESS)
         {
             //press Button3;
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
-            //hold Button3;
+
         }
         else if (action == ControlButton.ACTION.RELEASE)
         { 
