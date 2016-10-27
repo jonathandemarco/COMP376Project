@@ -71,10 +71,7 @@ public class PlayerManager : MonoBehaviour {
         //HUDManager.currentHud.update(this);  
     }
 
-    private bool checkGround() {
-        grounded =  Physics.CheckCapsule(transform.position+ 0.5f * Vector3.up , transform.position- 0.5f * Vector3.up, GetComponentInParent<CapsuleCollider>().height);
-        return grounded;
-    }
+
 
     public void takeDamage(float damage) {
         health -= damage;
@@ -142,6 +139,12 @@ public class PlayerManager : MonoBehaviour {
     private void jump() {
         if(checkGround())
         GetComponent<Rigidbody>().AddForce(Vector3.up*settings.jumpForce);
+        
+    }
+    private bool checkGround()
+    {
+        grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height*settings.groundDistance);
+        return grounded;
     }
 
     private void dash() {
