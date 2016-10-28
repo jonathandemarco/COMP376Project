@@ -225,9 +225,15 @@ public class PlayerManager : MonoBehaviour {
 
     private void dash()
     {
-        if (checkGround() && Time.time >nextDash )
+        if (Time.time >nextDash )
         {
-            dashStopTime = Time.time + settings.dashTime;
+            if (!grounded)
+            {
+                dashStopTime = Time.time + settings.dashTime / 2;
+                rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            }
+            else
+                dashStopTime = Time.time + settings.dashTime;
             nextDash = dashStopTime+ settings.dashCoolDownTime;
             canMove = false;
         }
