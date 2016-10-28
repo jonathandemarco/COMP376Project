@@ -22,24 +22,53 @@ public class ControlButton {
         manager = m;
     }
 
+    private float timeAtPress;
+    private float holdTime;
+    private float netHoldTime;
+    private ACTION lastState;
     public void check() {
 
         if (Input.GetButton(buttonCallName))
         {
-            manager.getMessage(buttonID, ACTION.HOLD);
+            holdTime += Time.deltaTime;
+            lastState = ACTION.HOLD;
+            manager.getMessage(this);
             
         }
         if (Input.GetButtonDown(buttonCallName))
         {
-            manager.getMessage(buttonID, ACTION.PRESS);
+            holdTime = 0;
+            timeAtPress = Time.time;
+            lastState = ACTION.PRESS;
+            manager.getMessage(this);
         }
         if (Input.GetButtonUp(buttonCallName))
         {
-            manager.getMessage(buttonID, ACTION.RELEASE);
+            lastState = ACTION.RELEASE;
+            netHoldTime += holdTime;
+            manager.getMessage(this);
         }
 
     }
 
+    public float getTimeAtPress() {
+        return timeAtPress;
+    }
+    public float getHoldTime() {
+        return holdTime;
+    }
+    public float getNetHoldTime() {
+        return netHoldTime;
+    }
+    public void resetNetHoldTime() {
+        netHoldTime = 0;
+    }
+    public int getID() {
+        return buttonID;
+    }
+    public ACTION getLastState() {
+        return lastState;
+    }
 }
 
 public class ControlJoysitck {
@@ -100,10 +129,9 @@ public class PlayerControls : MonoBehaviour {
 
     private List<ControlButton> buttons;
 
-    public void update() {
+    public void readInput() {
         horizontal = Input.GetAxis(joystickCallNameHorizontal);
         vertical = Input.GetAxis(joystickCallNameVertical);
-        move();
         checkButtons();
 
     }
@@ -125,7 +153,7 @@ public class PlayerControls : MonoBehaviour {
         player = p;
         setPlayerChar(p.getPlayerChar());
     }
-    private void move() {
+    public void move() {
         if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
         {
             float rotateStep = player.settings.rotateSpeed * Time.deltaTime;
