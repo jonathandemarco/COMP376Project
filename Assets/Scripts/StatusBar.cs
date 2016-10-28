@@ -8,7 +8,7 @@ public class StatusBar : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		value = 1;
-		newValue = 1;
+		newValue = 0;
 		initialScale = transform.GetChild(0).transform.localScale;
 	}
 	
