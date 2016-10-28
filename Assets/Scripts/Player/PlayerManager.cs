@@ -100,7 +100,7 @@ public class PlayerManager : MonoBehaviour {
                 {
                     playerController.move();
                 }
-                if (canMove && !grounded) {
+                if (canMove && !grounded && !frontCollision()) {
                     playerController.moveInAir();
                 }
             }
@@ -216,10 +216,11 @@ public class PlayerManager : MonoBehaviour {
         return grounded;
     }
     private bool frontCollision() {
-        bool noCollision = !Physics.Raycast(transform.position, transform.forward, GetComponentInParent<CapsuleCollider>().radius * settings.frontDistance);
-        if(!noCollision)
-            Debug.Log("Stopped Dash");
-        return noCollision;
+        bool collision = Physics.Raycast(transform.position, transform.forward, GetComponentInParent<CapsuleCollider>().radius * settings.frontDistance);
+        if (collision) {
+            dashStopTime = 0;
+        }
+        return collision;
 
     }
 
@@ -243,18 +244,15 @@ public class PlayerManager : MonoBehaviour {
 
     private void manageAbilies() {
 
-        if (dashStopTime > Time.time && frontCollision())
+        if (dashStopTime > Time.time && !frontCollision())
         {
             transform.Translate(Vector3.forward * settings.dashSpeed * Time.deltaTime);
         }
         else if (!charging)
         {
             canMove = true;
+
         }
-
-
-
-
     }
 
     public void getMessage(ControlButton button)
@@ -331,7 +329,6 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            Debug.Log("GROUNDED: "+grounded+"   CANMOVE: "+canMove);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {

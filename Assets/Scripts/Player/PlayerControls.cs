@@ -82,7 +82,6 @@ public class ControlJoysitck {
         setName(name);
         setManager(m);
         stickID = id;
-        Debug.Log("STICK MADE");
     }
     public void setName(string name)
     {
