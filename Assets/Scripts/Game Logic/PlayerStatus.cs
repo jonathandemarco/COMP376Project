@@ -4,6 +4,9 @@ using System.Collections;
 public class PlayerStatus : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
+		int itemCount = 5;
+		Bounds b = transform.parent.GetComponentInChildren<StatusBar> ().GetComponent<MeshFilter> ().mesh.bounds;
+		Debug.Log (b.size);
 	}
 	
 	// Update is called once per frame
