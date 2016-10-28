@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   attackRate: 0
-  playerChar: 65
+  playerChar: 90
 --- !u!135 &135000010624722644
 SphereCollider:
   m_ObjectHideFlags: 1
