@@ -20,7 +20,7 @@ public class HUDManager : MonoBehaviour {
 		currentHUD = GetComponent<HUDManager>();
 		for (int i = 0; i < p.Count; i++) {
 			GameObject hB = Instantiate (healthBarPrefab, transform) as GameObject;
-			hB.transform.position += new Vector3 (((i % 2) * 2 - 1) * 20, ((i / 2) * 2 - 1) * 10, 0);
+			hB.transform.position += new Vector3 (((i % 2) * 2 - 1) * 20 + 3, ((i / 2) * 2 - 1) * 10, 0);
 		}
 	}
 	
