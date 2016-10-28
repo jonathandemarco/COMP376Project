@@ -4,7 +4,7 @@ using System.Collections;
 public class InventoryManager : MonoBehaviour {
 
 	public Weapon[] inventory;
-	public int maxInventorySize = 2;
+	public int maxInventorySize;
 	private WeaponDatabase database;
 
 	void Start(){

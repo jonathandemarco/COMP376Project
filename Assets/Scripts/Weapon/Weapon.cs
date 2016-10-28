@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour {
 	}
 
 	public void YieldAttackAnimator(){
-		bool attack = Input.GetButtonDown("B1");
+		bool attack = Input.GetButtonDown("K3");
 		weaponAnimator.SetBool ("isAttacking", attack);
 	}
 

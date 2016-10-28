@@ -101,7 +101,6 @@ public class PlayerManager : MonoBehaviour {
                     playerController.move();
                 }
                 if (canMove && !grounded && !frontCollision()) {
-                    Debug.Log(frontCollision());
                     playerController.moveInAir();
                 }
             }
@@ -219,7 +218,6 @@ public class PlayerManager : MonoBehaviour {
     private bool frontCollision() {
         bool collision = Physics.Raycast(transform.position, transform.forward, GetComponentInParent<CapsuleCollider>().radius * settings.frontDistance);
         if (collision) {
-            Debug.Log("Should Stop");
             dashStopTime = 0;
         }
         return collision;
@@ -255,10 +253,6 @@ public class PlayerManager : MonoBehaviour {
             canMove = true;
 
         }
-
-
-
-
     }
 
     public void getMessage(ControlButton button)
@@ -335,7 +329,6 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            Debug.Log("GROUNDED: "+grounded+"   CANMOVE: "+canMove);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
