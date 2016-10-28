@@ -7,7 +7,7 @@ public class HUDManager : MonoBehaviour {
 	public static HUDManager currentHUD;
 	public GameObject healthBarPrefab;
 	private float timeLeft;
-	private List<PlayerManager> players;
+	public List<PlayerManager> players;
 	// Use this for initialization
 	void Start () {
 		List<GameObject> p = GameState.currentLevelManager.getScenePlayers ();
@@ -21,6 +21,7 @@ public class HUDManager : MonoBehaviour {
 		for (int i = 0; i < p.Count; i++) {
 			GameObject hB = Instantiate (healthBarPrefab, transform) as GameObject;
 			hB.transform.position += new Vector3 (((i % 2) * 2 - 1) * 20 + 3, ((i / 2) * 2 - 1) * 10, 0);
+			hB.GetComponentInChildren<PlayerStatus> ().setAvatar(players[i]);
 		}
 	}
 	
