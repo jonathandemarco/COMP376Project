@@ -20,9 +20,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012302979498}
   - 33: {fileID: 33000010631915070}
-  - 135: {fileID: 135000012654467124}
   - 23: {fileID: 23000013489471724}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +55,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010931964690}
   - 23: {fileID: 23000010630242740}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -143,7 +142,7 @@ Transform:
   m_GameObject: {fileID: 1000010319908496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7, y: 0, z: 100}
-  m_LocalScale: {x: 6, y: 6, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 2}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010931964690}
@@ -348,15 +347,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 1
---- !u!135 &135000012654467124
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010319908496}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
