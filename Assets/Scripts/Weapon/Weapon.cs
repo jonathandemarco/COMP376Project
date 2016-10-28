@@ -4,11 +4,11 @@ using System.Collections;
 public enum WeaponType{Melee, Range};
 
 public class Weapon : MonoBehaviour {
-	
+
 	private WeaponType type;
 	public int damage;
 	public float attackRate;
-
+    
     public char playerChar;
 
 	private AudioSource weaponSound;

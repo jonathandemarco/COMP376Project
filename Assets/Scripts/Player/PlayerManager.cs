@@ -14,6 +14,7 @@ public class PlayerSettings {
     public float rotateSpeed;
     public int inventorySize;
 
+    public float invinsibilityTimer;
     public float groundDistance;
     public float frontDistance;
 
@@ -43,6 +44,8 @@ public class PlayerManager : MonoBehaviour {
     private bool isEliminated;
     private int score;
     private float timeSinceDeath;
+
+    private float lastHit = 0;
 
     private bool grounded;
     private bool canMove;
@@ -115,20 +118,24 @@ public class PlayerManager : MonoBehaviour {
 	}
 
     private void notify() {
-        HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
+        if(HUDManager.currentHUD != null)
+            HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
     }
 
 
 
     public void takeDamage(float damage, Vector3 direction) {
-        health -= damage;
-        rb.AddForce(direction * damage * settings.pushbackFactor);
-        if (health <= 0)
+        if (Time.time > lastHit + settings.invinsibilityTimer)
         {
-            health = 0;
-            die();
+            health -= damage;
+            rb.AddForce(direction * damage * settings.pushbackFactor);
+            if (health <= 0)
+            {
+                health = 0;
+                die();
+            }
+            notify();
         }
-        notify();
     }
     public void heal(float heal)
     {
