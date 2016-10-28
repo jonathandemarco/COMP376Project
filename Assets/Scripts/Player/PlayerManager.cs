@@ -17,6 +17,7 @@ public class PlayerSettings {
     public float groundDistance;
     public float frontDistance;
 
+    public float pushbackFactor;
     public float tapTime;
 }
 public class PlayerManager : MonoBehaviour {
@@ -119,8 +120,9 @@ public class PlayerManager : MonoBehaviour {
 
 
 
-    public void takeDamage(float damage) {
+    public void takeDamage(float damage, Vector3 direction) {
         health -= damage;
+        rb.AddForce(direction * damage * settings.pushbackFactor);
         if (health <= 0)
         {
             health = 0;

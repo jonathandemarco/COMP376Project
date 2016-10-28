@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item
   - InventoryManager
+  - Weapon Database
   layers:
   - Default
   - TransparentFX

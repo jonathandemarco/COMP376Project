@@ -9,9 +9,17 @@ public class Weapon : MonoBehaviour {
 	public int damage;
 	public float attackRate;
 
+    public char playerChar;
+
 	private AudioSource weaponSound;
 	private Animator weaponAnimator;
 
+    public void setPlayerChar(char c) {
+        playerChar = c;
+    }
+    public char getPlayerChar() {
+        return playerChar;
+    }
 	public void SetType(WeaponType t){
 		type = t;
 	}
