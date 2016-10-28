@@ -476,11 +476,12 @@ MonoBehaviour:
   maxHealth: 100
   numLives: 5
   respawnTime: 5
-  playerChar: 65
+  playerChar: 75
   team: 0
   settings:
     dashSpeed: 35
     dashTime: 0.2
+    maxHeldTimeDash: 0
     dashCoolDownTime: 0.5
     jumpForce: 300
     jumpCooldownTime: 1
@@ -489,6 +490,7 @@ MonoBehaviour:
     inventorySize: 2
     groundDistance: 0.51
     frontDistance: 0
+    tapTime: 0
 --- !u!136 &136000011110082318
 CapsuleCollider:
   m_ObjectHideFlags: 1

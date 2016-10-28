@@ -96,6 +96,7 @@ public class LevelManager : MonoBehaviour {
 		for (int i = 0; i < playerCount; i++) {
 			GameObject playerObj = Instantiate (playerPrefab);
 			playerObj.transform.position = getInitialSpawn (i);
+			playerObj.GetComponent<PlayerManager> ().SetPlayerChar ('A' + i);
 			playersList.Add(playerObj);
 		}
 	}
