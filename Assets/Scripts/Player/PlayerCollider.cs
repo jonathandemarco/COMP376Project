@@ -3,8 +3,11 @@ using System.Collections;
 
 public class PlayerCollider : MonoBehaviour {
 
-    public InventoryManager inventoryManager;
-    
+    private InventoryManager inventoryManager;
+
+    void Awake() {
+       inventoryManager =  GetComponent<PlayerManager>().getInventory();
+    }
     void OnTriggerEnter(Collider col){
 		if (col.gameObject.name == "Crate") {
             Debug.Log("Picked up weapon!");

@@ -163,7 +163,11 @@ public class PlayerManager : MonoBehaviour {
     public void setTeam(char c) {
         team = c;
     }
-    
+
+
+    public InventoryManager getInventory() {
+        return inventory;
+    }
     private void die()
     {
         isAlive = false;

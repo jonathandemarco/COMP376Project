@@ -29,6 +29,9 @@ public class InventoryManager : MonoBehaviour {
         return inventory[i];
     }
 
+    public Weapon[] getWeaponList() {
+        return inventory;
+    }
 	public void DropFromInventory(int index){
 		inventory [index] = null;
 		//TODO Drop?
