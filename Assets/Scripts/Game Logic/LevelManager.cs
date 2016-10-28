@@ -7,12 +7,13 @@ public class LevelManager : MonoBehaviour {
 	private float timeLeft = 300.0f; 
 
 	// Use this for initialization
-	void Start () {
+	virtual public void Start () {
+		GameState.currentLevelManager = GetComponent<LevelManager>();
 		addPlayersToScene (GameState.playerCount);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	virtual public void Update () {
 	
 		timeLeft -= Time.deltaTime;
 
@@ -92,11 +93,10 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void addPlayersToScene(int playerCount) {
-		
 		for (int i = 0; i < playerCount; i++) {
 			GameObject playerObj = Instantiate (playerPrefab);
 			playerObj.transform.position = getInitialSpawn (i);
-			playersList [i] = playerObj;
+			playersList.Add(playerObj);
 		}
 	}
 
@@ -112,6 +112,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     public List<GameObject> getScenePlayers() {
+		Debug.Log (playersList);
 		return playersList;
 	}
 
