@@ -7,12 +7,18 @@ public class HUDManager : MonoBehaviour {
 	public static HUDManager currentHUD;
 	public GameObject healthBarPrefab;
 	private float timeLeft;
-	private PlayerManager[] players;
+	private List<PlayerManager> players;
 	// Use this for initialization
 	void Start () {
-//		players = GameState.currentLevelManager.getScenePlayers () as PlayerManager[];
+		List<GameObject> p = GameState.currentLevelManager.getScenePlayers ();
+
+		players = new List<PlayerManager>();
+
+		for (int i = 0; i < p.Count; i++)
+			players.Add(p[i].GetComponent<PlayerManager> ());
+		
 		currentHUD = GetComponent<HUDManager>();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < p.Count; i++) {
 			GameObject hB = Instantiate (healthBarPrefab, transform) as GameObject;
 			hB.transform.position += new Vector3 (((i % 2) * 2 - 1) * 20, ((i / 2) * 2 - 1) * 10, 0);
 		}
@@ -44,9 +50,9 @@ public class HUDManager : MonoBehaviour {
 
 	public void update(PlayerManager player)
 	{
-		for (int i = 0; i < players.Length; i++)
-			if (players [i] == player) {
-				transform.GetComponentsInChildren<StatusBar> () [i].setValue (player.getHealth(), player.getMaxHealth());
+		for (int i = 0; i < players.Count; i++)
+			if (players != null && players [i] == player) {
+				transform.GetComponentsInChildren<StatusBar> () [i].setValue (player.getHealth(), player.maxHealth);
 				return;
 			}
 	}
