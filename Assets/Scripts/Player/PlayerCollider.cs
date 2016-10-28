@@ -9,6 +9,7 @@ public class PlayerCollider : MonoBehaviour {
         inventoryManager = GetComponentInChildren<InventoryManager>();
     }
     void OnTriggerEnter(Collider col){
+        Debug.Log("Woop!");
 		if (col.gameObject.name == "Crate") {
             Debug.Log("Picked up weapon!");
 			if (inventoryManager.GetWeaponCount() < inventoryManager.maxInventorySize) {
@@ -18,6 +19,7 @@ public class PlayerCollider : MonoBehaviour {
 				Weapon weaponToAdd = database.GetComponent<WeaponDatabase> ().GetWeaponAt (id); 
 				inventoryManager.AddToInventory (weaponToAdd);
 				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
+                w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
                 w.transform.parent = transform;
 
 
@@ -26,10 +28,11 @@ public class PlayerCollider : MonoBehaviour {
 		}
 
         if (col.gameObject.layer == LayerMask.NameToLayer("Weapon")) {
-            PlayerManager manager = transform.parent.GetComponent<PlayerManager>();
-            PlayerManager colManager = col.transform.parent.GetComponent<PlayerManager>();
-            if (manager.getPlayerChar() != colManager.getPlayerChar()) {
-                manager.takeDamage(col.GetComponent<Weapon>().damage);
+            PlayerManager manager = GetComponent<PlayerManager>();
+            char colPlayerChar = col.GetComponent<Weapon>().getPlayerChar();
+            if (manager.getPlayerChar() != colPlayerChar ){
+                Vector3 direction = transform.position - col.transform.position;
+                manager.takeDamage(col.GetComponent<Weapon>().damage, direction);
             }
         }
 
