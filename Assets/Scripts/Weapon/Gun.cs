@@ -9,7 +9,8 @@ public class Gun : Weapon {
 		SetAnimator ();
 	}
 
-	public override void PressAttack(){
+	public override void PressAttack(ControlButton button)
+    {
 		YieldAttackAnimator();
 	}
 

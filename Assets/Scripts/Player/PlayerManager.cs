@@ -32,6 +32,7 @@ public class PlayerManager : MonoBehaviour {
     public bool noSetup;
 
     public PlayerSettings settings;
+    public InventoryManager inventory;
     private PlayerControls playerController;
     private Rigidbody rb;
 
@@ -329,6 +330,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
+            inventory.GetWeapon(0);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {

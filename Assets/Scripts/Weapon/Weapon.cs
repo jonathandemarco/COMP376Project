@@ -6,8 +6,8 @@ public enum WeaponType{Melee, Range};
 public class Weapon : MonoBehaviour {
 	
 	private WeaponType type;
-	private int damage;
-	private float attackRate;
+	public int damage;
+	public float attackRate;
 
 	private AudioSource weaponSound;
 	private Animator weaponAnimator;
@@ -33,11 +33,17 @@ public class Weapon : MonoBehaviour {
 	}
 
 	public void YieldAttackAnimator(){
-		bool attack = Input.GetButtonDown("K3");
-		weaponAnimator.SetBool ("isAttacking", attack);
+		weaponAnimator.SetBool ("isAttacking", true);
 	}
-
-	public void SetColliderActive(){
+    // changing things up so i can use it for now
+    public void startAnimation() {
+        weaponAnimator.SetBool("isAttacking", true);
+    }
+    public void stopAnimation() {
+        weaponAnimator.SetBool("isAttacking", false);
+    }
+     
+    public void SetColliderActive(){
 		GetComponent<Collider> ().enabled = true;
 	}
 
@@ -45,10 +51,10 @@ public class Weapon : MonoBehaviour {
 		GetComponent<Collider> ().enabled = false;
 	}
 
-	public virtual void HoldAttack(){}
+	public virtual void HoldAttack(ControlButton button){}
 
-	public virtual void PressAttack(){}
+	public virtual void PressAttack(ControlButton button){ }
 
-	public virtual void ReleaseAttack(){}
+	public virtual void ReleaseAttack(ControlButton button) {}
 
 }

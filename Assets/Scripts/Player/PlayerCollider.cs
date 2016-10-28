@@ -6,9 +6,8 @@ public class PlayerCollider : MonoBehaviour {
     public InventoryManager inventoryManager;
     
     void OnTriggerEnter(Collider col){
-        Debug.Log("PCIKUP");
 		if (col.gameObject.name == "Crate") {
-
+            Debug.Log("COllision!");
 			if (inventoryManager.GetWeaponCount() < inventoryManager.maxInventorySize) {
 				//add the item to player's inventory
 				int id = col.GetComponent<Crate> ().IDValue;
@@ -22,5 +21,15 @@ public class PlayerCollider : MonoBehaviour {
                 Destroy(col.gameObject);
 			}
 		}
-	}
+
+        if (col.gameObject.layer == LayerMask.NameToLayer("Weapon")) {
+            PlayerManager manager = transform.parent.GetComponent<PlayerManager>();
+            PlayerManager colManager = col.transform.parent.GetComponent<PlayerManager>();
+            if (manager.getPlayerChar() != colManager.getPlayerChar()) {
+                manager.takeDamage(col.GetComponent<Weapon>().damage);
+            }
+        }
+
+
+    }
 }
