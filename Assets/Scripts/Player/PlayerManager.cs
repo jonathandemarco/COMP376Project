@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerSettings {
     public float dashSpeed;
     public float dashTime;
+    public float maxHeldTimeDash;
     public float dashCoolDownTime;
     public float jumpForce;
     public float jumpCooldownTime;
@@ -14,6 +15,8 @@ public class PlayerSettings {
 
     public float groundDistance;
     public float frontDistance;
+
+    public float tapTime;
 }
 public class PlayerManager : MonoBehaviour {
 
@@ -37,11 +40,14 @@ public class PlayerManager : MonoBehaviour {
 
     private bool grounded;
     private bool canMove;
+    private bool charging;
 
     private float nextDash = 0;
     private float dashStopTime;
 
     private float nextJump = 0;
+
+    private float dashSpeedRatio;
 
 
 
@@ -54,6 +60,7 @@ public class PlayerManager : MonoBehaviour {
         isEliminated = false;
         isAlive = true;
         canMove = true;
+        charging = false;
 
         health = maxHealth;
         score = 0;
@@ -63,6 +70,7 @@ public class PlayerManager : MonoBehaviour {
 	void Update () {
         if (!isEliminated)
         {
+            playerController.readInput();
             if (!isAlive)
             {
                 timeSinceDeath += Time.deltaTime;
@@ -71,14 +79,14 @@ public class PlayerManager : MonoBehaviour {
             }
             else {
                 if (canMove)
-                    playerController.update();
+                    playerController.move();
             }
             manageAbilies();
         }
 	}
 
     private void notify() {
-        //HUDManager.currentHud.update(this);  
+        HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
     }
 
 
@@ -183,45 +191,64 @@ public class PlayerManager : MonoBehaviour {
     {
         if (checkGround() && Time.time >nextDash)
         {
-            nextDash = Time.time + settings.dashCoolDownTime;
             dashStopTime = Time.time + settings.dashTime;
+            nextDash = dashStopTime+ settings.dashCoolDownTime;
+            canMove = false;
+        }
+    }
+    private void dash(float timeHeld)
+    {
+   
+        if (timeHeld > settings.maxHeldTimeDash)
+            timeHeld = settings.maxHeldTimeDash;
+
+            dashSpeedRatio = timeHeld / settings.maxHeldTimeDash;
+        
+        if (checkGround() && Time.time > nextDash )
+        {
+            dashStopTime = Time.time + settings.dashTime;
+            nextDash = dashStopTime + settings.dashCoolDownTime;
             canMove = false;
         }
     }
 
-    private void manageAbilies() {
-        if (dashStopTime > Time.time && frontCollision() ) {
-            transform.Translate(Vector3.forward * settings.dashSpeed * Time.deltaTime);            
-        }
 
-        else canMove = true;
+    private void manageAbilies() {
+
+        if (dashStopTime > Time.time && frontCollision())
+        {
+            transform.Translate(Vector3.forward * settings.dashSpeed * Time.deltaTime);           
+        }
+        else if (!charging)
+            canMove = true;
+
 
     }
 
-    public void getMessage(int buttonID, ControlButton.ACTION action)
+    public void getMessage(ControlButton button)
     {
+        int buttonID = button.getID();
+        ControlButton.ACTION action = button.getLastState();
         switch (buttonID) {
-            case 0: button0(action);
+            case 0: button0(button, action);
                 break;
             case 1:
-                button1(action);
+                button1(button, action);
                 break;
             case 2:
-                button2(action);
+                button2(button, action);
                 break;
             case 3:
-                button3(action);
+                button3(button, action);
                 break;
             case 4:
-                button4(action);
+                button4(button, action);
                 break;
-
         }
-
     }
 
     
-    public void button0(ControlButton.ACTION action) {
+    public void button0(ControlButton butto, ControlButton.ACTION action) {
         if (action == ControlButton.ACTION.PRESS) {
             jump();
         }
@@ -237,7 +264,7 @@ public class PlayerManager : MonoBehaviour {
             
         }
     }
-    public void button1(ControlButton.ACTION action)
+    public void button1(ControlButton button, ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
         {
@@ -253,7 +280,7 @@ public class PlayerManager : MonoBehaviour {
             //release Button1;
         }
     }
-    public void button2(ControlButton.ACTION action)
+    public void button2(ControlButton button, ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
         {
@@ -268,23 +295,33 @@ public class PlayerManager : MonoBehaviour {
             //release Button2;
         }
     }
-    public void button3(ControlButton.ACTION action)
+    public void button3(ControlButton button, ControlButton.ACTION action)
     {
-        
         if (action == ControlButton.ACTION.PRESS)
         {
-            //press Button3;
+            canMove = false;
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
-
+            GetComponent<MeshRenderer>().enabled = !GetComponent<MeshRenderer>().enabled;
+            charging = true;
+            
         }
         else if (action == ControlButton.ACTION.RELEASE)
-        { 
-            //release Button3;
+        {
+            if (Time.time <= button.getTimeAtPress() + settings.tapTime && button.getNetHoldTime() >0.5)
+            {
+                Debug.Log("Should DASH!");
+                Debug.Log(button.getNetHoldTime());
+                dash(button.getNetHoldTime());
+                button.resetNetHoldTime();
+
+            }
+            GetComponent<MeshRenderer>().enabled = true;
+            charging = false;
         }
     }
-    public void button4(ControlButton.ACTION action)
+    public void button4(ControlButton button, ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
         {
