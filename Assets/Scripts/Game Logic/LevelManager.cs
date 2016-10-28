@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject HUDPrefab;
+	public GameObject WeaponDatabase;
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
 
@@ -15,6 +16,7 @@ public class LevelManager : MonoBehaviour {
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
 		Instantiate (HUDPrefab);
+		Instantiate (WeaponDatabase);
 		addPlayersToScene (GameState.playerCount);
 	}
 	
