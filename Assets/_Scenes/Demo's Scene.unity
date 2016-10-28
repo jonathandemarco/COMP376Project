@@ -456,79 +456,47 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
+    - target: {fileID: 4000010236784300, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013781832188, guid: 02c28e658769f234185a9e6b1c921f8c,
+    - target: {fileID: 114000013315480290, guid: 02c28e658769f234185a9e6b1c921f8c,
         type: 2}
-      propertyPath: settings.jumpForce
-      value: 500
+      propertyPath: playerChar
+      value: 75
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
-      propertyPath: m_LocalScale.x
+    - target: {fileID: 114000013315480290, guid: 02c28e658769f234185a9e6b1c921f8c,
+        type: 2}
+      propertyPath: noSetup
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011854653316, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013781832188, guid: 02c28e658769f234185a9e6b1c921f8c,
-        type: 2}
-      propertyPath: settings.tapTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013781832188, guid: 02c28e658769f234185a9e6b1c921f8c,
-        type: 2}
-      propertyPath: settings.maxHeldTimeDash
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013781832188, guid: 02c28e658769f234185a9e6b1c921f8c,
-        type: 2}
-      propertyPath: settings.groundDistance
-      value: 0.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013781832188, guid: 02c28e658769f234185a9e6b1c921f8c,
-        type: 2}
-      propertyPath: settings.dashSpeed
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013781832188, guid: 02c28e658769f234185a9e6b1c921f8c,
-        type: 2}
-      propertyPath: settings.dashCoolDownTime
-      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02c28e658769f234185a9e6b1c921f8c, type: 2}
