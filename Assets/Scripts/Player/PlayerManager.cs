@@ -75,7 +75,6 @@ public class PlayerManager : MonoBehaviour {
 	void Update () {
         if (!isEliminated)
         {
-            playerController.readInput();
             velocity = (transform.position - lastPosition)/Time.deltaTime;
 
             lastPosition = transform.position;
@@ -86,6 +85,7 @@ public class PlayerManager : MonoBehaviour {
                     respawn();
             }
             else {
+                playerController.readInput();
                 if (canMove && grounded)
                 {
                     playerController.move();
@@ -215,7 +215,7 @@ public class PlayerManager : MonoBehaviour {
 
     private void dash()
     {
-        if (checkGround() && Time.time >nextDash)
+        if (checkGround() && Time.time >nextDash )
         {
             dashStopTime = Time.time + settings.dashTime;
             nextDash = dashStopTime+ settings.dashCoolDownTime;
