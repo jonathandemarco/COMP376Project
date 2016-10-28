@@ -167,6 +167,20 @@ public class PlayerControls : MonoBehaviour {
             player.transform.rotation = Quaternion.Slerp(previous, target, rotateStep);
         }
     }
+    public void moveInAir() {
+        if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
+        {
+            float rotateStep = player.settings.rotateSpeed * Time.deltaTime;
+            Quaternion previous = player.transform.rotation;
+            Vector3 direction = new Vector3(horizontal, 0.0f, vertical);
+            direction = direction.normalized;
+            Quaternion target = Quaternion.LookRotation(direction, Vector3.up);
+            player.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+            player.GetComponent<Rigidbody>().AddForce(new Vector3(horizontal, 0, vertical).normalized * player.settings.airMoveForce * Time.deltaTime);
+
+            player.transform.rotation = Quaternion.Slerp(previous, target, rotateStep);
+        }
+    }
 
 
     private void checkButtons() {

@@ -10,6 +10,7 @@ public class PlayerSettings {
     public float jumpForce;
     public float jumpCooldownTime;
     public float moveSpeed;
+    public float airMoveForce;
     public float rotateSpeed;
     public int inventorySize;
 
@@ -30,13 +31,14 @@ public class PlayerManager : MonoBehaviour {
 
 
     public PlayerSettings settings;
+    private PlayerControls playerController;
+    private Rigidbody rb;
 
     private float health;
     private bool isAlive;
     private bool isEliminated;
     private int score;
     private float timeSinceDeath;
-    private PlayerControls playerController;
 
     private bool grounded;
     private bool canMove;
@@ -49,19 +51,22 @@ public class PlayerManager : MonoBehaviour {
 
     private float dashSpeedRatio;
 
+    private Vector3 lastPosition;
 
+    Vector3 velocity;
 
 
     void Awake() {
         playerController = GetComponentInChildren<PlayerControls>();
         playerController.setPlayer(this);
+        rb = GetComponent<Rigidbody>();
     }
     void Start () {
         isEliminated = false;
         isAlive = true;
         canMove = true;
         charging = false;
-
+        grounded = true;
         health = maxHealth;
         score = 0;
 	}
@@ -71,6 +76,9 @@ public class PlayerManager : MonoBehaviour {
         if (!isEliminated)
         {
             playerController.readInput();
+            velocity = (transform.position - lastPosition)/Time.deltaTime;
+
+            lastPosition = transform.position;
             if (!isAlive)
             {
                 timeSinceDeath += Time.deltaTime;
@@ -78,9 +86,16 @@ public class PlayerManager : MonoBehaviour {
                     respawn();
             }
             else {
-                if (canMove)
+                if (canMove && grounded)
+                {
                     playerController.move();
+                }
+                if (canMove && !grounded) {
+                    playerController.moveInAir();
+                }
             }
+            if (GetComponent<Rigidbody>().velocity.y != 0)
+                checkGround();
             manageAbilies();
         }
 	}
@@ -94,7 +109,10 @@ public class PlayerManager : MonoBehaviour {
     public void takeDamage(float damage) {
         health -= damage;
         if (health <= 0)
+        {
+            health = 0;
             die();
+        }
         notify();
     }
     public void heal(float heal)
@@ -169,14 +187,22 @@ public class PlayerManager : MonoBehaviour {
     private void jump() {
         if (checkGround() && Time.time > nextJump )
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.up * settings.jumpForce);
             nextJump = Time.time + settings.jumpCooldownTime;
+            rb.velocity = velocity*0.7f;
+            rb.AddForce(Vector3.up * settings.jumpForce);
+            grounded = false;
         }
-        
+    }
+    private void land() {
+        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
     private bool checkGround()
     {
+        bool previousState = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height*settings.groundDistance*transform.localScale.y);
+
+        if (previousState == false && grounded == true)
+            land();
         return grounded;
     }
     private bool frontCollision() {
@@ -196,31 +222,21 @@ public class PlayerManager : MonoBehaviour {
             canMove = false;
         }
     }
-    private void dash(float timeHeld)
-    {
-   
-        if (timeHeld > settings.maxHeldTimeDash)
-            timeHeld = settings.maxHeldTimeDash;
-
-            dashSpeedRatio = timeHeld / settings.maxHeldTimeDash;
-        
-        if (checkGround() && Time.time > nextDash )
-        {
-            dashStopTime = Time.time + settings.dashTime;
-            nextDash = dashStopTime + settings.dashCoolDownTime;
-            canMove = false;
-        }
-    }
+    
 
 
     private void manageAbilies() {
 
         if (dashStopTime > Time.time && frontCollision())
         {
-            transform.Translate(Vector3.forward * settings.dashSpeed * Time.deltaTime);           
+            transform.Translate(Vector3.forward * settings.dashSpeed * Time.deltaTime);
         }
         else if (!charging)
+        {
             canMove = true;
+        }
+
+
 
 
     }
@@ -299,26 +315,16 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            canMove = false;
+            Debug.Log("GROUNDED: "+grounded+"   CANMOVE: "+canMove);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
-            GetComponent<MeshRenderer>().enabled = !GetComponent<MeshRenderer>().enabled;
-            charging = true;
+
             
         }
         else if (action == ControlButton.ACTION.RELEASE)
         {
-            if (Time.time <= button.getTimeAtPress() + settings.tapTime && button.getNetHoldTime() >0.5)
-            {
-                Debug.Log("Should DASH!");
-                Debug.Log(button.getNetHoldTime());
-                dash(button.getNetHoldTime());
-                button.resetNetHoldTime();
 
-            }
-            GetComponent<MeshRenderer>().enabled = true;
-            charging = false;
         }
     }
     public void button4(ControlButton button, ControlButton.ACTION action)
