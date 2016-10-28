@@ -3,9 +3,11 @@ using System.Collections;
 
 public class StatusBar : MonoBehaviour {
 	public float value;
+	private Vector3 initialScale;
 	// Use this for initialization
 	void Start () {
 		value = 1;
+		initialScale = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -19,5 +21,7 @@ public class StatusBar : MonoBehaviour {
 			value = 0;
 		else
 			value = number / max;
+
+		transform.localScale = initialScale * value;
 	}
 }

@@ -50,10 +50,11 @@ public class HUDManager : MonoBehaviour {
 
 	public void update(PlayerManager player)
 	{
-		for (int i = 0; i < players.Count; i++)
+		for (int i = 0; i < players.Count; i++) {
 			if (players != null && players [i] == player) {
-				transform.GetComponentsInChildren<StatusBar> () [i].setValue (player.getHealth(), player.maxHealth);
+				transform.GetComponentsInChildren<StatusBar> () [i].setValue (player.getHealth (), player.maxHealth);
 				return;
 			}
+		}
 	}
 }

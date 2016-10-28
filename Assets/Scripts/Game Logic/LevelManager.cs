@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour {
 
 	private List<int> stockModeRoundOver () {
 		List<int> winningplayers = new List<int>();
-		winningplayers [0] = -1;
+		winningplayers.Add(-1);
 
 		for (int i = 0; i < playersList.Count; i++) {
 			PlayerManager script = (PlayerManager) playersList [i].GetComponent (typeof(PlayerManager));
