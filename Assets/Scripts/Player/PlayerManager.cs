@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour {
 
     public PlayerSettings settings;
     private PlayerControls playerController;
+
+    private InventoryManager inventory;
     private Rigidbody rb;
 
     private float health;
@@ -59,6 +61,7 @@ public class PlayerManager : MonoBehaviour {
 
     void Awake() {
         playerController = GetComponentInChildren<PlayerControls>();
+        inventory = GetComponentInChildren<InventoryManager>();
         rb = GetComponent<Rigidbody>();
         if (noSetup)
             setPlayerChar(playerChar);
@@ -162,7 +165,11 @@ public class PlayerManager : MonoBehaviour {
     public void setTeam(char c) {
         team = c;
     }
-    
+
+
+    public InventoryManager getInventory() {
+        return inventory;
+    }
     private void die()
     {
         isAlive = false;
@@ -314,7 +321,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            takeDamage(10);
+            inventory.GetWeapon(0).PressAttack(button);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {

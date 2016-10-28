@@ -13,13 +13,14 @@ public class Sword : Weapon {
 	}
 
 	//to-test
-	void Update(){
-		PressAttack ();
-	}
 
-	public override void PressAttack(){
-		// set conditions
-		// call the play animation;
-		YieldAttackAnimator();
+
+	public override void PressAttack(ControlButton button)
+    {
+        // set conditions
+        // call the play animation;
+        //YieldAttackAnimator();
+
+        Debug.Log("SWORD IS ATTACKING");
 	}
 }
