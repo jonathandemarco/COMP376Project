@@ -119,6 +119,8 @@ public class LevelManager : MonoBehaviour {
         GameState.setWinningPlayers(winningPlayers);
     }
 
+    //called by player gameobject (in PlayerManager) when he needs his initial respawn point
+    //ex: transform.position = GameState.currentLevelManager.getInitialSpawn()
     public Vector3 getInitialSpawn(int playerIndex) {
 		return initialSpawnsList[playerIndex];
 	}
