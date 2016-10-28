@@ -29,6 +29,7 @@ public class PlayerManager : MonoBehaviour {
     public char playerChar;
     public char team;
 
+    public bool noSetup;
 
     public PlayerSettings settings;
     private PlayerControls playerController;
@@ -58,8 +59,9 @@ public class PlayerManager : MonoBehaviour {
 
     void Awake() {
         playerController = GetComponentInChildren<PlayerControls>();
-        playerController.setPlayer(this);
         rb = GetComponent<Rigidbody>();
+        if (noSetup)
+            setPlayerChar(playerChar);
     }
     void Start () {
         isEliminated = false;
@@ -70,9 +72,17 @@ public class PlayerManager : MonoBehaviour {
         health = maxHealth;
         score = 0;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+
+    void setPlayerChar(char c) {
+        playerChar = c;
+        playerController.setPlayer(this);
+        GetComponent<Renderer>().sharedMaterial = (Material)Resources.Load("Player_"+c, typeof(Material));
+        
+    
+    }
+    void Update () {
         if (!isEliminated)
         {
             velocity = (transform.position - lastPosition)/Time.deltaTime;
