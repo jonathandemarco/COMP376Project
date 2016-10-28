@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
-		//addPlayersToScene (GameState.playerCount);
+		addPlayersToScene (GameState.playerCount);
 	}
 	
 	// Update is called once per frame
@@ -115,7 +115,10 @@ public class LevelManager : MonoBehaviour {
 		for (int i = 0; i < playerCount; i++) {
 			GameObject playerObj = Instantiate (playerPrefab);
 			playerObj.transform.position = getInitialSpawn (i);
-			playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(65 + i));
+			if(i == 0)
+				playerObj.GetComponent<PlayerManager> ().setPlayerChar ('K');
+			else
+				playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(64 + i));
 			playersList.Add(playerObj);
 		}
 	}

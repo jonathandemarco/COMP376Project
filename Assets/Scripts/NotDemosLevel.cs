@@ -9,6 +9,9 @@ public class NotDemosLevel : LevelManager {
 	// Use this for initialization
 
 	override public void Start () {
+		for(int i = 0; i < 4; i++)
+			initialSpawnsList.Add (transform.GetChild(i).transform.position);
+
 		base.Start ();
 
 		animationTime = 0;
@@ -16,7 +19,6 @@ public class NotDemosLevel : LevelManager {
 
 		originalVertices = new List<Vector3> ();
 		List<Vector3> vertices = new List<Vector3> ();
-		originalVertices = new List<Vector3> ();
 		List<int> triangles = new List<int> ();
 
 		int resolution = 50;

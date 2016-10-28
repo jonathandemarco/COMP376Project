@@ -14,7 +14,7 @@ public class StatusBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		newValue += (value - newValue) / 20;
+		newValue += (value - newValue) / 50;
 		transform.GetChild(0).transform.localScale = new Vector3(initialScale.x, initialScale.y * newValue, initialScale.z);
 	}
 
