@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 	public GameObject playerPrefab;
+	public GameObject HUDPrefab;
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
 
@@ -13,6 +14,7 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
+		Instantiate (HUDPrefab);
 		addPlayersToScene (GameState.playerCount);
 	}
 	
@@ -119,6 +121,7 @@ public class LevelManager : MonoBehaviour {
 				playerObj.GetComponent<PlayerManager> ().setPlayerChar ('K');
 			else
 				playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(64 + i));
+			
 			playersList.Add(playerObj);
 		}
 	}
@@ -160,7 +163,6 @@ public class LevelManager : MonoBehaviour {
     }
 
     public List<GameObject> getScenePlayers() {
-		Debug.Log (playersList);
 		return playersList;
 	}
 
