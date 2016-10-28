@@ -7,7 +7,7 @@ public class PlayerCollider : MonoBehaviour {
     
     void OnTriggerEnter(Collider col){
 		if (col.gameObject.name == "Crate") {
-            Debug.Log("COllision!");
+            Debug.Log("Picked up weapon!");
 			if (inventoryManager.GetWeaponCount() < inventoryManager.maxInventorySize) {
 				//add the item to player's inventory
 				int id = col.GetComponent<Crate> ().IDValue;

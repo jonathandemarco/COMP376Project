@@ -315,7 +315,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            takeDamage(10);
+            inventory.GetWeapon(0).PressAttack(button);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
@@ -330,7 +330,6 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            inventory.GetWeapon(0);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {

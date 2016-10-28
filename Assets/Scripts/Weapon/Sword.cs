@@ -17,8 +17,10 @@ public class Sword : Weapon {
 
 	public override void PressAttack(ControlButton button)
     {
-		// set conditions
-		// call the play animation;
-		YieldAttackAnimator();
+        // set conditions
+        // call the play animation;
+        //YieldAttackAnimator();
+
+        Debug.Log("SWORD IS ATTACKING");
 	}
 }
