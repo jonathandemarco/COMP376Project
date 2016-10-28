@@ -5,8 +5,8 @@ public class PlayerCollider : MonoBehaviour {
 
     private InventoryManager inventoryManager;
 
-    void Awake() {
-       inventoryManager =  GetComponent<PlayerManager>().getInventory();
+    void Start() {
+        inventoryManager = GetComponentInChildren<InventoryManager>();
     }
     void OnTriggerEnter(Collider col){
 		if (col.gameObject.name == "Crate") {

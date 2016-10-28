@@ -58,3 +58,5 @@ public class Weapon : MonoBehaviour {
 	public virtual void ReleaseAttack(ControlButton button) {}
 
 }
+
+

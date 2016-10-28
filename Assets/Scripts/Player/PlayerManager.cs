@@ -32,8 +32,9 @@ public class PlayerManager : MonoBehaviour {
     public bool noSetup;
 
     public PlayerSettings settings;
-    public InventoryManager inventory;
     private PlayerControls playerController;
+
+    private InventoryManager inventory;
     private Rigidbody rb;
 
     private float health;
@@ -60,6 +61,7 @@ public class PlayerManager : MonoBehaviour {
 
     void Awake() {
         playerController = GetComponentInChildren<PlayerControls>();
+        inventory = GetComponentInChildren<InventoryManager>();
         rb = GetComponent<Rigidbody>();
         if (noSetup)
             setPlayerChar(playerChar);
