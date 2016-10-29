@@ -9,7 +9,7 @@ public class PlayerCollider : MonoBehaviour {
         inventoryManager = GetComponentInChildren<InventoryManager>();
     }
     void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "Crate") {
+		if (col.gameObject.layer == LayerMask.NameToLayer("Crate")) {
             Debug.Log("Picked up weapon!");
 			if (inventoryManager.GetWeaponCount() < inventoryManager.maxInventorySize) {
 				//add the item to player's inventory
@@ -17,22 +17,17 @@ public class PlayerCollider : MonoBehaviour {
 				WeaponDatabase database = inventoryManager.GetWeaponDatabase ();
 				Weapon weaponToAdd = database.GetComponent<WeaponDatabase> ().GetWeaponAt (id); 
 				inventoryManager.AddToInventory (weaponToAdd);
-				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
-                w.transform.parent = transform;
 
-
+				/* 
+				 * I hope this was just to test... I added the code in PlayerManager
+				 * Instantiate the weapon once a button is pressed...
+				 * 				 
+				 * Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
+				 * w.transform.parent = transform;
+				 *                 
+				*/
                 Destroy(col.gameObject);
 			}
 		}
-
-        if (col.gameObject.layer == LayerMask.NameToLayer("Weapon")) {
-            PlayerManager manager = transform.parent.GetComponent<PlayerManager>();
-            PlayerManager colManager = col.transform.parent.GetComponent<PlayerManager>();
-            if (manager.getPlayerChar() != colManager.getPlayerChar()) {
-                manager.takeDamage(col.GetComponent<Weapon>().damage);
-            }
-        }
-
-
-    }
+	}
 }

@@ -321,7 +321,20 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            inventory.GetWeapon(0).PressAttack(button);
+			/* Weapon instantiation done here instead of the PlayerCollider
+			 * Allows us to have full access to the weapon
+			 * 
+			 * Previously, we were doing it in PlayerCollider, the weapon that was instantiated was a clone.
+			 * It was impossible to access it with the function in the Specific Weapon Scripts:
+			 * They were trying to modify the REAL weapon and not the clone.
+			 * 
+			 * This solution allows us to modify it
+			 *
+			*/
+			Weapon wep = (Weapon) Instantiate (inventory.GetWeapon(0), transform.parent);
+			wep.transform.parent = transform;
+
+			wep.PressAttack(button);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
