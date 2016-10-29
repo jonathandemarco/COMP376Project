@@ -8,6 +8,7 @@ public class PlayerCollider : MonoBehaviour {
     void Start() {
         inventoryManager = GetComponentInChildren<InventoryManager>();
     }
+
     void OnTriggerEnter(Collider col){
 		if (col.gameObject.layer == LayerMask.NameToLayer("Crate")) {
             Debug.Log("Picked up weapon!");
@@ -15,19 +16,38 @@ public class PlayerCollider : MonoBehaviour {
 				//add the item to player's inventory
 				int id = col.GetComponent<Crate> ().IDValue;
 				WeaponDatabase database = inventoryManager.GetWeaponDatabase ();
-				Weapon weaponToAdd = database.GetComponent<WeaponDatabase> ().GetWeaponAt (id); 
+				Weapon weaponToAdd = database.GetComponent<WeaponDatabase> ().GetWeaponAt (id);
 				inventoryManager.AddToInventory (weaponToAdd);
 
 				/* 
-				 * I hope this was just to test... I added the code in PlayerManager
-				 * Instantiate the weapon once a button is pressed...
-				 * 				 
-				 * Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
-				 * w.transform.parent = transform;
-				 *                 
+				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
+                w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
+                w.transform.parent = transform;
 				*/
+
+				notify ();
                 Destroy(col.gameObject);
 			}
 		}
+
+		/*
+		 * The following code is now located in the Weapon script
+		 * 
+        if (col.gameObject.layer == LayerMask.NameToLayer("Weapon")) {
+            PlayerManager manager = GetComponent<PlayerManager>();
+            char colPlayerChar = col.GetComponent<Weapon>().getPlayerChar();
+            if (manager.getPlayerChar() != colPlayerChar ){
+                Vector3 direction = transform.position - col.transform.position;
+                manager.takeDamage(col.GetComponent<Weapon>().damage, direction);
+            }
+        }
+		*/
+
+    }
+
+	// Notifies all pertinent observers of any changes made to the player
+	private void notify()
+	{
+		GetComponent<PlayerManager> ().notify ();
 	}
 }

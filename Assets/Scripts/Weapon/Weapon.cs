@@ -4,10 +4,12 @@ using System.Collections;
 public enum WeaponType{Melee, Range};
 
 public class Weapon : MonoBehaviour {
-	
+
 	private WeaponType type;
 	private int damage;
 	private float attackRate;
+    
+    public char playerChar;
 
 	private AudioSource weaponSound;
 	private Animator weaponAnimator;
@@ -15,6 +17,13 @@ public class Weapon : MonoBehaviour {
 	void Update(){
 	}
 
+    public void setPlayerChar(char c) {
+        playerChar = c;
+    }
+    public char getPlayerChar() {
+        return playerChar;
+    }
+		
 	public void SetType(WeaponType t){
 		type = t;
 	}
@@ -57,9 +66,13 @@ public class Weapon : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.layer == LayerMask.NameToLayer("Player")) {
-			// for now, im checking if the collider is the player then I call the take damage function
-			// We'll use another way to perform this action since weapon can make the player do more things than just take damage
-			col.gameObject.GetComponent <PlayerManager>().takeDamage(damage);
+			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
+			char colPlayerChar = getPlayerChar();
+
+			if (manager.getPlayerChar () != colPlayerChar) {
+				Vector3 direction = col.transform.position - transform.position;
+				manager.takeDamage (damage, direction);
+			}
 		}
 	}
 

@@ -10,13 +10,19 @@ public class PlayerSettings {
     public float jumpForce;
     public float jumpCooldownTime;
     public float moveSpeed;
+    public float groundDragForce;
+    public float airDragForce;
     public float airMoveForce;
     public float rotateSpeed;
     public int inventorySize;
 
+    public float invinsibilityTime;
+    public float invinsibilityFlickerRate;
     public float groundDistance;
     public float frontDistance;
+    public float pushbackParalizationTime;
 
+    public float pushbackFactor;
     public float tapTime;
 }
 public class PlayerManager : MonoBehaviour {
@@ -43,9 +49,15 @@ public class PlayerManager : MonoBehaviour {
     private int score;
     private float timeSinceDeath;
 
+
     private bool grounded;
     private bool canMove;
     private bool charging;
+    private bool invulnerable;
+    private float nextDamage = 0;
+    private float nextFlicker = 0;
+    private float endParalysisTime = 0;
+
 
     private float nextDash = 0;
     private float dashStopTime;
@@ -109,24 +121,32 @@ public class PlayerManager : MonoBehaviour {
             }
             if (GetComponent<Rigidbody>().velocity.y != 0)
                 checkGround();
-            manageAbilies();
+            manageStates();
         }
 	}
 
-    private void notify() {
-        HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
+    public void notify() {
+        if(HUDManager.currentHUD != null)
+            HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
     }
 
 
 
-    public void takeDamage(float damage) {
-        health -= damage;
-        if (health <= 0)
+    public void takeDamage(float damage, Vector3 direction) {
+        if (!invulnerable)
         {
-            health = 0;
-            die();
+            invulnerable = true;
+            nextDamage = Time.time + settings.invinsibilityTime;
+            endParalysisTime = Time.time + settings.pushbackParalizationTime;
+            health -= damage;
+            rb.AddForce(direction.normalized * damage * settings.pushbackFactor);
+            if (health <= 0)
+            {
+                health = 0;
+                die();
+            }
+            notify();
         }
-        notify();
     }
     public void heal(float heal)
     {
@@ -175,11 +195,11 @@ public class PlayerManager : MonoBehaviour {
         isAlive = false;
         numLives--;
         timeSinceDeath = 0;
-        GetComponent<MeshRenderer>().enabled = false; // replace with mesh child
         if (numLives <= 0)
             isEliminated = true;
-
         notify();
+        GetComponent<MeshRenderer>().enabled = false; // replace with mesh child
+
 
     }
     private void respawn()
@@ -205,7 +225,7 @@ public class PlayerManager : MonoBehaviour {
         if (checkGround() && Time.time > nextJump )
         {
             nextJump = Time.time + settings.jumpCooldownTime;
-            rb.velocity = velocity*0.7f;
+            rb.velocity = velocity;
             rb.AddForce(Vector3.up * settings.jumpForce);
             grounded = false;
         }
@@ -249,7 +269,7 @@ public class PlayerManager : MonoBehaviour {
     
 
 
-    private void manageAbilies() {
+    private void manageStates() {
 
         if (dashStopTime > Time.time && !frontCollision())
         {
@@ -260,6 +280,33 @@ public class PlayerManager : MonoBehaviour {
             canMove = true;
 
         }
+
+
+        if (invulnerable &&isAlive) {
+            if (Time.time > nextDamage)
+            {
+                invulnerable = false;
+                GetComponent<MeshRenderer>().enabled = enabled;
+            }
+            else if (Time.time > nextFlicker)
+            {
+                GetComponent<MeshRenderer>().enabled = !GetComponent<MeshRenderer>().enabled;
+                nextFlicker = Time.time + settings.invinsibilityFlickerRate;
+            }
+        }
+
+        if (Time.time < endParalysisTime)
+        {
+            canMove = false;
+        }
+        else canMove = true;
+
+        if (grounded)
+        {
+            rb.drag = settings.groundDragForce;
+        }
+        else
+            rb.drag = settings.airDragForce;
     }
 
     public void getMessage(ControlButton button)
@@ -331,7 +378,8 @@ public class PlayerManager : MonoBehaviour {
 			 * This solution allows us to modify it
 			 *
 			*/
-			Weapon wep = (Weapon) Instantiate (inventory.GetWeapon(0), transform.parent);
+			Weapon wep = Instantiate (inventory.GetWeapon(0), transform.parent) as Weapon;
+			wep.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
 			wep.transform.parent = transform;
 
 			wep.PressAttack(button);
