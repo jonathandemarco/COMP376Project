@@ -1,31 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Sword : Weapon {
+public class Sword : Weapon
+{
 
-	void Start () {
-		SetType (WeaponType.Melee);
-		SetDamage(10);
-		SetAttackRate (1.5f);
-		SetAnimator ();
-		SetAudioSource ();
-	}
+    Renderer[] renderers;
 
-	//to-test
-
-	public override void PressAttack(ControlButton button)
+    public override void PressAttack(ControlButton button)
     {
-		this.gameObject.SetActive (true);
-		EnableCollider ();
-		StartCoroutine (Swing ());
-	}
+        Debug.Log("Swing");
 
-	private IEnumerator Swing(){
-		//TODO animation of weapon
+        renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = true;
+        }
 
-		//TODO Find the exact time for the removal of the sword
-		yield return new WaitForSeconds (0.75f);
-		DisableCollider ();
-		this.gameObject.SetActive (false);
-	}
+        EnableCollider();
+
+        Debug.Log(this.gameObject);
+        StartCoroutine(Swing());
+    }
+
+    private IEnumerator Swing()
+    {
+        //TODO animation of weapon
+
+        //TODO Find the exact time for the removal of the sword
+        yield return new WaitForSeconds(0.75f);
+        DisableCollider();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = false;
+        }
+    }
 }

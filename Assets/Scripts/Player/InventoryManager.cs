@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class InventoryManager : MonoBehaviour
@@ -23,11 +24,24 @@ public class InventoryManager : MonoBehaviour
 
     public void AddToInventory(Weapon wep)
     {
+        Weapon w = (Weapon)Instantiate(wep, new Vector3(0, 0, 0), Quaternion.LookRotation(Vector3.up, Vector3.forward));
+        w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
+        w.transform.parent = transform;
+
+        w.gameObject.GetComponent<Collider>().enabled = false;
+
+        Renderer[] renderers = w.gameObject.GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = false;
+        }
+
         for (int i = 0; i < inventory.Length; i++)
         {
             if (inventory[i] == nullWeapon)
             {
-                inventory[i] = wep;
+                inventory[i] = w;
+                Debug.Log("I fucking added this to inv " + w);
                 break;
             }
         }
