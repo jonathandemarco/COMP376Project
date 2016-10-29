@@ -90,49 +90,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &346293243
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 346293245}
-  - 114: {fileID: 346293244}
-  m_Layer: 0
-  m_Name: WeaponDatabase
-  m_TagString: Weapon Database
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &346293244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 346293243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77b844d1ee5b6214996129b0c0c61620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDatabase:
-  - {fileID: 114000011966400240, guid: 7583cefa5692d8749b7cf4d1227fefe8, type: 2}
-  nullWeapon: {fileID: 0}
---- !u!4 &346293245
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 346293243}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.624317, y: -47.36985, z: -126.40072}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
 --- !u!1 &357681519
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +443,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013900231996, guid: ab69d8cdb694ec44e84a45d02b4f8484, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1000012739722916, guid: ab69d8cdb694ec44e84a45d02b4f8484, type: 2}
       propertyPath: m_IsActive
@@ -574,7 +531,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012291933394, guid: c23bd205a5597d74e8754131c8cc3b95, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1000012663987722, guid: c23bd205a5597d74e8754131c8cc3b95, type: 2}
       propertyPath: m_Name
@@ -1285,7 +1242,7 @@ Prefab:
         type: 2}
       propertyPath: weaponDatabase.Array.data[0]
       value: 
-      objectReference: {fileID: 114000011966400240, guid: 7583cefa5692d8749b7cf4d1227fefe8,
+      objectReference: {fileID: 114000013496997678, guid: 7583cefa5692d8749b7cf4d1227fefe8,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54be612600e365649b431c9f7100a93a, type: 2}
