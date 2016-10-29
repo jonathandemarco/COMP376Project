@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: 2876001ab2a994f9aab3910c1d9e79fe
+timeCreated: 1477679784
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: TomGroup_0
+    100004: TomGroup_1
+    100006: TomGroup_10
+    100008: TomGroup_11
+    100010: TomGroup_12
+    100012: TomGroup_13
+    100014: TomGroup_14
+    100016: TomGroup_15
+    100018: TomGroup_16
+    100020: TomGroup_17
+    100022: TomGroup_18
+    100024: TomGroup_19
+    100026: TomGroup_2
+    100028: TomGroup_3
+    100030: TomGroup_4
+    100032: TomGroup_5
+    100034: TomGroup_6
+    100036: TomGroup_7
+    100038: TomGroup_8
+    100040: TomGroup_9
+    400000: //RootNode
+    400002: TomGroup_0
+    400004: TomGroup_1
+    400006: TomGroup_10
+    400008: TomGroup_11
+    400010: TomGroup_12
+    400012: TomGroup_13
+    400014: TomGroup_14
+    400016: TomGroup_15
+    400018: TomGroup_16
+    400020: TomGroup_17
+    400022: TomGroup_18
+    400024: TomGroup_19
+    400026: TomGroup_2
+    400028: TomGroup_3
+    400030: TomGroup_4
+    400032: TomGroup_5
+    400034: TomGroup_6
+    400036: TomGroup_7
+    400038: TomGroup_8
+    400040: TomGroup_9
+    2300000: TomGroup_0
+    2300002: TomGroup_1
+    2300004: TomGroup_10
+    2300006: TomGroup_11
+    2300008: TomGroup_12
+    2300010: TomGroup_13
+    2300012: TomGroup_14
+    2300014: TomGroup_15
+    2300016: TomGroup_16
+    2300018: TomGroup_17
+    2300020: TomGroup_18
+    2300022: TomGroup_19
+    2300024: TomGroup_2
+    2300026: TomGroup_3
+    2300028: TomGroup_4
+    2300030: TomGroup_5
+    2300032: TomGroup_6
+    2300034: TomGroup_7
+    2300036: TomGroup_8
+    2300038: TomGroup_9
+    3300000: TomGroup_0
+    3300002: TomGroup_1
+    3300004: TomGroup_10
+    3300006: TomGroup_11
+    3300008: TomGroup_12
+    3300010: TomGroup_13
+    3300012: TomGroup_14
+    3300014: TomGroup_15
+    3300016: TomGroup_16
+    3300018: TomGroup_17
+    3300020: TomGroup_18
+    3300022: TomGroup_19
+    3300024: TomGroup_2
+    3300026: TomGroup_3
+    3300028: TomGroup_4
+    3300030: TomGroup_5
+    3300032: TomGroup_6
+    3300034: TomGroup_7
+    3300036: TomGroup_8
+    3300038: TomGroup_9
+    4300000: TomGroup_0
+    4300002: TomGroup_1
+    4300004: TomGroup_10
+    4300006: TomGroup_11
+    4300008: TomGroup_12
+    4300010: TomGroup_13
+    4300012: TomGroup_14
+    4300014: TomGroup_15
+    4300016: TomGroup_16
+    4300018: TomGroup_17
+    4300020: TomGroup_18
+    4300022: TomGroup_19
+    4300024: TomGroup_2
+    4300026: TomGroup_3
+    4300028: TomGroup_4
+    4300030: TomGroup_5
+    4300032: TomGroup_6
+    4300034: TomGroup_7
+    4300036: TomGroup_8
+    4300038: TomGroup_9
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
