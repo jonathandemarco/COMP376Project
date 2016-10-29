@@ -18,21 +18,20 @@ public class Gun : Weapon {
 		SetAnimator ();
 	}
 
-	public override void PressAttack(ControlButton button)
-    {
-		YieldAttackAnimator();
-	}
+//	public override void PressAttack(){
+//		YieldAttackAnimator();
+//	}
 
 	void Update () {
 		//spawnBullet ();
 		loadFire ();
 	}
 
-//	void spawnBullet () {
-//
-//		if (Input.GetKeyDown (KeyCode.Space))
-//			Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
-//	}
+	void spawnBullet () {
+
+		if (Input.GetKeyDown (KeyCode.Space))
+		Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
+	}
 
 	void loadFire () {
 		
@@ -40,6 +39,7 @@ public class Gun : Weapon {
 			
 			if (!wasloaded) {
 				loader = (GameObject)Instantiate (mLoadingPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation, bulletSpawnPos);
+
 				wasloaded = true;
 			}
 
