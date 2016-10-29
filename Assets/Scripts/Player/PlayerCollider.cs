@@ -1,36 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCollider : MonoBehaviour {
+public class PlayerCollider : MonoBehaviour
+{
 
     private InventoryManager inventoryManager;
 
-    void Start() {
+    void Start()
+    {
         inventoryManager = GetComponentInChildren<InventoryManager>();
     }
 
-    void OnTriggerEnter(Collider col){
-		if (col.gameObject.layer == LayerMask.NameToLayer("Crate")) {
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Crate"))
+        {
             Debug.Log("Picked up weapon!");
-			if (inventoryManager.GetWeaponCount() < inventoryManager.maxInventorySize) {
-				//add the item to player's inventory
-				int id = col.GetComponent<Crate> ().IDValue;
-				WeaponDatabase database = inventoryManager.GetWeaponDatabase ();
-				Weapon weaponToAdd = database.GetComponent<WeaponDatabase> ().GetWeaponAt (id);
-				inventoryManager.AddToInventory (weaponToAdd);
-
-				/* 
-				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
-                w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
-                w.transform.parent = transform;
-				*/
-
-				notify ();
+            if (inventoryManager.GetWeaponCount() < inventoryManager.maxInventorySize)
+            {
+                //add the item to player's inventory
+                int id = col.GetComponent<Crate>().IDValue;
+                WeaponDatabase database = inventoryManager.GetWeaponDatabase();
                 Destroy(col.gameObject);
-			}
-		}
 
-		/*
+                Weapon weaponToAdd = database.GetComponent<WeaponDatabase>().GetWeaponAt(id);
+
+                inventoryManager.AddToInventory(weaponToAdd);
+
+                notify();
+
+            }
+        }
+
+        /*
 		 * The following code is now located in the Weapon script
 		 * 
         if (col.gameObject.layer == LayerMask.NameToLayer("Weapon")) {
@@ -45,9 +47,9 @@ public class PlayerCollider : MonoBehaviour {
 
     }
 
-	// Notifies all pertinent observers of any changes made to the player
-	private void notify()
-	{
-		GetComponent<PlayerManager> ().notify ();
-	}
+    // Notifies all pertinent observers of any changes made to the player
+    private void notify()
+    {
+        GetComponent<PlayerManager>().notify();
+    }
 }

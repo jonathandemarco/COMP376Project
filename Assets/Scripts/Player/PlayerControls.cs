@@ -37,6 +37,7 @@ public class ControlButton {
         }
         if (Input.GetButtonDown(buttonCallName))
         {
+            Debug.Log("Press" + buttonCallName);
             holdTime = 0;
             timeAtPress = Time.time;
             lastState = ACTION.PRESS;
@@ -152,6 +153,7 @@ public class PlayerControls : MonoBehaviour {
         player = p;
         setPlayerChar(p.getPlayerChar());
     }
+
     public void move() {
         if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
         {

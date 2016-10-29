@@ -1,95 +1,117 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public enum WeaponType{Melee, Range};
+public enum WeaponType { Melee, Range };
 
-public class Weapon : MonoBehaviour {
+public class Weapon : MonoBehaviour
+{
 
-	private WeaponType type;
-	private int damage;
-	private float attackRate;
-    
+    private WeaponType type;
+    public int damage;
+    public float attackRate;
+
     public char playerChar;
 
-	private AudioSource weaponSound;
-	private Animator weaponAnimator;
+    public AudioSource weaponSound;
+    public Animator weaponAnimator;
 
-	void Update(){
-	}
+    void Update()
+    {
+    }
 
-    public void setPlayerChar(char c) {
+    public void setPlayerChar(char c)
+    {
         playerChar = c;
     }
-    public char getPlayerChar() {
+    public char getPlayerChar()
+    {
         return playerChar;
     }
-		
-	public void SetType(WeaponType t){
-		type = t;
-	}
 
-	public void SetDamage(int dmg){
-		damage = dmg;
-	}
+    public void SetType(WeaponType t)
+    {
+        type = t;
+    }
 
-	public void SetAttackRate(float ar){
-		attackRate = ar;
-	}
+    public void SetDamage(int dmg)
+    {
+        damage = dmg;
+    }
 
-	public float GetAttackRate(){
-		return attackRate;
-	}
+    public void SetAttackRate(float ar)
+    {
+        attackRate = ar;
+    }
 
-	public void SetAnimator(){
-		weaponAnimator = this.gameObject.GetComponent<Animator>();
-	}
+    public float GetAttackRate()
+    {
+        return attackRate;
+    }
 
-	public void SetAudioSource(){
-		weaponSound = this.gameObject.GetComponent<AudioSource> ();
-	}
+    public void SetAnimator()
+    {
+        weaponAnimator = this.gameObject.GetComponent<Animator>();
+    }
 
-	public void YieldAttackAnimator(){
-		weaponAnimator.SetBool ("isAttacking", true);
-	}
+    public void SetAudioSource()
+    {
+        weaponSound = this.gameObject.GetComponent<AudioSource>();
+    }
 
-	public void DisableCollider(){
-		this.gameObject.GetComponent<Collider> ().enabled = false;
-	}
-
-	public void EnableCollider(){
-		this.gameObject.GetComponent<Collider> ().enabled = true;
-	}
-
-    // changing things up so i can use it for now
-    public void startAnimation() {
+    public void YieldAttackAnimator()
+    {
         weaponAnimator.SetBool("isAttacking", true);
     }
-    public void stopAnimation() {
+
+    public void DisableCollider()
+    {
+        this.gameObject.GetComponent<Collider>().enabled = false;
+    }
+
+    public void EnableCollider()
+    {
+        this.gameObject.GetComponent<Collider>().enabled = true;
+    }
+
+    // changing things up so i can use it for now
+    public void startAnimation()
+    {
+        weaponAnimator.SetBool("isAttacking", true);
+    }
+    public void stopAnimation()
+    {
         weaponAnimator.SetBool("isAttacking", false);
     }
 
-	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.layer == LayerMask.NameToLayer("Player")) {
-			Debug.Log ("Boom");
-			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
-			char colPlayerChar = getPlayerChar();
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Debug.Log("Boom");
+            PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
+            char colPlayerChar = getPlayerChar();
 
-			if (manager.getPlayerChar () != colPlayerChar) {
-				Vector3 direction = col.transform.position - transform.position;
-				manager.takeDamage (damage, direction);
-			}
-		}
-	}
+            if (manager.getPlayerChar() != colPlayerChar)
+            {
+                Vector3 direction = col.transform.position - transform.position;
+                manager.takeDamage(damage, direction);
+            }
+        }
+    }
 
-	public virtual void HoldAttack (ControlButton button){
-	}
+    public virtual void HoldAttack(ControlButton button)
+    {
+    }
 
 
-	public virtual void PressAttack (ControlButton button){
-	}
+    public virtual void PressAttack(ControlButton button)
+    {
+    }
 
-	public virtual void ReleaseAttack (ControlButton button){
-	}
+    public virtual void ReleaseAttack(ControlButton button)
+    {
+    }
 
 }
 
