@@ -249,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46d2bfb09017e349b0222fc4f2cfb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 0}
 --- !u!114 &114000010759184336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -261,7 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46d2bfb09017e349b0222fc4f2cfb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 0}
 --- !u!114 &114000010828973274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,7 +285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46d2bfb09017e349b0222fc4f2cfb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 114000013057862942}
 --- !u!114 &114000013057862942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,6 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: []
   maxInventorySize: 2
+  nullWeapon: {fileID: 0}
 --- !u!114 &114000013315480290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -326,13 +324,18 @@ MonoBehaviour:
     jumpForce: 500
     jumpCooldownTime: 1
     moveSpeed: 10
+    groundDragForce: 1
+    airDragForce: 0
     airMoveForce: 500
     rotateSpeed: 10
     inventorySize: 2
+    invinsibilityTime: 2
+    invinsibilityFlickerRate: 0.05
     groundDistance: 0.51
     frontDistance: 1.3
+    pushbackParalizationTime: 1
+    pushbackFactor: 25
     tapTime: 1
-  inventory: {fileID: 114000013057862942}
 --- !u!136 &136000011085656156
 CapsuleCollider:
   m_ObjectHideFlags: 1
