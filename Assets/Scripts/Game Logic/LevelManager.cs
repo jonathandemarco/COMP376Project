@@ -5,13 +5,13 @@ public class LevelManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject HUDPrefab;
 	public GameObject WeaponDatabase;
-	public Material[] skyboxes;
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
 
     //TODO: populate these from specific level manager
     public List<Vector3> initialSpawnsList = new List<Vector3>(); //initial player spawns
     public List<Vector3> allSpawnsList = new List<Vector3>(); //available spawn points in level
+	public Material skyboxMat;
 
     // Use this for initialization
     virtual public void Start () {
@@ -19,9 +19,7 @@ public class LevelManager : MonoBehaviour {
 		addPlayersToScene (GameState.playerCount);
 		Instantiate (HUDPrefab);
 		Instantiate (WeaponDatabase);
-		if (skybox [0] != null) {
-			RenderSettings.skybox = skybox [0];
-		}
+		//RenderSettings.skybox = skyboxMat;
 	}
 	
 	// Update is called once per frame
@@ -180,12 +178,8 @@ public class LevelManager : MonoBehaviour {
 		this.timeLeft = time;
 	}
 
-	public void setSkybox(Material material) {
-		RenderSettings.skybox = material;
-	}
-
-	public Material getSkybox() {
-		return RenderSettings.skybox;
+	public void setSkyboxBlend(float blendFactor) {
+		RenderSettings.skybox.SetFloat("_Blend", blendFactor);
 	}
 
 }
