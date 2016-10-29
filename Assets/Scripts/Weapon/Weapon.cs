@@ -36,6 +36,10 @@ public class Weapon : MonoBehaviour {
 		attackRate = ar;
 	}
 
+	public float GetAttackRate(){
+		return attackRate;
+	}
+
 	public void SetAnimator(){
 		weaponAnimator = this.gameObject.GetComponent<Animator>();
 	}
@@ -66,6 +70,7 @@ public class Weapon : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.layer == LayerMask.NameToLayer("Player")) {
+			Debug.Log ("Boom");
 			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
 			char colPlayerChar = getPlayerChar();
 
