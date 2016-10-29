@@ -218,7 +218,7 @@ public class PlayerManager : MonoBehaviour
         if (numLives <= 0)
             isEliminated = true;
         notify();
-        GetComponent<MeshRenderer>().enabled = false; // replace with mesh child
+        disableModelRender(); // replace with mesh child
 
 
     }
@@ -227,7 +227,7 @@ public class PlayerManager : MonoBehaviour
         isAlive = true;
         health = maxHealth;
         transform.position = getSpawnPoint();
-        GetComponent<MeshRenderer>().enabled = true; // replace with mesh child
+        enableModelRender(); // replace with mesh child
         notify();
     }
 
@@ -292,7 +292,29 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-
+    private void flipModelRender() {
+        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < meshes.Length; i++)
+        {
+            meshes[i].enabled = !meshes[i].enabled;
+        }
+    }
+    private void enableModelRender()
+    {
+        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < meshes.Length; i++)
+        {
+            meshes[i].enabled = true;
+        }
+    }
+    private void disableModelRender()
+    {
+        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < meshes.Length; i++)
+        {
+            meshes[i].enabled = false;
+        }
+    }
 
     private void manageStates()
     {
@@ -313,11 +335,11 @@ public class PlayerManager : MonoBehaviour
             if (Time.time > nextDamage)
             {
                 invulnerable = false;
-                GetComponent<MeshRenderer>().enabled = enabled;
+                enableModelRender();
             }
             else if (Time.time > nextFlicker)
             {
-                GetComponent<MeshRenderer>().enabled = !GetComponent<MeshRenderer>().enabled;
+                flipModelRender();
                 nextFlicker = Time.time + settings.invinsibilityFlickerRate;
             }
         }

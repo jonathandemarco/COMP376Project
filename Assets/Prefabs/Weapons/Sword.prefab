@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f5ddd352b4f354390c11b544fdbb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   attackRate: 0
   playerChar: 0
   weaponSound: {fileID: 0}

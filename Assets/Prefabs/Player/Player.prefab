@@ -304,7 +304,8 @@ MonoBehaviour:
   inventory:
   - {fileID: 0}
   maxInventorySize: 2
-  nullWeapon: {fileID: 0}
+  nullWeapon: {fileID: 114000010459361668, guid: 00a0367e1d259c3439af53069c430c95,
+    type: 2}
 --- !u!114 &114000013315480290
 MonoBehaviour:
   m_ObjectHideFlags: 1
