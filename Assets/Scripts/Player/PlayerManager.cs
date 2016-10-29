@@ -2,7 +2,8 @@
 using System.Collections;
 
 [System.Serializable]
-public class PlayerSettings {
+public class PlayerSettings
+{
     public float dashSpeed;
     public float dashTime;
     public float maxHeldTimeDash;
@@ -25,7 +26,8 @@ public class PlayerSettings {
     public float pushbackFactor;
     public float tapTime;
 }
-public class PlayerManager : MonoBehaviour {
+public class PlayerManager : MonoBehaviour
+{
 
     // Use this for initialization
 
@@ -71,14 +73,16 @@ public class PlayerManager : MonoBehaviour {
     Vector3 velocity;
 
 
-    void Awake() {
+    void Awake()
+    {
         playerController = GetComponentInChildren<PlayerControls>();
         inventory = GetComponentInChildren<InventoryManager>();
         rb = GetComponent<Rigidbody>();
         if (noSetup)
             setPlayerChar(playerChar);
     }
-    void Start () {
+    void Start()
+    {
         isEliminated = false;
         isAlive = true;
         canMove = true;
@@ -86,21 +90,23 @@ public class PlayerManager : MonoBehaviour {
         grounded = true;
         health = maxHealth;
         score = 0;
-	}
+    }
 
     // Update is called once per frame
 
-    public void setPlayerChar(char c) {
+    public void setPlayerChar(char c)
+    {
         playerChar = c;
         playerController.setPlayer(this);
-        GetComponent<Renderer>().sharedMaterial = (Material)Resources.Load("Player_"+c, typeof(Material));
-        
-    
+        GetComponent<Renderer>().sharedMaterial = (Material)Resources.Load("Player_" + c, typeof(Material));
+
+
     }
-    void Update () {
+    void Update()
+    {
         if (!isEliminated)
         {
-            velocity = (transform.position - lastPosition)/Time.deltaTime;
+            velocity = (transform.position - lastPosition) / Time.deltaTime;
 
             lastPosition = transform.position;
             if (!isAlive)
@@ -109,13 +115,15 @@ public class PlayerManager : MonoBehaviour {
                 if (timeSinceDeath >= respawnTime)
                     respawn();
             }
-            else {
+            else
+            {
                 playerController.readInput();
                 if (canMove && grounded)
                 {
                     playerController.move();
                 }
-                if (canMove && !grounded && !frontCollision()) {
+                if (canMove && !grounded && !frontCollision())
+                {
                     playerController.moveInAir();
                 }
             }
@@ -123,16 +131,18 @@ public class PlayerManager : MonoBehaviour {
                 checkGround();
             manageStates();
         }
-	}
+    }
 
-    public void notify() {
-        if(HUDManager.currentHUD != null)
-            HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
+    public void notify()
+    {
+        if (HUDManager.currentHUD != null)
+            HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());
     }
 
 
 
-    public void takeDamage(float damage, Vector3 direction) {
+    public void takeDamage(float damage, Vector3 direction)
+    {
         if (!invulnerable)
         {
             invulnerable = true;
@@ -155,39 +165,49 @@ public class PlayerManager : MonoBehaviour {
             health = maxHealth;
         notify();
     }
-    public void addScore(int s) {
+    public void addScore(int s)
+    {
         score += s;
         notify();
     }
-    public void resetScore() {
+    public void resetScore()
+    {
         score = 0;
         notify();
     }
 
-    public int getScore() {
+    public int getScore()
+    {
         return score;
     }
-    public float getHealth() {
+    public float getHealth()
+    {
         return health;
     }
-    public float getMaxHealth() {
+    public float getMaxHealth()
+    {
         return maxHealth;
     }
-    public int getNumLives() {
+    public int getNumLives()
+    {
         return numLives;
     }
-    public char getPlayerChar() {
+    public char getPlayerChar()
+    {
         return playerChar;
     }
-    public char getTeam() {
+    public char getTeam()
+    {
         return team;
     }
-    public void setTeam(char c) {
+    public void setTeam(char c)
+    {
         team = c;
     }
 
 
-    public InventoryManager getInventory() {
+    public InventoryManager getInventory()
+    {
         return inventory;
     }
     private void die()
@@ -217,12 +237,14 @@ public class PlayerManager : MonoBehaviour {
         //return manager.GetComponent<LevelManager>().getRespawnPoint();
         return new Vector3(0, 0, 0);
     }
-    
-    private void attack(int slot) {
+
+    private void attack(int slot)
+    {
 
     }
-    private void jump() {
-        if (checkGround() && Time.time > nextJump )
+    private void jump()
+    {
+        if (checkGround() && Time.time > nextJump)
         {
             nextJump = Time.time + settings.jumpCooldownTime;
             rb.velocity = velocity;
@@ -230,21 +252,24 @@ public class PlayerManager : MonoBehaviour {
             grounded = false;
         }
     }
-    private void land() {
+    private void land()
+    {
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
     private bool checkGround()
     {
         bool previousState = grounded;
-        grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height*settings.groundDistance*transform.localScale.y);
+        grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height * settings.groundDistance * transform.localScale.y);
 
         if (previousState == false && grounded == true)
             land();
         return grounded;
     }
-    private bool frontCollision() {
+    private bool frontCollision()
+    {
         bool collision = Physics.Raycast(transform.position, transform.forward, GetComponentInParent<CapsuleCollider>().radius * settings.frontDistance);
-        if (collision) {
+        if (collision)
+        {
             dashStopTime = 0;
         }
         return collision;
@@ -253,7 +278,7 @@ public class PlayerManager : MonoBehaviour {
 
     private void dash()
     {
-        if (Time.time >nextDash )
+        if (Time.time > nextDash)
         {
             if (!grounded)
             {
@@ -262,14 +287,15 @@ public class PlayerManager : MonoBehaviour {
             }
             else
                 dashStopTime = Time.time + settings.dashTime;
-            nextDash = dashStopTime+ settings.dashCoolDownTime;
+            nextDash = dashStopTime + settings.dashCoolDownTime;
             canMove = false;
         }
     }
-    
 
 
-    private void manageStates() {
+
+    private void manageStates()
+    {
 
         if (dashStopTime > Time.time && !frontCollision())
         {
@@ -282,7 +308,8 @@ public class PlayerManager : MonoBehaviour {
         }
 
 
-        if (invulnerable &&isAlive) {
+        if (invulnerable && isAlive)
+        {
             if (Time.time > nextDamage)
             {
                 invulnerable = false;
@@ -313,8 +340,10 @@ public class PlayerManager : MonoBehaviour {
     {
         int buttonID = button.getID();
         ControlButton.ACTION action = button.getLastState();
-        switch (buttonID) {
-            case 0: button0(button, action);
+        switch (buttonID)
+        {
+            case 0:
+                button0(button, action);
                 break;
             case 1:
                 button1(button, action);
@@ -331,9 +360,11 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    
-    public void button0(ControlButton butto, ControlButton.ACTION action) {
-        if (action == ControlButton.ACTION.PRESS) {
+
+    public void button0(ControlButton butto, ControlButton.ACTION action)
+    {
+        if (action == ControlButton.ACTION.PRESS)
+        {
             jump();
         }
         else if (action == ControlButton.ACTION.HOLD)
@@ -343,9 +374,9 @@ public class PlayerManager : MonoBehaviour {
         else if (action == ControlButton.ACTION.RELEASE)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            if(rb.velocity.y >0)
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y/2, rb.velocity.z);
-            
+            if (rb.velocity.y > 0)
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, rb.velocity.z);
+
         }
     }
     public void button1(ControlButton button, ControlButton.ACTION action)
@@ -368,7 +399,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-			/* Weapon instantiation done here instead of the PlayerCollider
+            /* Weapon instantiation done here instead of the PlayerCollider
 			 * Allows us to have full access to the weapon
 			 * 
 			 * Previously, we were doing it in PlayerCollider, the weapon that was instantiated was a clone.
@@ -378,11 +409,11 @@ public class PlayerManager : MonoBehaviour {
 			 * This solution allows us to modify it
 			 *
 			*/
-			Weapon wep = Instantiate (inventory.GetWeapon(0), transform.parent) as Weapon;
-			wep.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
-			wep.transform.parent = transform;
+            // Weapon wep = Instantiate (inventory.GetWeapon(0), transform.parent) as Weapon;
+            // wep.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
+            // wep.transform.parent = transform;
 
-			wep.PressAttack(button);
+            inventory.GetWeapon(0).PressAttack(button);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
@@ -401,7 +432,7 @@ public class PlayerManager : MonoBehaviour {
         else if (action == ControlButton.ACTION.HOLD)
         {
 
-            
+
         }
         else if (action == ControlButton.ACTION.RELEASE)
         {
