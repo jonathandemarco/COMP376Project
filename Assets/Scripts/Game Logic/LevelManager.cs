@@ -15,9 +15,9 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
+		addPlayersToScene (GameState.playerCount);
 		Instantiate (HUDPrefab);
 		Instantiate (WeaponDatabase);
-		addPlayersToScene (GameState.playerCount);
 	}
 	
 	// Update is called once per frame

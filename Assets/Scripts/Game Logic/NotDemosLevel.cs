@@ -60,7 +60,7 @@ public class NotDemosLevel : LevelManager {
 			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
 			for (int i = 0; i < originalVertices.Count; i++) {
 				float distance = (tectonicPlate - originalVertices [i]).magnitude * 20;
-				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 1.0f / (1 + Mathf.Pow (distance, 16)));
+				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.2f / (1 + Mathf.Pow (distance, 16)));
 			}
 
 			GetComponent<MeshFilter> ().mesh.vertices = vertices;

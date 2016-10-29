@@ -117,7 +117,7 @@ public class PlayerManager : MonoBehaviour {
         }
 	}
 
-    private void notify() {
+    public void notify() {
         if(HUDManager.currentHUD != null)
             HUDManager.currentHUD.update(this.GetComponent<PlayerManager>());  
     }

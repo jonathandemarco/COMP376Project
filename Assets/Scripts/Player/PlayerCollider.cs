@@ -8,6 +8,7 @@ public class PlayerCollider : MonoBehaviour {
     void Start() {
         inventoryManager = GetComponentInChildren<InventoryManager>();
     }
+
     void OnTriggerEnter(Collider col){
         Debug.Log("Woop!");
 		if (col.gameObject.name == "Crate") {
@@ -21,8 +22,7 @@ public class PlayerCollider : MonoBehaviour {
 				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
                 w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
                 w.transform.parent = transform;
-
-
+				notify ();
                 Destroy(col.gameObject);
 			}
 		}
@@ -38,4 +38,10 @@ public class PlayerCollider : MonoBehaviour {
 
 
     }
+
+	// Notifies all pertinent observers of any changes made to the player
+	private void notify()
+	{
+		GetComponent<PlayerManager> ().notify ();
+	}
 }
