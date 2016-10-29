@@ -9,8 +9,10 @@ public class NotDemosLevel : LevelManager {
 	// Use this for initialization
 
 	override public void Start () {
-		for(int i = 0; i < 4; i++)
-			initialSpawnsList.Add (transform.GetChild(i).transform.position);
+		for (int i = 0; i < 4; i++) {
+			initialSpawnsList.Add (transform.GetChild (i).transform.position);
+			allSpawnsList.Add (transform.GetChild (i).transform.position);
+		}
 
 		base.Start ();
 

@@ -22,9 +22,9 @@ public class PlayerCollider : MonoBehaviour {
 				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
                 w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
                 w.transform.parent = transform;
-				notify ();
                 Destroy(col.gameObject);
 			}
+			notify ();
 		}
 
         if (col.gameObject.layer == LayerMask.NameToLayer("Weapon")) {

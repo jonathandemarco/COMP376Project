@@ -24,7 +24,7 @@ GameObject:
   - 23: {fileID: 23000012483338554}
   - 95: {fileID: 95000011405553404}
   - 114: {fileID: 114000012306638500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sword
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -120,3 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f5ddd352b4f354390c11b544fdbb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  attackRate: 0
+  playerChar: 0

@@ -9,7 +9,7 @@ public class GameState : MonoBehaviour {
 
 	public static GameMode gameMode;
 	public static LevelManager currentLevelManager;
-	public static int playerCount = 4;
+	public static int playerCount = 3;
 
 	private static int winScore;
 	private static List<int> accumScoreList = new List<int>();
