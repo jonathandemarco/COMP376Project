@@ -16,7 +16,7 @@ public class Sword : Weapon {
 	public override void PressAttack(ControlButton button)
     {
 		this.gameObject.SetActive (true);
-
+		EnableCollider ();
 		StartCoroutine (Swing ());
 	}
 
@@ -24,8 +24,8 @@ public class Sword : Weapon {
 		//TODO animation of weapon
 
 		//TODO Find the exact time for the removal of the sword
-		yield return new WaitForSeconds (0.5f);
-
+		yield return new WaitForSeconds (0.75f);
+		DisableCollider ();
 		this.gameObject.SetActive (false);
 	}
 }
