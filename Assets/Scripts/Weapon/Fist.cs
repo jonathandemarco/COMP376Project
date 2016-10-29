@@ -9,7 +9,8 @@ public class Fist : Weapon {
 		SetAnimator ();
 	}
 
-	public override void PressAttack(){
+	public override void PressAttack(ControlButton button)
+    {
 		YieldAttackAnimator();
 	}
 

@@ -89,5 +89,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6c07cf53e86484f908a2973ad4ca90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarPrefab: {fileID: 1000010797663614, guid: f7629d6762a54394ca843cd32b59cab2,
+  healthBarPrefab: {fileID: 1000010319908496, guid: 31a80762a8c95874aa89f079baaefbd5,
     type: 2}

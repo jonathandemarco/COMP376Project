@@ -2,24 +2,30 @@
 using System.Collections;
 
 public class Sword : Weapon {
-	
+
 	void Start () {
 		SetType (WeaponType.Melee);
-		SetDamage(4);
+		SetDamage(10);
 		SetAttackRate (1.5f);
 		SetAnimator ();
 		SetAudioSource ();
-		SetColliderInactive ();
 	}
 
 	//to-test
-	void Update(){
-		PressAttack ();
+
+	public override void PressAttack(ControlButton button)
+    {
+		this.gameObject.SetActive (true);
+		EnableCollider ();
+		StartCoroutine (Swing ());
 	}
 
-	public override void PressAttack(){
-		// set conditions
-		// call the play animation;
-		YieldAttackAnimator();
+	private IEnumerator Swing(){
+		//TODO animation of weapon
+
+		//TODO Find the exact time for the removal of the sword
+		yield return new WaitForSeconds (0.75f);
+		DisableCollider ();
+		this.gameObject.SetActive (false);
 	}
 }

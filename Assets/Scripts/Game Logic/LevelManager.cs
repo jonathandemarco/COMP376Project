@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject HUDPrefab;
+	public GameObject WeaponDatabase;
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
 
@@ -14,8 +15,9 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
-		Instantiate (HUDPrefab);
 		addPlayersToScene (GameState.playerCount);
+		Instantiate (HUDPrefab);
+		Instantiate (WeaponDatabase);
 	}
 	
 	// Update is called once per frame
