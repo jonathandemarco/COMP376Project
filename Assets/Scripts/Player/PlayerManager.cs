@@ -98,7 +98,7 @@ public class PlayerManager : MonoBehaviour
     {
         playerChar = c;
         playerController.setPlayer(this);
-        GetComponent<Renderer>().sharedMaterial = (Material)Resources.Load("Player_" + c, typeof(Material));
+        GetComponentInChildren<Renderer>().sharedMaterial = (Material)Resources.Load("Player_" + c, typeof(Material));
 
 
     }
