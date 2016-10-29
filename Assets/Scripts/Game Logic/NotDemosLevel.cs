@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class NotDemosLevel : LevelManager {
+	public float itemDropProb;
 	List<Vector3> originalVertices;
 	float animationTime;
 	Vector3 tectonicPlate;
@@ -51,7 +52,11 @@ public class NotDemosLevel : LevelManager {
 	
 	// Update is called once per frame
 	override public void Update () {
-		//base.Update ();
+		base.Update ();
+
+		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
+			spawnCrate ();
+
 		if (animationTime == 0.0f && Random.Range (0.0f, 1.0f) > 0.99f) {
 			animationTime += Time.deltaTime;
 			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
@@ -85,5 +90,10 @@ public class NotDemosLevel : LevelManager {
 		} else if (animationTime >= 2.0f) {
 			animationTime = 0;
 		}
+	}
+
+	void spawnCrate()
+	{
+		Instantiate (cratePrefab, new Vector3 (Random.Range(-transform.localScale.x, transform.localScale.x), 20, Random.Range(-transform.localScale.z, transform.localScale.z)), Quaternion.identity);
 	}
 }

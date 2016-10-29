@@ -4,17 +4,16 @@ using System.Collections.Generic;
 
 public class CameraCenter : MonoBehaviour {
 	Camera camera;
-	Vector3 trueCenter;
-	Vector3 offset;
+	Vector3 previousPos;
 	// Use this for initialization
 	void Start () {
 		camera = transform.GetChild (0).GetComponent<Camera> ();
-		offset = new Vector3 (0, 0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		bool zoomOut = false;
+		bool change = false;
 		List<GameObject> players = GameState.currentLevelManager.getScenePlayers ();
 		Vector3 min = new Vector3 (Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
 		Vector3 max = new Vector3 (Mathf.NegativeInfinity, Mathf.NegativeInfinity, Mathf.NegativeInfinity);
@@ -35,17 +34,18 @@ public class CameraCenter : MonoBehaviour {
 				if (p.z < min.z)
 					min.z = p.z;
 
-				if (p.x - 50 < 0 || p.y - 50 < 0 || p.x + 50 > Screen.width || p.y + 50 > Screen.height)
+				if (p.x - 80 < 0 || p.y - 80 < 0 || p.x + 80 > Screen.width || p.y + 80 > Screen.height)
 					zoomOut = true;
 			}
 		}
 
-		if(zoomOut)
-			camera.gameObject.transform.localPosition += camera.gameObject.transform.localPosition.normalized * 0.02f;
-		else
-			camera.gameObject.transform.localPosition -= camera.gameObject.transform.localPosition.normalized * 0.02f;
-		
 		Vector3 center = camera.ScreenToWorldPoint((max + min) / 2);
 		transform.position = new Vector3(center.x, 0, center.z);
+		previousPos = transform.position;
+
+		if (zoomOut)
+			camera.gameObject.transform.localPosition += camera.gameObject.transform.localPosition.normalized * 0.04f;
+		else
+			camera.gameObject.transform.localPosition -= camera.gameObject.transform.localPosition.normalized * 0.04f;
 	}
 }
