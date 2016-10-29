@@ -4,10 +4,14 @@ using System.Collections;
 public class loadfx : MonoBehaviour {
 
 	Light childlight;
+//	AudioSource loadsound;
+//	AudioClip load;
 
 	// Use this for initialization
 	void Start () {
-
+//		loadsound = GetComponent<AudioSource>();
+//		load = loadsound.clip;
+//		AudioSource.PlayClipAtPoint(load, transform.position);
 	}
 	
 	// Update is called once per frame

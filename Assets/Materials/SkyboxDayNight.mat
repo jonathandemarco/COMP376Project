@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: New Material
+  m_Name: SkyboxDayNight
   m_Shader: {fileID: 4800000, guid: 695ac6ad350b012499d779e7462cecb9, type: 3}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _SUNDISK_HIGH_QUALITY
   m_LightmapFlags: 1

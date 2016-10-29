@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
+	public GameObject cratePrefab;
 	public GameObject playerPrefab;
 	public GameObject HUDPrefab;
 	public GameObject WeaponDatabase;

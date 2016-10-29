@@ -42,13 +42,13 @@ Material:
     - first:
         name: _EmissionMap
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1c269d08a73667f45ac5adc57bb76baa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1c269d08a73667f45ac5adc57bb76baa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -121,7 +121,7 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.07533713, g: 0.02854672, b: 0.32352942, a: 1}
+      second: {r: 0.37113863, g: 0.24621539, b: 1, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0.09558821, g: 0.0007028551, b: 0.0007028551, a: 1}

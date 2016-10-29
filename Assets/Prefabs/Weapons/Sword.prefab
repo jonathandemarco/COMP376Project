@@ -156,10 +156,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013904798028}
-  m_LocalRotation: {x: 0.6532815, y: 0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 0.75, y: 0, z: 1.25}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 3, z: 5}
-  m_LocalEulerAnglesHint: {x: 45, y: 90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012543674810}
   m_Father: {fileID: 0}
@@ -300,7 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f5ddd352b4f354390c11b544fdbb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  attackRate: 0
   playerChar: 0
+  weaponSound: {fileID: 0}
+  weaponAnimator: {fileID: 0}
 --- !u!136 &136000013967962480
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -308,7 +312,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013904798028}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.025
   m_Height: 1

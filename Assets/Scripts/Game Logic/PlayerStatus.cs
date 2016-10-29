@@ -17,6 +17,9 @@ public class PlayerStatus : MonoBehaviour {
 		GetComponent<MeshFilter> ().mesh = player.GetComponent<MeshFilter> ().mesh;
 		GetComponent<Renderer> ().material = player.GetComponent<Renderer> ().material;
 
+		for (int i = 0; i < transform.childCount; i++)
+			Destroy (transform.GetChild (i).gameObject);
+
 		InventoryManager items = player.getInventory();
 		Weapon[] weapons = items.getWeaponList ();
 		float itemCount = weapons.Length;
@@ -30,7 +33,8 @@ public class PlayerStatus : MonoBehaviour {
 			float n = Mathf.Clamp (scale.x, 0, 2.0f);
 			sphere.transform.position = transform.position - new Vector3(- i * n * 2 / itemCount - 2 - n * 0.5f / itemCount, 2, 0);
 			sphere.transform.localScale = new Vector3 (n / itemCount, n / itemCount, 0.2f);
-			Instantiate (weapons [i].gameObject);
+			GameObject w = Instantiate(weapons [i].gameObject, sphere.transform.position, Quaternion.identity, transform) as GameObject;
+			w.layer = LayerMask.NameToLayer ("HUD");
 		}
 	}
 }

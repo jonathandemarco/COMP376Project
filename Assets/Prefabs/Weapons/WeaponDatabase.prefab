@@ -52,6 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDatabase:
-  - {fileID: 114000012306638500, guid: 7583cefa5692d8749b7cf4d1227fefe8, type: 2}
+  - {fileID: 114000011683141722, guid: 7583cefa5692d8749b7cf4d1227fefe8, type: 2}
   nullWeapon: {fileID: 114000010459361668, guid: 00a0367e1d259c3439af53069c430c95,
     type: 2}
