@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011666569564}
   m_Layer: 10
-  m_Name: Effect_08
+  m_Name: LoadFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

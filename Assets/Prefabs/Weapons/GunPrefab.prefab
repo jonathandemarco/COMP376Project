@@ -90,7 +90,7 @@ GameObject:
   - 23: {fileID: 23000012277010562}
   - 114: {fileID: 114000012468782632}
   m_Layer: 10
-  m_Name: GunPrefab 1
+  m_Name: GunPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1450,6 +1450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e5629b0fdabdf46bb9f5aa62e467d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerChar: 0
   bulletSpawnPos: {fileID: 4000010568685824}
   mLoadingPrefab: {fileID: 1000012082933570, guid: 3e76eb4cbad3549d1b7ff97a6f59a509,
     type: 2}
