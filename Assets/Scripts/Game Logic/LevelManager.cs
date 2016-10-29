@@ -5,6 +5,7 @@ public class LevelManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject HUDPrefab;
 	public GameObject WeaponDatabase;
+	public Material[] skyboxes;
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
 
@@ -18,6 +19,9 @@ public class LevelManager : MonoBehaviour {
 		addPlayersToScene (GameState.playerCount);
 		Instantiate (HUDPrefab);
 		Instantiate (WeaponDatabase);
+		if (skybox [0] != null) {
+			RenderSettings.skybox = skybox [0];
+		}
 	}
 	
 	// Update is called once per frame
@@ -174,6 +178,14 @@ public class LevelManager : MonoBehaviour {
 
 	public void setTimeLeft(float time) {
 		this.timeLeft = time;
+	}
+
+	public void setSkybox(Material material) {
+		RenderSettings.skybox = material;
+	}
+
+	public Material getSkybox() {
+		return RenderSettings.skybox;
 	}
 
 }
