@@ -7,7 +7,7 @@ public enum WeaponType { Melee, Range };
 public class Weapon : MonoBehaviour
 {
 
-    private WeaponType type;
+    public WeaponType type;
     public int damage;
     public float attackRate;
 
