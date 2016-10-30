@@ -17,28 +17,27 @@ public class Gun : Weapon {
 		Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
 	}
 
-	public override void HoldAttack (ControlButton button) 
-	{			
-		Debug.Log("Charging");
-		if (!wasloaded)
-		{
-			loader = (GameObject)Instantiate (mLoadingPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation, bulletSpawnPos);
+	public override void HoldAttack (ControlButton button)
+	{	
+		// if(button.allowAttack()){
+			Debug.Log ("Charging");
+			if (!wasloaded) {
+				loader = (GameObject)Instantiate (mLoadingPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation, bulletSpawnPos);
+				wasloaded = true;
+			}
 
-			wasloaded = true;
-		}
-
-		mTimer += Time.deltaTime;
-		if (mTimer > loadtime) 
-		{
-			Destroy (loader);
-			Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
-			reset ();
-		} 
-		else 
-		{
-			Destroy (loader);
-			reset ();
-		}			
+			mTimer += Time.deltaTime;
+			if (mTimer > loadtime) {
+				Destroy (loader);
+				Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
+				reset ();
+			} 
+			else 
+			{
+				Destroy (loader);
+				reset ();
+			}
+	  //}
 	}
 
 	private void reset () {

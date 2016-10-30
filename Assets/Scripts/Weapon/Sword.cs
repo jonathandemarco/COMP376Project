@@ -4,23 +4,26 @@ using System.Collections.Generic;
 
 public class Sword : Weapon
 {
-
     Renderer[] renderers;
 
     public override void PressAttack(ControlButton button)
     {
         Debug.Log("Swing");
 
-        renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            renderers[i].enabled = true;
-        }
+		// allowAttack() will tell us if the user is allowed to perform an attack
+		// function should check if the same button is pressed
+		// if(button.allowAttack()){
+        	renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+        	for (int i = 0; i < renderers.Length; i++)
+        	{
+            	renderers[i].enabled = true;
+        	}
 
-        EnableCollider();
+        	EnableCollider();
 
-        Debug.Log(this.gameObject);
-        StartCoroutine(Swing());
+        	Debug.Log(this.gameObject);
+        	StartCoroutine(Swing());
+		// }
     }
 
     private IEnumerator Swing()
