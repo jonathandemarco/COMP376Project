@@ -11,13 +11,15 @@ public class Gun : Weapon {
 	float loadtime = 3.0f;
 	float mTimer = 0.0f;
 
-	void ReleaseAttack (ControlButton button) 
+	public override void ReleaseAttack (ControlButton button) 
 	{
-			Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
+		Debug.Log ("Released");
+		Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation);
 	}
 
-	void HoldAttack (ControlButton button) 
+	public override void HoldAttack (ControlButton button) 
 	{			
+		Debug.Log("Charging");
 		if (!wasloaded)
 		{
 			loader = (GameObject)Instantiate (mLoadingPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation, bulletSpawnPos);
@@ -39,7 +41,7 @@ public class Gun : Weapon {
 		}			
 	}
 
-	void reset () {
+	private void reset () {
 		wasloaded = false;
 		mTimer = 0.0f;
 	}
