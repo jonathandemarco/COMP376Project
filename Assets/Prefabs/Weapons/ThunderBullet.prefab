@@ -288,7 +288,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6153745986074d12ab76db584cdd699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
+  damage: 50
+  attackRate: 1.5
   playerChar: 0
+  weaponSound: {fileID: 0}
+  weaponAnimator: {fileID: 0}
 --- !u!114 &114000011735470926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -318,7 +323,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013946464108}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -356,12 +361,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
+  autoRandomSeed: 1
   scalingMode: 2
+  randomSeed: 0
   InitialModule:
     serializedVersion: 2
     enabled: 1

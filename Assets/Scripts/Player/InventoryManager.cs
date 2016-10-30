@@ -26,6 +26,7 @@ public class InventoryManager : MonoBehaviour
     {
         Weapon w = (Weapon)Instantiate(wep, new Vector3(0, 0, 0), Quaternion.LookRotation(Vector3.up, Vector3.forward));
         w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
+		w.transform.position = transform.position;
         w.transform.parent = transform;
 
         w.gameObject.GetComponent<Collider>().enabled = false;
