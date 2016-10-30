@@ -1,23 +1,46 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System.Collections;
 
 public class MenuController : MonoBehaviour {
 
+	//Input pressed by players
 	public bool player1Start;
 	public bool player2Start;
 	public bool player3Start;
 	public bool player4Start;
-
+	//Icons representing player that will play
 	public GameObject player1_image;
 	public GameObject player2_image;
 	public GameObject player3_image;
 	public GameObject player4_image;
-
+	//Buttons appearing after Start has been pressed (# of players)
+	public GameObject p2Button;
+	public GameObject p3Button;
+	public GameObject p4Button;
+	//Start Text
+	public Text pressStartText;
+	private bool isBlinking = false;
 
 	[SerializeField] int numOfPlayers = 0;
 
+	void Start(){
+		InvokeRepeating("BlinkText", 0.0f, 0.6f);
+	}
+
 	void Update(){
+
+		if(Input.GetKeyDown("space")){
+			pressStartText.enabled = false;
+			CancelInvoke ();
+			p2Button.SetActive(true);
+			p3Button.SetActive(true);
+			p4Button.SetActive(true);
+		}
+
 		AddPlayers ();
+
 	}
 
 	public void LoadLevel(int num){
@@ -55,6 +78,17 @@ public class MenuController : MonoBehaviour {
 
 	void ShowCurrentPlayers(){
 
+	}
+
+	void BlinkText(){
+
+		if (!isBlinking) {
+			pressStartText.enabled = true;
+			isBlinking = true;
+		} else {
+			pressStartText.enabled = false;
+			isBlinking = false;
+		}
 	}
 
 
