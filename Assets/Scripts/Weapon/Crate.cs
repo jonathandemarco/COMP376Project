@@ -7,31 +7,29 @@ public class Crate : MonoBehaviour {
 
 	public float delta = 1.5f;  // Amount to move left and right from the start point
 	public float speed = 2.0f; 
-	private Vector3 startPos;
-
-	bool grounded;
+	public float idleTime = 10.0f;
+	private float inactiveTime;
+	private bool grounded;
 
 	void Start(){
-		
-		IDValue = 0; //hardcoded sword.
-
 		grounded = false;
-		startPos = transform.position;
+		IDValue = 0; //hardcoded sword.
 	}
 		
 	void Update () {
-		if (!grounded) {
-			Vector3 v = startPos;
-			v.x += delta * Mathf.Sin (Time.time * speed);
-			v.y -= Time.time * 5;
-			transform.position = v;
+		if (grounded) {
+			if (inactiveTime < idleTime)
+				inactiveTime += Time.deltaTime;
+			else
+				Destroy (gameObject);
 		}
+		else
+			transform.rotation = Quaternion.Euler (0, 0, delta * Mathf.Sin(speed * Time.time));
 	}
-		
 
-	void OnTriggerEnter(Collider coll){
-		if (coll.gameObject.layer == LayerMask.NameToLayer ("Terrain")) {
+	void OnCollisionEnter(Collision c)
+	{
+		if (c.collider.gameObject.layer == LayerMask.NameToLayer ("Terrain"))
 			grounded = true;
-		}
 	}
 }

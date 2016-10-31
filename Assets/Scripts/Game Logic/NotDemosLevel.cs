@@ -22,6 +22,7 @@ public class NotDemosLevel : LevelManager {
 
 		originalVertices = new List<Vector3> ();
 		List<Vector3> vertices = new List<Vector3> ();
+		List<Vector2> uv = new List<Vector2> ();
 		List<int> triangles = new List<int> ();
 
 		int resolution = 50;
@@ -30,6 +31,7 @@ public class NotDemosLevel : LevelManager {
 		{
 			for (int i = 0; i <= resolution; i++) {
 				vertices.Add (new Vector3 (((float)i / (float)resolution) - 0.5f, ((float)j / (float)resolution) - 0.5f, 0.0f));
+				uv.Add (new Vector2((float)i / (float)resolution, (float)j / (float)resolution));
 				originalVertices.Add (vertices[vertices.Count - 1]);
 				if (i > 0 && j > 0) {
 					triangles.Add (vertices.Count - 2);
@@ -43,6 +45,7 @@ public class NotDemosLevel : LevelManager {
 			}
 		}
 		GetComponent<MeshFilter> ().mesh.vertices = vertices.ToArray();
+		GetComponent<MeshFilter> ().mesh.uv = uv.ToArray();
 		GetComponent<MeshFilter> ().mesh.triangles = triangles.ToArray();
 		GetComponent<MeshFilter> ().mesh.RecalculateBounds ();
 		GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
@@ -57,7 +60,7 @@ public class NotDemosLevel : LevelManager {
 		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
 			spawnCrate ();
 
-		if (animationTime == 0.0f && Random.Range (0.0f, 1.0f) > 0.99f) {
+		if (animationTime == 0.0f && Random.Range (0.0f, 1.0f) > 0.9f) {
 			animationTime += Time.deltaTime;
 			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
 		}
@@ -66,8 +69,8 @@ public class NotDemosLevel : LevelManager {
 			Vector3[] vertices = new Vector3[originalVertices.Count];
 			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
 			for (int i = 0; i < originalVertices.Count; i++) {
-				float distance = (tectonicPlate - originalVertices [i]).magnitude * 20;
-				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.2f / (1 + Mathf.Pow (distance, 16)));
+				float distance = (tectonicPlate - originalVertices [i]).magnitude * 10;
+				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.5f / (1 + Mathf.Pow (distance, 16)));
 			}
 
 			GetComponent<MeshFilter> ().mesh.vertices = vertices;
@@ -94,6 +97,9 @@ public class NotDemosLevel : LevelManager {
 
 	void spawnCrate()
 	{
-		Instantiate (cratePrefab, new Vector3 (Random.Range(-transform.localScale.x, transform.localScale.x), 20, Random.Range(-transform.localScale.z, transform.localScale.z)), Quaternion.identity);
+		Vector3 min = GetComponent<Renderer> ().bounds.min;
+		Vector3 max = GetComponent<Renderer> ().bounds.max;
+		Vector3 size = GetComponent<Renderer> ().bounds.size;
+		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 50, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
 	}
 }
