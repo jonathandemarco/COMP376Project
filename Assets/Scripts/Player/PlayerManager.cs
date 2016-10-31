@@ -235,7 +235,7 @@ public class PlayerManager : MonoBehaviour
     {
         // GameObject manager = GameObject.FindGameObjectWithTag("LevelManager");
         //return manager.GetComponent<LevelManager>().getRespawnPoint();
-        return new Vector3(0, 0, 0);
+        return new Vector3(0, 5, 0);
     }
 
     private void attack(int slot)

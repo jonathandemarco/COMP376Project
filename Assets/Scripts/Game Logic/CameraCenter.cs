@@ -46,7 +46,7 @@ public class CameraCenter : MonoBehaviour {
 
 			f = Mathf.Max (3.0f, f);
 
-			camera.gameObject.transform.localPosition = camera.gameObject.transform.localPosition.normalized * f * 0.8f;
+			camera.gameObject.transform.localPosition = camera.gameObject.transform.localPosition.normalized * f;
 		}
 //		else
 			
