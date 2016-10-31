@@ -227,15 +227,17 @@ public class PlayerManager : MonoBehaviour
         isAlive = true;
         health = maxHealth;
         transform.position = getSpawnPoint();
+        rb.velocity = new Vector3(0, 0, 0);
         enableModelRender(); // replace with mesh child
         notify();
     }
 
     private Vector3 getSpawnPoint()
     {
-        // GameObject manager = GameObject.FindGameObjectWithTag("LevelManager");
-        //return manager.GetComponent<LevelManager>().getRespawnPoint();
-        return new Vector3(0, 5, 0);
+        if (GameState.currentLevelManager != null)
+            //return GameState.currentLevelManager.getRespawnPoint(0);
+            return GameState.currentLevelManager.getInitialSpawn(1);
+        else return new Vector3(0, 5, 0);
     }
 
     private void attack(int slot)
