@@ -22,7 +22,7 @@ GameObject:
   - 114: {fileID: 114000011008551264}
   - 95: {fileID: 95000011504620284}
   - 136: {fileID: 136000011256177654}
-  - 54: {fileID: 54000011149502640}
+  - 54: {fileID: 54000012287089544}
   m_Layer: 10
   m_Name: Sword
   m_TagString: Untagged
@@ -273,7 +273,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012653407446}
   m_Mesh: {fileID: 4300000, guid: fbba80dcff9da89449c0f4ebb3376f54, type: 3}
---- !u!54 &54000011149502640
+--- !u!54 &54000012287089544
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
