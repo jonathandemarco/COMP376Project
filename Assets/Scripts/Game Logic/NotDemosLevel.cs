@@ -60,12 +60,18 @@ public class NotDemosLevel : LevelManager {
 		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
 			spawnCrate ();
 
-		if (animationTime == 0.0f && Random.Range (0.0f, 1.0f) > 0.9f) {
-			animationTime += Time.deltaTime;
-			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
+		if (animationTime == 0.0f && Input.GetKeyDown ("v"))//&& Random.Range (0.0f, 1.0f) > 0.9f) {
+		{	animationTime += Time.deltaTime;
+//			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
+			tectonicPlate = new Vector3();
 		}
-		
-		if (animationTime > 0.0f && animationTime < 1.0f) {
+
+		if(animationTime > 0.0f && animationTime < 0.2f)
+		{
+			transform.position = new Vector3(transform.position.x, -Mathf.Sin(animationTime), transform.position.z);
+			animationTime += Time.deltaTime;
+		}
+		else if (animationTime > 0.2f && animationTime < 1.0f) {
 			Vector3[] vertices = new Vector3[originalVertices.Count];
 			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
 			for (int i = 0; i < originalVertices.Count; i++) {
