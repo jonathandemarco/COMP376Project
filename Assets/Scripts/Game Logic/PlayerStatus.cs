@@ -33,8 +33,22 @@ public class PlayerStatus : MonoBehaviour {
 			float n = Mathf.Clamp (scale.x, 0, 2.0f);
 			sphere.transform.position = transform.position - new Vector3(- i * n * 2 / itemCount - 2 - n * 0.5f / itemCount, 2, 0);
 			sphere.transform.localScale = new Vector3 (n / itemCount, n / itemCount, 0.2f);
-			GameObject w = Instantiate(weapons [i].gameObject, sphere.transform.position, Quaternion.identity, sphere.transform) as GameObject;
+			GameObject w = Instantiate(weapons [i].gameObject, sphere.transform.position - new Vector3(0, 0, 1), Quaternion.identity, sphere.transform) as GameObject;
 			w.layer = LayerMask.NameToLayer ("HUD");
+			w.transform.localPosition -= new Vector3 (0, 0.5f, 0);
+			w.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
+			Component[] comp = w.GetComponents<Component> ();
+			foreach (Component c in comp) {
+				if (!(c is Transform) && !(c is Renderer) && !(c is MeshFilter))
+					Destroy (c);
+			}
+			
+			Renderer[] renderers = w.GetComponentsInChildren<Renderer> ();
+
+			for (int j = 0; j < renderers.Length; j++) {
+				renderers [j].enabled = true;
+				renderers[j].gameObject.layer = LayerMask.NameToLayer ("HUD");
+			}
 		}
 	}
 }

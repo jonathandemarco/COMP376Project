@@ -38,7 +38,7 @@ public class CameraCenter : MonoBehaviour {
 			}
 			
 			Vector3 center = camera.ScreenToWorldPoint ((max + min) / 2);
-			transform.position = new Vector3 (center.x, 0, center.z);
+			transform.position = center;
 			Vector3 diff = (camera.ScreenToWorldPoint (max) - camera.ScreenToWorldPoint (min)) / 2;
 
 			float h = Mathf.Max (diff.x, diff.z);
