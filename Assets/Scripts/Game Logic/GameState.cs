@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -21,11 +21,12 @@ public class GameState : MonoBehaviour {
         winningPlayers.Add(-1);
 
         for (int i = 0; i < accumScoreList.Count; i++) {
-            if (accumScoreList[i] == winScore)
-                if(winningPlayers[0] == -1) {
-                    winningPlayers.Clear();
-                }
-            winningPlayers.Add(i);
+			if (accumScoreList [i] == winScore) {
+				if (winningPlayers [0] == -1) {
+					winningPlayers.Clear ();
+				}
+				winningPlayers.Add (i);
+			}
 		}
 
 		return winningPlayers;
@@ -39,6 +40,7 @@ public class GameState : MonoBehaviour {
 		List<int> winningPlayers = isGameOver ();
 		if(winningPlayers[0] != -1) {
 			gameOverScene (winningPlayers);
+			return;
 		}
 
         //display the winner/winners of the round
