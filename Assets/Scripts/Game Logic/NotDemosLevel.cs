@@ -6,6 +6,7 @@ public class NotDemosLevel : LevelManager {
 	public float itemDropProb;
 	public float meteorProb;
 	public GameObject meteorShowerPrefab;
+	public float skyBoxBlendSpeed;
 	List<Vector3> originalVertices;
 	float animationTime;
 	Vector3 tectonicPlate;
@@ -53,6 +54,8 @@ public class NotDemosLevel : LevelManager {
 		GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
 
 		GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
+
+		RenderSettings.skybox = skyboxMat;
 	}
 	
 	// Update is called once per frame
@@ -64,6 +67,8 @@ public class NotDemosLevel : LevelManager {
 
 		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
 			spawnCrate ();
+
+		updateSkybox ();
 
 		if (animationTime == 0.0f && Input.GetKeyDown ("v"))//&& Random.Range (0.0f, 1.0f) > 0.9f) {
 		{	animationTime += Time.deltaTime;
@@ -120,5 +125,9 @@ public class NotDemosLevel : LevelManager {
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
 		MeteorShower script = (MeteorShower) Instantiate (meteorShowerPrefab).GetComponent(typeof (MeteorShower));
 		script.setCastPoint (new Vector3 (Random.Range (min.x + size.x * 0.1f, max.x - size.x * 0.1f), 0, Random.Range (min.z + size.z * 0.1f, max.z - size.z * 0.1f)));
+	}
+
+	void updateSkybox () {
+		incrementSkyboxBlend (skyBoxBlendSpeed);
 	}
 }
