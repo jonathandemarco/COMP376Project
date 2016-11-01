@@ -169,5 +169,5 @@ MonoBehaviour:
   damage: 10
   attackRate: 1
   playerChar: 0
-  weaponSound: {fileID: 0}
+  weaponSound: {fileID: 8300000, guid: cd427321ddc501b4c9a7f6adf6a38bc8, type: 3}
   weaponAnimator: {fileID: 95000012923208580}

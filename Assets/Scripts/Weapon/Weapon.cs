@@ -13,10 +13,10 @@ public class Weapon : MonoBehaviour
 
     public char playerChar;
 
-    public AudioSource weaponSound;
+    public AudioClip weaponSound;
     public Animator weaponAnimator;
 
-    void Update()
+    public virtual void Update()
     {
     }
 
@@ -56,7 +56,7 @@ public class Weapon : MonoBehaviour
 
     public void SetAudioSource()
     {
-        weaponSound = this.gameObject.GetComponent<AudioSource>();
+        //weaponSound = this.gameObject.GetComponent<AudioSource>();
     }
 
     public void YieldAttackAnimator()
@@ -84,7 +84,7 @@ public class Weapon : MonoBehaviour
         weaponAnimator.SetBool("isAttacking", false);
     }
 
-    void OnCollisionEnter(Collision c)
+   	void OnCollisionEnter(Collision c)
     {
 		Collider col = c.collider;
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -97,6 +97,15 @@ public class Weapon : MonoBehaviour
             {
                 Vector3 direction = col.transform.position - transform.position;
                 manager.takeDamage(damage, direction);
+				Debug.Log (direction);
+
+				if (weaponSound != null) {
+					AudioSource audioSource = GetComponent<AudioSource>();
+					if (audioSource != null) {
+						audioSource.clip = weaponSound;
+						audioSource.Play ();
+					}
+				}
             }
         }
     }

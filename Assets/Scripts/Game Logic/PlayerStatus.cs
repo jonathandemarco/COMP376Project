@@ -45,6 +45,13 @@ public class PlayerStatus : MonoBehaviour {
 					if (!(c is Transform) && !(c is Renderer) && !(c is MeshFilter))
 						Destroy (c);
 				}
+
+				comp = w.GetComponentsInChildren<Component> ();
+
+				foreach (Component c in comp) {
+					if (!(c is Transform) && !(c is Renderer) && !(c is MeshFilter))
+						Destroy (c);
+				}
 			
 				Renderer[] renderers = w.GetComponentsInChildren<Renderer> ();
 

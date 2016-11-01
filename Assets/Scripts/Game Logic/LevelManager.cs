@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour {
     public List<Vector3> allSpawnsList = new List<Vector3>(); //available spawn points in level
 	public Material skyboxMat;
 
+	private bool skyboxIsIncrement = true;
+
     // Use this for initialization
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
@@ -179,8 +181,20 @@ public class LevelManager : MonoBehaviour {
 		this.timeLeft = time;
 	}
 
-	public void setSkyboxBlend(float blendFactor) {
-		RenderSettings.skybox.SetFloat("_Blend", blendFactor);
+	public void incrementSkyboxBlend(float blendFactor) {
+		
+		blendFactor = skyboxIsIncrement ? blendFactor : blendFactor * -1;
+		float newBlend = RenderSettings.skybox.GetFloat ("_Blend") + blendFactor;
+
+		if (newBlend > 1.0f) {
+			newBlend = 1.0f;
+			skyboxIsIncrement = false;
+		} else if (newBlend < 0.0f) {
+			newBlend = 0.0f;
+			skyboxIsIncrement = true;
+		}
+
+		RenderSettings.skybox.SetFloat("_Blend", newBlend);
 	}
 
 }
