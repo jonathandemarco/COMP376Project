@@ -11,8 +11,8 @@ public class GameState : MonoBehaviour {
 	public static LevelManager currentLevelManager;
 	public static int playerCount = 2;
 	public static bool camFollow = true;
-	private static int winScore;
-	private static List<int> accumScoreList = new List<int>();
+	public static int winScore;
+	public static List<int> accumScoreList = new List<int>();
 
 	//returns index of winning player or -1
 	public static List<int> isGameOver() {
@@ -56,19 +56,17 @@ public class GameState : MonoBehaviour {
         }
     }
 
-    private static void roundOverScene(List<int> winningPlayers)
-    {
-		//reset settings
-		initializeSettings(gameMode, playerCount, winScore);
-
-        //TODO: change to round over scene showing winning players
+    private static void roundOverScene(List<int> winningPlayers){    
+		
+		SceneManager.LoadScene("RoundOver");
     }
 
     private static void gameOverScene(List<int> winningPlayers) {
-        //TODO: change to game over scene showing winning player
+       
+		SceneManager.LoadScene("GameOver");
     }
 
-	public static void loadScene(string levelName) {
+	public void loadScene(string levelName) {
         //load level levelName
         SceneManager.LoadScene(levelName);
 	}
