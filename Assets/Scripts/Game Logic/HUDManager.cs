@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour {
 	public static HUDManager currentHUD;
+	public GameObject textPrefab;
 	public GameObject healthBarPrefab;
-	private float timeLeft;
+	private float time;
+	private TextMesh timeKeeper;
 	public List<PlayerManager> players;
 	// Use this for initialization
 	void Start () {
@@ -23,18 +25,16 @@ public class HUDManager : MonoBehaviour {
 			hB.transform.position += new Vector3 (((i % 2) * 2 - 1) * 20 + 3, ((i / 2) * 2 - 1) * 10, 0);
 			hB.GetComponentInChildren<PlayerStatus> ().setAvatar(players[i]);
 		}
+
+		timeKeeper = (Instantiate (textPrefab, transform.position + new Vector3(0, 14, 0), Quaternion.identity, transform) as GameObject).GetComponent<TextMesh>();
+		timeKeeper.transform.localScale = new Vector3 (0.02f, 0.02f, 0.02f);
+		timeKeeper.gameObject.layer = LayerMask.NameToLayer ("HUD");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-//		for (int i = 0; i < playerReferences.Count; i++)
-//		{
-//			PlayerManager player = playerReferences [i].GetComponent<PlayerManager> () as PlayerManager;
-//			if(player.getNumLives() > 0)
-//				transform.GetChild(i).GetComponent<StatusBar>().setValue(player.getHealth(), player.getMaxHealth());
-//		}
-		
+		time = getTime();
+		timeKeeper.text = "" + (int)time / 60 + ":" + ((int)time % 60 < 10 ? "0" : "") + (int)time % 60;
 	}
 
 	public void intializeHUD(GameObject[] playerObjects) {
@@ -46,7 +46,7 @@ public class HUDManager : MonoBehaviour {
 
 	public float getTime()
 	{
-		return 0;
+		return GameState.currentLevelManager.getTime();
 	}
 
 	public void update(PlayerManager player)

@@ -60,10 +60,9 @@ public class NotDemosLevel : LevelManager {
 		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
 			spawnCrate ();
 
-		if (animationTime == 0.0f && Input.GetKeyDown ("v"))//&& Random.Range (0.0f, 1.0f) > 0.9f) {
+		if (animationTime == 0.0f)//&& Random.Range (0.0f, 1.0f) > 0.9f) {
 		{	animationTime += Time.deltaTime;
-//			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
-			tectonicPlate = new Vector3();
+			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
 		}
 
 		if(animationTime > 0.0f && animationTime < 0.2f)

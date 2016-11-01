@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PlayerStatus : MonoBehaviour {
+	public GameObject textPrefab;
 	// Use this for initialization
 	void Start () {
 		
@@ -70,5 +71,16 @@ public class PlayerStatus : MonoBehaviour {
 				w.transform.localPosition = - new Vector3 (diff.x, diff.y, 5);
 			}
 		}
+
+		GameObject numOfLives = Instantiate (textPrefab, transform.position + new Vector3(1, 1.8f, 0), Quaternion.identity, transform) as GameObject;
+		numOfLives.layer = LayerMask.NameToLayer ("HUD");
+		numOfLives.transform.localScale = new Vector3 (0.3f, 0.4f, 1.0f);
+		TextMesh text = numOfLives.GetComponent<TextMesh> ();
+		text.text = "x";
+
+		numOfLives = Instantiate (textPrefab, transform.position + new Vector3(2.3f, 2.5f, 0), Quaternion.identity, transform) as GameObject;
+		numOfLives.layer = LayerMask.NameToLayer ("HUD");
+		text = numOfLives.GetComponent<TextMesh> ();
+		text.text = "" + player.getNumLives();
 	}
 }
