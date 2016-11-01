@@ -28,8 +28,10 @@ public class BulletMove : MonoBehaviour
 		if (mTimer >= mExpirationTime) {
 			Destroy (gameObject);
 		}
-
 	}
+    public void setExpirationTime(float ex) {
+        mExpirationTime = ex;
+    }
 		
 }
 

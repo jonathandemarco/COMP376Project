@@ -194,6 +194,9 @@ public class PlayerManager : MonoBehaviour
     {
         return health;
     }
+    public bool getAlive() {
+        return isAlive;
+    }
     public float getMaxHealth()
     {
         return maxHealth;

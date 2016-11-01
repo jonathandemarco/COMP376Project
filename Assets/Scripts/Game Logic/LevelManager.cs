@@ -20,13 +20,14 @@ public class LevelManager : MonoBehaviour {
     virtual public void Start () {
 		GameState.currentLevelManager = GetComponent<LevelManager>();
 		addPlayersToScene (GameState.playerCount);
-		Instantiate (HUDPrefab);
 		Instantiate (WeaponDatabase);
-		//RenderSettings.skybox = skyboxMat;
-	}
-	
-	// Update is called once per frame
-	virtual public void Update () {
+        Instantiate(HUDPrefab);
+
+        //RenderSettings.skybox = skyboxMat;
+    }
+
+    // Update is called once per frame
+    virtual public void Update () {
 	
 		timeLeft -= Time.deltaTime;
 
@@ -150,21 +151,32 @@ public class LevelManager : MonoBehaviour {
     public Vector3 getRespawnPoint(int playerIndex) {
         double maxAvgDistance = -1;
         int respawnIndex = -1;
+        int playerCount = 0;
 
         for (int i = 0; i < allSpawnsList.Count; i++) {
             double avgDistance = 0;
+            playerCount = 0;
             for (int j = 0; j < playersList.Count; j++) {
                 if (j != playerIndex) {
-                    avgDistance += Vector3.Distance(allSpawnsList[i], playersList[j].transform.position);
+                    if (((PlayerManager)playersList[j].GetComponent(typeof(PlayerManager))).getAlive())
+                    {
+                        avgDistance += Mathf.Abs(Vector3.Distance(allSpawnsList[i], playersList[j].transform.position));
+                        playerCount++;
+                    }
                 }
             }
 
-            avgDistance /= 3;
+            avgDistance /= playersList.Count;
 
             if (avgDistance > maxAvgDistance) {
                 maxAvgDistance = avgDistance;
                 respawnIndex = i;
             }
+        }
+
+        if (playerCount == 0)
+        {
+            return allSpawnsList[(Random.Range(0, allSpawnsList.Count))];
         }
         return allSpawnsList[respawnIndex];
     }
