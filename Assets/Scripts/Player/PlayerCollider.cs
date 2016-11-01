@@ -53,9 +53,7 @@ public class PlayerCollider : MonoBehaviour
 				*/
 				Destroy (col.gameObject);
 			}
-			else {
-				Destroy (col.gameObject);
-			}
+			Destroy (col.gameObject);
 			notify ();
 		}
 		
