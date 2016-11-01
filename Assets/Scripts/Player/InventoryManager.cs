@@ -30,7 +30,7 @@ public class InventoryManager : MonoBehaviour
 
 		inventory [0] = w; // returns the pillow that got instantiated
 
-        for (int i = 1; i < maxInventorySize; i++)
+        for (int i = 0; i < maxInventorySize; i++)
         {
             inventory[i] = nullWeapon;
         }
@@ -38,6 +38,16 @@ public class InventoryManager : MonoBehaviour
 
     public void AddToInventory(Weapon wep)
     {
+		// check if weapon is already in inventory
+		for (int i = 0; i < inventory.Length; i++) {
+			Debug.Log (inventory [i].name);
+			Debug.Log (wep.name);
+			if (string.Equals(wep.name, inventory [i].name.Substring(0, inventory [i].name.Length-7))) {
+				Debug.Log ("Player has this weapon already");
+				return;
+			}
+		}
+
 		Weapon w = (Weapon)Instantiate(wep, new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
         w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
 		w.transform.position = transform.position;
