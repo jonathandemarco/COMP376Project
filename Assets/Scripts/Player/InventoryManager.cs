@@ -11,29 +11,14 @@ public class InventoryManager : MonoBehaviour
     private WeaponDatabase database;
     public Weapon nullWeapon;
 
+
     void Start()
     {
         inventory = new Weapon[maxInventorySize];
         database = GameObject.FindGameObjectWithTag("Weapon Database").GetComponent<WeaponDatabase>();
         nullWeapon = database.getNullWeapon();
-
-		Weapon w = (Weapon)Instantiate(database.GetWeaponAt (0), new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
-		w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
-		w.transform.position = transform.position;
-		w.transform.parent = transform;
-
-		Renderer[] renderers = w.gameObject.GetComponentsInChildren<MeshRenderer>();
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = false;
-		}
-
-		inventory [0] = w; // returns the pillow that got instantiated
-
-        for (int i = 1; i < maxInventorySize; i++)
-        {
-            inventory[i] = nullWeapon;
-        }
+        
+        resetInventory();
     }
 
     public void AddToInventory(Weapon wep)
@@ -101,5 +86,30 @@ public class InventoryManager : MonoBehaviour
     public WeaponDatabase GetWeaponDatabase()
     {
         return database;
+    }
+    public void dropWeapon(int index) {
+        if (index < maxInventorySize)
+        {
+
+            Weapon w = inventory[index];
+            inventory[index] = nullWeapon;
+            //Destroy(w.gameObject);
+        }
+    }
+    public void resetInventory() {
+
+        for (int i = 0; i < maxInventorySize; i++) {
+            inventory[i] = nullWeapon;
+        }
+        Weapon w = (Weapon)Instantiate(database.GetWeaponAt(0), new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
+        w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
+        w.transform.position = transform.position;
+        w.transform.parent = transform;
+        inventory[0] = w;
+        Renderer[] renderers = w.gameObject.GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = false;
+        }
     }
 }

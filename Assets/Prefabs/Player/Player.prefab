@@ -278,7 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rotationSpeed: 15
-  numOfButtons: 4
+  numOfButtons: 5
 --- !u!114 &114000011200477298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,7 +332,7 @@ MonoBehaviour:
     jumpCooldownTime: 1
     moveSpeed: 10
     groundDragForce: 1
-    airDragForce: 0
+    airDragForce: 1
     airMoveForce: 500
     rotateSpeed: 10
     inventorySize: 2
@@ -343,6 +343,7 @@ MonoBehaviour:
     pushbackParalizationTime: 1
     pushbackFactor: 20
     tapTime: 1
+    buttonCooldown: 0.3
 --- !u!136 &136000011085656156
 CapsuleCollider:
   m_ObjectHideFlags: 1
