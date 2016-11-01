@@ -30,7 +30,7 @@ public class InventoryManager : MonoBehaviour
 
 		inventory [0] = w; // returns the pillow that got instantiated
 
-        for (int i = 0; i < maxInventorySize; i++)
+        for (int i = 1; i < maxInventorySize; i++)
         {
             inventory[i] = nullWeapon;
         }
