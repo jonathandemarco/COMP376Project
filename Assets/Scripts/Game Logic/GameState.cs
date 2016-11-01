@@ -55,10 +55,11 @@ public class GameState : MonoBehaviour {
             accumScoreList.Add(0);
         }
     }
-
+		
     private static void roundOverScene(List<int> winningPlayers){    
 		
 		SceneManager.LoadScene("RoundOver");
+
     }
 
     private static void gameOverScene(List<int> winningPlayers) {
