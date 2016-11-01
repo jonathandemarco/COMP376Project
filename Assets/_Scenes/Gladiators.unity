@@ -1079,9 +1079,12 @@ MonoBehaviour:
   skyboxMat: {fileID: 2100000, guid: 0676e912ec97af9428afde2ff8f97b18, type: 2}
   itemDropProb: 0.002
   meteorProb: 0.01
+  deformationProb: 0.1
   meteorShowerPrefab: {fileID: 1000012739722916, guid: ab69d8cdb694ec44e84a45d02b4f8484,
     type: 2}
   skyBoxBlendSpeed: 0
+  warningTime: 3
+  warningStep: 0.1
 --- !u!54 &1675934368
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1174,7 +1177,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1880740147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

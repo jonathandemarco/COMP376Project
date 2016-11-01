@@ -5,10 +5,15 @@ using System.Collections.Generic;
 public class NotDemosLevel : LevelManager {
 	public float itemDropProb;
 	public float meteorProb;
+	public float deformationProb;
 	public GameObject meteorShowerPrefab;
 	public float skyBoxBlendSpeed;
 	List<Vector3> originalVertices;
 	float animationTime;
+	public float warningTime;
+	public float warningStep;
+	private float earthquakeAnimTime;
+	bool deformation = false;
 	Vector3 tectonicPlate;
 	// Use this for initialization
 
@@ -68,24 +73,45 @@ public class NotDemosLevel : LevelManager {
 		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
 			spawnCrate ();
 
+		if (1 - Random.Range (0.0f, 1.0f) < deformationProb)
+			deformation = true;
+
 		updateSkybox ();
 
-		if (animationTime == 0.0f)//&& Random.Range (0.0f, 1.0f) > 0.9f) {
-		{	animationTime += Time.deltaTime;
+		if (animationTime == 0.0f && deformation) {
+			animationTime += Time.deltaTime;
 			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
 		}
 
-		if(animationTime > 0.0f && animationTime < 0.2f)
+		if(animationTime > 0.0f && animationTime < warningTime)
 		{
-			transform.position = new Vector3(transform.position.x, -Mathf.Sin(animationTime), transform.position.z);
+			transform.position = new Vector3(transform.position.x, -Mathf.Sin(animationTime / 10), transform.position.z);
+			if(earthquakeAnimTime > warningStep)
+			{
+				earthquakeAnimTime = 0;
+
+				Vector3[] vertices = new Vector3[originalVertices.Count];
+				for (int i = 0; i < originalVertices.Count; i++) {
+					float distance = (tectonicPlate - originalVertices [i]).magnitude * 10;
+					if(distance < 1.5f)
+						vertices [i] = originalVertices [i] + new Vector3 (0, 0, Random.Range(0.0f, 1.0f) / (1 + Mathf.Pow(distance, 2)));
+					else
+						vertices[i] = originalVertices[i];
+				}
+
+				GetComponent<MeshFilter> ().mesh.vertices = vertices;
+				GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
+			}
+
 			animationTime += Time.deltaTime;
+			earthquakeAnimTime += Time.deltaTime;
 		}
-		else if (animationTime > 0.2f && animationTime < 1.0f) {
+		else if (animationTime > warningTime && animationTime < warningTime + 1.0f) {
 			Vector3[] vertices = new Vector3[originalVertices.Count];
 			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
 			for (int i = 0; i < originalVertices.Count; i++) {
 				float distance = (tectonicPlate - originalVertices [i]).magnitude * 10;
-				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.5f / (1 + Mathf.Pow (distance, 16)));
+				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.5f / (1 + Mathf.Pow (distance, 8)));
 			}
 
 			GetComponent<MeshFilter> ().mesh.vertices = vertices;
@@ -93,7 +119,7 @@ public class NotDemosLevel : LevelManager {
 			GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
 			GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
 			animationTime += Time.deltaTime;
-		} else if (animationTime >= 1.0f && animationTime < 2.0f) {
+		} else if (animationTime >= warningTime + 1.0f && animationTime < warningTime + 2.0f) {
 			Vector3[] vertices = new Vector3[originalVertices.Count];
 			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
 			for (int i = 0; i < originalVertices.Count; i++) {
@@ -105,8 +131,9 @@ public class NotDemosLevel : LevelManager {
 			GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
 			GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
 			animationTime += Time.deltaTime;
-		} else if (animationTime >= 2.0f) {
+		} else if (animationTime >= warningTime + 2.0f) {
 			animationTime = 0;
+			deformation = false;
 		}
 	}
 
