@@ -8,12 +8,13 @@ public class Crate : MonoBehaviour {
 	public float delta = 1.5f;  // Amount to move left and right from the start point
 	public float speed = 2.0f; 
 	public float idleTime = 10.0f;
+	public int max_size; // weapon database size
 	private float inactiveTime;
 	private bool grounded;
 
 	void Start(){
 		grounded = false;
-		IDValue = Random.Range(0, 2);
+		IDValue = Random.Range(1, max_size); //hardcoded sword.
 	}
 		
 	void Update () {

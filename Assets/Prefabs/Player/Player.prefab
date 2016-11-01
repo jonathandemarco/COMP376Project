@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  numLives: 5
+  numLives: 2
   respawnTime: 5
   playerChar: 75
   team: 0

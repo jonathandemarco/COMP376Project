@@ -10,6 +10,7 @@ public class Sword : Weapon
         GetComponent<Collider>().enabled = false;
         renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
     }
+
     public override void PressAttack(ControlButton button)
     {
         Debug.Log("Swing");
