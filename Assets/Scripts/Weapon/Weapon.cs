@@ -93,9 +93,11 @@ public class Weapon : MonoBehaviour
             PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
             char colPlayerChar = getPlayerChar();
 
-			AudioSource audioSource = new AudioSource ();
-			audioSource.clip = weaponSound;
-			audioSource.Play ();
+			if (weaponSound != null) {
+				AudioSource audioSource = new AudioSource ();
+				audioSource.clip = weaponSound;
+				audioSource.Play ();
+			}
 
             if (manager.getPlayerChar() != colPlayerChar)
             {
