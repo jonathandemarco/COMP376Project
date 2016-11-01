@@ -45,6 +45,7 @@ public class MenuController : MonoBehaviour {
 
 	public void LoadLevel(int num){
 		GameState.playerCount = num;
+		GameState.initializeSettings (GameMode.STOCK, num, 3);
 		SceneManager.LoadScene ("Gladiators");
 	}
 

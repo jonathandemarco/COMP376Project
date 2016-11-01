@@ -32,6 +32,7 @@ public class GameState : MonoBehaviour {
 	}
 
 	public static void setWinningPlayers(List<int> indexes) {
+
 		for(int i = 0; i < indexes.Count; i++) {
 			accumScoreList[indexes[i]]++;
 		}
@@ -48,6 +49,7 @@ public class GameState : MonoBehaviour {
 		GameState.gameMode = gameMode;
 		GameState.playerCount = playerCount;
 		GameState.winScore = winScore;
+		accumScoreList.Clear ();
 
         for (int i = 0; i < playerCount; i++) {
             accumScoreList.Add(0);
@@ -56,6 +58,9 @@ public class GameState : MonoBehaviour {
 
     private static void roundOverScene(List<int> winningPlayers)
     {
+		//reset settings
+		initializeSettings(gameMode, playerCount, winScore);
+
         //TODO: change to round over scene showing winning players
     }
 
