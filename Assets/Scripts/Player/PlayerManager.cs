@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviour
     private Vector3 lastPosition;
 
     Vector3 velocity;
-
+    private MeshRenderer mesh;
 
     void Awake()
     {
@@ -80,6 +80,8 @@ public class PlayerManager : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         if (noSetup)
             setPlayerChar(playerChar);
+        mesh = transform.Find("Model").GetComponent<MeshRenderer>();
+
     }
     void Start()
     {
@@ -235,8 +237,8 @@ public class PlayerManager : MonoBehaviour
     private Vector3 getSpawnPoint()
     {
         if (GameState.currentLevelManager != null)
-            //return GameState.currentLevelManager.getRespawnPoint(0);
-            return GameState.currentLevelManager.getInitialSpawn(1);
+            return GameState.currentLevelManager.getRespawnPoint(0);
+            
         else return new Vector3(0, 5, 0);
     }
 
@@ -295,27 +297,36 @@ public class PlayerManager : MonoBehaviour
     }
 
     private void flipModelRender() {
+        /*
         MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < meshes.Length; i++)
         {
             meshes[i].enabled = !meshes[i].enabled;
         }
+        */
+        mesh.enabled = !mesh.enabled;
     }
     private void enableModelRender()
     {
+        /*
         MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < meshes.Length; i++)
         {
             meshes[i].enabled = true;
         }
+        */
+        mesh.enabled = true;
     }
     private void disableModelRender()
     {
+        mesh.enabled = false;
+        /*
         MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < meshes.Length; i++)
         {
             meshes[i].enabled = false;
         }
+        */
     }
 
     private void manageStates()
@@ -423,43 +434,37 @@ public class PlayerManager : MonoBehaviour
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            /* Weapon instantiation done here instead of the PlayerCollider
-			 * Allows us to have full access to the weapon
-			 * 
-			 * Previously, we were doing it in PlayerCollider, the weapon that was instantiated was a clone.
-			 * It was impossible to access it with the function in the Specific Weapon Scripts:
-			 * They were trying to modify the REAL weapon and not the clone.
-			 * 
-			 * This solution allows us to modify it
-			 *
-			*/
-            // Weapon wep = Instantiate (inventory.GetWeapon(0), transform.parent) as Weapon;
-            // wep.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
-            // wep.transform.parent = transform;
 
             inventory.GetWeapon(0).PressAttack(button);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
             //hold Button2;
+            inventory.GetWeapon(0).HoldAttack(button);
+
         }
         else if (action == ControlButton.ACTION.RELEASE)
         {
             //release Button2;
+            inventory.GetWeapon(0).ReleaseAttack(button);
+
         }
     }
     public void button3(ControlButton button, ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
         {
+            inventory.GetWeapon(1).PressAttack(button);
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
+            inventory.GetWeapon(1).HoldAttack(button);
 
 
         }
         else if (action == ControlButton.ACTION.RELEASE)
         {
+            inventory.GetWeapon(1).ReleaseAttack(button);
 
         }
     }

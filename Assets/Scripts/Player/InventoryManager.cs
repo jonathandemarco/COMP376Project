@@ -29,7 +29,6 @@ public class InventoryManager : MonoBehaviour
 		w.transform.position = transform.position;
         w.transform.parent = transform;
 
-        w.gameObject.GetComponent<Collider>().enabled = false;
 
         Renderer[] renderers = w.gameObject.GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < renderers.Length; i++)
@@ -42,7 +41,6 @@ public class InventoryManager : MonoBehaviour
             if (inventory[i] == nullWeapon)
             {
                 inventory[i] = w;
-                Debug.Log("I fucking added this to inv " + w);
                 break;
             }
         }

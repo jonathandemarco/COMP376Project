@@ -31,6 +31,7 @@ public class ControlButton {
         if (Input.GetButton(buttonCallName))
         {
             holdTime += Time.deltaTime;
+            netHoldTime += Time.deltaTime;
             lastState = ACTION.HOLD;
             manager.getMessage(this);
             
@@ -46,8 +47,8 @@ public class ControlButton {
         if (Input.GetButtonUp(buttonCallName))
         {
             lastState = ACTION.RELEASE;
-            netHoldTime += holdTime;
             manager.getMessage(this);
+            holdTime = 0;
         }
 
     }
