@@ -12,9 +12,10 @@ public class Meteor : MonoBehaviour {
     private int damage = 1;
     private Vector3 direction;
     private AudioSource[] audioSources;
+    private bool soundPlayed = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
 
         audioSources = GetComponents<AudioSource>();
 
@@ -35,13 +36,13 @@ public class Meteor : MonoBehaviour {
 
         audioSources[1].Play();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        transform.Translate(direction * speed * Time.deltaTime);
-	}
 
-    public void setDirection(Vector3 direction){
+    // Update is called once per frame
+    void Update() {
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
+
+    public void setDirection(Vector3 direction) {
         this.direction = direction;
     }
 
@@ -50,7 +51,9 @@ public class Meteor : MonoBehaviour {
         //TODO: handle collision with player --> apply damage
         //TODO: handle collision with other meteors --> dont explode
         */
-        if(col.collider.tag == "meteor") {
+
+
+        if (col.collider.tag == "meteor" || soundPlayed) {
             return;
         }
         Vector3 pos, normal;
@@ -73,12 +76,16 @@ public class Meteor : MonoBehaviour {
         shrapnel.transform.position = col.contacts[0].point;
         shrapnel.Emit(UnityEngine.Random.Range(10, 20));
 
+ 
         AudioSource s = audioSources[0];
         s.PlayOneShot(s.clip);
+        soundPlayed = true;
+        
 
         GetComponent< Renderer>().enabled = false;
         GetComponent<TrailRenderer>().enabled = false;
 
         Destroy(gameObject, s.clip.length);
+        
     }
 }
