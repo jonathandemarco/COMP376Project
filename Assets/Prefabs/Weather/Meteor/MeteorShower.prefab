@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteorPrefab: {fileID: 164416, guid: 0b57ed618208b9c45ad7433c3fc85712, type: 2}
-  meteorCount: 20
-  radius: 20
+  meteorCount: 1
+  radius: 2
   meteorTimeStep: 0.2
 --- !u!114 &114000013644391068
 MonoBehaviour:

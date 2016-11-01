@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
 
     public char playerChar;
 
-    public AudioSource weaponSound;
+    public AudioClip weaponSound;
     public Animator weaponAnimator;
 
     void Update()
@@ -56,7 +56,7 @@ public class Weapon : MonoBehaviour
 
     public void SetAudioSource()
     {
-        weaponSound = this.gameObject.GetComponent<AudioSource>();
+        //weaponSound = this.gameObject.GetComponent<AudioSource>();
     }
 
     public void YieldAttackAnimator()
@@ -92,6 +92,10 @@ public class Weapon : MonoBehaviour
             Debug.Log("Boom");
             PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
             char colPlayerChar = getPlayerChar();
+
+			AudioSource audioSource = new AudioSource ();
+			audioSource.clip = weaponSound;
+			audioSource.Play ();
 
             if (manager.getPlayerChar() != colPlayerChar)
             {
