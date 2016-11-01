@@ -58,9 +58,6 @@ public class GameState : MonoBehaviour {
 
     private static void roundOverScene(List<int> winningPlayers)
     {
-		//reset settings
-		initializeSettings(gameMode, playerCount, winScore);
-
         //TODO: change to round over scene showing winning players
     }
 
