@@ -17,7 +17,7 @@ public class InventoryManager : MonoBehaviour
         database = GameObject.FindGameObjectWithTag("Weapon Database").GetComponent<WeaponDatabase>();
         nullWeapon = database.getNullWeapon();
 
-		Weapon w = (Weapon)Instantiate(database.GetWeaponAt (0), new Vector3(0, 0, 0), Quaternion.LookRotation(Vector3.up, Vector3.forward));
+		Weapon w = (Weapon)Instantiate(database.GetWeaponAt (0), new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
 		w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
 		w.transform.position = transform.position;
 		w.transform.parent = transform;
@@ -38,11 +38,10 @@ public class InventoryManager : MonoBehaviour
 
     public void AddToInventory(Weapon wep)
     {
-        Weapon w = (Weapon)Instantiate(wep, new Vector3(0, 0, 0), Quaternion.LookRotation(Vector3.up, Vector3.forward));
+		Weapon w = (Weapon)Instantiate(wep, new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
         w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
 		w.transform.position = transform.position;
         w.transform.parent = transform;
-
 
         Renderer[] renderers = w.gameObject.GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < renderers.Length; i++)
