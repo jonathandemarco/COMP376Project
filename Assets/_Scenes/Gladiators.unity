@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4368103, g: 0.48440868, b: 0.564596, a: 1}
+  m_IndirectSpecularColor: {r: 0.43681014, g: 0.48440832, b: 0.56459594, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -779,8 +779,12 @@ MonoBehaviour:
     type: 2}
   initialSpawnsList: []
   allSpawnsList: []
-  skyboxMat: {fileID: 0}
+  skyboxMat: {fileID: 2100000, guid: 0676e912ec97af9428afde2ff8f97b18, type: 2}
   itemDropProb: 0.002
+  meteorProb: 0
+  meteorShowerPrefab: {fileID: 1000012739722916, guid: ab69d8cdb694ec44e84a45d02b4f8484,
+    type: 2}
+  skyBoxBlendSpeed: 0
 --- !u!54 &1675934368
 Rigidbody:
   m_ObjectHideFlags: 0
