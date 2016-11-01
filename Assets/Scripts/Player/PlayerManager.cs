@@ -25,6 +25,8 @@ public class PlayerSettings
 
     public float pushbackFactor;
     public float tapTime;
+    public float buttonCooldown;
+
 }
 public class PlayerManager : MonoBehaviour
 {
@@ -73,6 +75,11 @@ public class PlayerManager : MonoBehaviour
     Vector3 velocity;
     private MeshRenderer mesh;
 
+    private bool actionButton_1, actionButton_2;
+    private float nextButtonPress = 0;
+    private bool dropWeapon = false;
+
+
     void Awake()
     {
         playerController = GetComponentInChildren<PlayerControls>();
@@ -92,6 +99,8 @@ public class PlayerManager : MonoBehaviour
         grounded = true;
         health = maxHealth;
         score = 0;
+        actionButton_1 = false;
+        actionButton_2 = false;
     }
 
     // Update is called once per frame
@@ -109,7 +118,6 @@ public class PlayerManager : MonoBehaviour
         if (!isEliminated)
         {
             velocity = (transform.position - lastPosition) / Time.deltaTime;
-
             lastPosition = transform.position;
             if (!isAlive)
             {
@@ -221,6 +229,7 @@ public class PlayerManager : MonoBehaviour
             isEliminated = true;
         notify();
         disableModelRender(); // replace with mesh child
+        inventory.resetInventory();
 
 
     }
@@ -371,6 +380,11 @@ public class PlayerManager : MonoBehaviour
             rb.drag = settings.airDragForce;
     }
 
+    public void drop(int index) {
+        inventory.dropWeapon(index);
+        notify();
+    }
+
     public void getMessage(ControlButton button)
     {
         int buttonID = button.getID();
@@ -432,47 +446,65 @@ public class PlayerManager : MonoBehaviour
     }
     public void button2(ControlButton button, ControlButton.ACTION action)
     {
-        if (action == ControlButton.ACTION.PRESS)
+        
+        if (!actionButton_2 && (Time.time > nextButtonPress || actionButton_1) && !dropWeapon)
         {
+            if (action == ControlButton.ACTION.PRESS)
+            {
+                inventory.GetWeapon(0).PressAttack(button);
+                actionButton_1 = true;
+                nextButtonPress = Time.time + settings.buttonCooldown;
+            }
+            else if (action == ControlButton.ACTION.HOLD)
+            {
+                inventory.GetWeapon(0).HoldAttack(button);
 
-            inventory.GetWeapon(0).PressAttack(button);
+
+            }
+            else if (action == ControlButton.ACTION.RELEASE)
+            {
+                inventory.GetWeapon(0).ReleaseAttack(button);
+                actionButton_1 = false;
+            }
         }
-        else if (action == ControlButton.ACTION.HOLD)
+        else if (dropWeapon)
         {
-            //hold Button2;
-            inventory.GetWeapon(0).HoldAttack(button);
-
-        }
-        else if (action == ControlButton.ACTION.RELEASE)
-        {
-            //release Button2;
-            inventory.GetWeapon(0).ReleaseAttack(button);
-
+            drop(0);
         }
     }
     public void button3(ControlButton button, ControlButton.ACTION action)
     {
-        if (action == ControlButton.ACTION.PRESS)
+        if (!actionButton_1 && (Time.time > nextButtonPress ||actionButton_2) && !dropWeapon)
         {
-            inventory.GetWeapon(1).PressAttack(button);
+            if (action == ControlButton.ACTION.PRESS)
+            {
+                inventory.GetWeapon(1).PressAttack(button);
+                actionButton_2 = true;
+                nextButtonPress = Time.time + settings.buttonCooldown;
+
+            }
+            else if (action == ControlButton.ACTION.HOLD)
+            {
+                inventory.GetWeapon(1).HoldAttack(button);
+
+
+            }
+            else if (action == ControlButton.ACTION.RELEASE)
+            {
+                inventory.GetWeapon(1).ReleaseAttack(button);
+                actionButton_2 = false;
+            }
         }
-        else if (action == ControlButton.ACTION.HOLD)
-        {
-            inventory.GetWeapon(1).HoldAttack(button);
-
-
-        }
-        else if (action == ControlButton.ACTION.RELEASE)
-        {
-            inventory.GetWeapon(1).ReleaseAttack(button);
-
+        else if (dropWeapon) {
+            drop(1);
         }
     }
     public void button4(ControlButton button, ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            //press Button4;
+            dropWeapon = true;
+            Debug.Log("DROPPING!");
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
@@ -481,6 +513,7 @@ public class PlayerManager : MonoBehaviour
         else if (action == ControlButton.ACTION.RELEASE)
         {
             //release Button4;
+            dropWeapon = false;
         }
     }
 
