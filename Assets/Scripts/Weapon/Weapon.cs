@@ -93,16 +93,18 @@ public class Weapon : MonoBehaviour
             PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
             char colPlayerChar = getPlayerChar();
 
-			if (weaponSound != null) {
-				AudioSource audioSource = new AudioSource ();
-				audioSource.clip = weaponSound;
-				audioSource.Play ();
-			}
-
             if (manager.getPlayerChar() != colPlayerChar)
             {
                 Vector3 direction = col.transform.position - transform.position;
                 manager.takeDamage(damage, direction);
+
+				if (weaponSound != null) {
+					AudioSource audioSource = GetComponent<AudioSource>();
+					if (audioSource != null) {
+						audioSource.clip = weaponSound;
+						audioSource.Play ();
+					}
+				}
             }
         }
     }
