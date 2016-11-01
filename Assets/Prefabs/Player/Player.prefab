@@ -92,7 +92,7 @@ GameObject:
   - 33: {fileID: 33000010448083828}
   m_Layer: 8
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: PlayerModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ebaff6e9dcde63149a9cb9770db72042, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
