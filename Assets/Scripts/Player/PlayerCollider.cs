@@ -51,7 +51,6 @@ public class PlayerCollider : MonoBehaviour
                 w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
                 w.transform.parent = transform;
 				*/
-				Destroy (col.gameObject);
 			}
 			Destroy (col.gameObject);
 			notify ();
