@@ -13,7 +13,7 @@ public class Crate : MonoBehaviour {
 
 	void Start(){
 		grounded = false;
-		IDValue = 1; //hardcoded sword.
+		IDValue = 0; //hardcoded sword.
 	}
 		
 	void Update () {
