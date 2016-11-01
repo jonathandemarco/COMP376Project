@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerStatus : MonoBehaviour {
 	public GameObject textPrefab;
+	public Material inventoryMaterial;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,6 +16,9 @@ public class PlayerStatus : MonoBehaviour {
 
 	public void setAvatar(PlayerManager player)
 	{
+		if (player == null)
+			return;
+
 		GetComponent<MeshFilter> ().mesh = player.transform.FindChild("Model").GetComponent<MeshFilter> ().mesh;
 		GetComponent<Renderer> ().material = player.transform.FindChild("Model").GetComponentInChildren<Renderer> ().material;
 
@@ -29,6 +33,7 @@ public class PlayerStatus : MonoBehaviour {
 		{
 			GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 			sphere.transform.SetParent (transform);
+			sphere.GetComponent<Renderer> ().material = inventoryMaterial;
 			sphere.layer = LayerMask.NameToLayer ("HUD");
 			Vector3 scale = b.size * 0.5f;
 			float n = Mathf.Clamp (scale.x, 0, 2.0f);

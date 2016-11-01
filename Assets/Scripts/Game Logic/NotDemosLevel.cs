@@ -93,7 +93,7 @@ public class NotDemosLevel : LevelManager {
 				Vector3[] vertices = new Vector3[originalVertices.Count];
 				for (int i = 0; i < originalVertices.Count; i++) {
 					float distance = (tectonicPlate - originalVertices [i]).magnitude * 10;
-					if(distance < 1.5f)
+					if(distance < 0.5f * animationTime)
 						vertices [i] = originalVertices [i] + new Vector3 (0, 0, Random.Range(0.0f, 1.0f) / (1 + Mathf.Pow(distance, 2)));
 					else
 						vertices[i] = originalVertices[i];
