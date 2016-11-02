@@ -44,7 +44,7 @@ public class CameraCenter : MonoBehaviour {
 			float h = Mathf.Max (diff.x, diff.z);
 			float f = h / Mathf.Tan (60 * Mathf.Deg2Rad);
 
-			f = Mathf.Max (4.0f, f);
+			f = Mathf.Max (10.0f, f);
 
 			camera.gameObject.transform.localPosition = camera.gameObject.transform.localPosition.normalized * f;
 		}
