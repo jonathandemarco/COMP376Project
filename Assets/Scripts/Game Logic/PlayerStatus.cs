@@ -40,7 +40,7 @@ public class PlayerStatus : MonoBehaviour {
 
 			sphere.transform.position = transform.position - new Vector3(- i * n * 2 / itemCount - 2 - n * 0.5f / itemCount, 2, 2);
 			sphere.transform.localScale = new Vector3 (n / itemCount, n / itemCount, n / itemCount);
-			if (!(weapons [i] is NullWeapon)) {
+			if (weapons[i] != null && !(weapons [i] is NullWeapon)) {
 				GameObject w = Instantiate (weapons [i].gameObject, sphere.transform.position - new Vector3 (0, 0, 1), Quaternion.identity, sphere.transform) as GameObject;
 				w.layer = LayerMask.NameToLayer ("HUD");
 				w.transform.localScale = new Vector3 (1, 1, 1);
