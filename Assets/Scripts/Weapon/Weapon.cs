@@ -84,7 +84,7 @@ public class Weapon : MonoBehaviour
         weaponAnimator.SetBool("isAttacking", false);
     }
 
-   	void OnCollisionEnter(Collision c)
+   	public virtual void OnCollisionEnter(Collision c)
     {
 		Collider col = c.collider;
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))

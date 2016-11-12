@@ -9,45 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000011210855518}
+  m_RootGameObject: {fileID: 1000012386879662}
   m_IsPrefabParent: 1
---- !u!1 &1000011210855518
+--- !u!1 &1000012386879662
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000013026960812}
-  - 33: {fileID: 33000013690567220}
-  - 23: {fileID: 23000013480914614}
-  - 65: {fileID: 65000010823003450}
+  - 4: {fileID: 4000013118966912}
+  - 33: {fileID: 33000010724548834}
+  - 23: {fileID: 23000010439357194}
+  - 114: {fileID: 114000010066154236}
   m_Layer: 10
-  m_Name: LaserMachine
+  m_Name: LaserGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000013026960812
+--- !u!4 &4000013118966912
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011210855518}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20, y: 0.5, z: 0}
+  m_GameObject: {fileID: 1000012386879662}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &23000013480914614
+--- !u!23 &23000010439357194
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011210855518}
+  m_GameObject: {fileID: 1000012386879662}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
+  m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_SelectedWireframeHidden: 0
@@ -71,22 +71,33 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000013690567220
+--- !u!33 &33000010724548834
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011210855518}
+  m_GameObject: {fileID: 1000012386879662}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65000010823003450
-BoxCollider:
+--- !u!114 &114000010066154236
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011210855518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 1000012386879662}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600df41303c78cc4a8de626d7b3f0f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  damage: 0
+  attackRate: 0
+  playerChar: 0
+  weaponSound: {fileID: 0}
+  weaponAnimator: {fileID: 0}
+  laserMachinePrefab: {fileID: 1000011210855518, guid: 76cb328b136e0254ea54e3f765875635,
+    type: 2}
+  laserRenderer: {fileID: 1000010733614066, guid: 8696603cc27dbfc47bbe80ac782ee547,
+    type: 2}
+  laserApparatusPrefab: {fileID: 1000013430806456, guid: af7f547c468fc094b9eaf40dc5732032,
+    type: 2}

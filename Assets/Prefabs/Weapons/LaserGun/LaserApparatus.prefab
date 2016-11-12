@@ -9,52 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000010871992592}
+  m_RootGameObject: {fileID: 1000013430806456}
   m_IsPrefabParent: 1
---- !u!1 &1000010871992592
+--- !u!1 &1000013430806456
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000012647586944}
-  - 114: {fileID: 114000010798155644}
+  - 4: {fileID: 4000011378894454}
+  - 114: {fileID: 114000011154793486}
   m_Layer: 0
-  m_Name: WeaponDatabase
-  m_TagString: Weapon Database
+  m_Name: LaserApparatus
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000012647586944
+--- !u!4 &4000011378894454
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010871992592}
+  m_GameObject: {fileID: 1000013430806456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.624317, y: -47.36985, z: -126.40072}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000010798155644
+--- !u!114 &114000011154793486
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010871992592}
+  m_GameObject: {fileID: 1000013430806456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77b844d1ee5b6214996129b0c0c61620, type: 3}
+  m_Script: {fileID: 11500000, guid: 8219e1c446f8ae04ab7b632f99277ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDatabase:
-  - {fileID: 114000013867529322, guid: 494b8278a798e9e4dba55c93c5a2889f, type: 2}
-  - {fileID: 114000011008551264, guid: 7583cefa5692d8749b7cf4d1227fefe8, type: 2}
-  - {fileID: 114000014200757644, guid: 987b9750c15af40e0913a8d7a2e189a9, type: 2}
-  - {fileID: 114000010066154236, guid: 33ddc7d3c1d52c84ba862275c659c742, type: 2}
-  nullWeapon: {fileID: 114000010459361668, guid: 00a0367e1d259c3439af53069c430c95,
-    type: 2}
+  lifeTime: 5

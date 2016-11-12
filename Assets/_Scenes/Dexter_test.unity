@@ -333,6 +333,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 761306713}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1099191170
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013026960812, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 76cb328b136e0254ea54e3f765875635, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1180547584
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,8 +861,11 @@ MonoBehaviour:
   skyboxMat: {fileID: 0}
   itemDropProb: 0.002
   meteorProb: 0
+  deformationProb: 0
   meteorShowerPrefab: {fileID: 0}
   skyBoxBlendSpeed: 0
+  warningTime: 0
+  warningStep: 0
 --- !u!23 &2035887939
 MeshRenderer:
   m_ObjectHideFlags: 0
