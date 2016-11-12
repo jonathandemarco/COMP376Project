@@ -15,13 +15,10 @@ public class LaserMachine : Weapon {
 
 	public override void OnCollisionEnter(Collision c)
 	{
-		Collider col = c.collider;  
-		if (col.gameObject.layer != LayerMask.NameToLayer ("Terrain")) {			
-			collidedObject = col.gameObject.transform;
-			collisionPoint = collidedObject.position - c.contacts [0].point;
-			gameObject.GetComponent<Collider>().enabled = false;
-		}
-
+		Collider col = c.collider; 
+		collidedObject = col.gameObject.transform;
+		collisionPoint = collidedObject.position - c.contacts [0].point;
+		gameObject.GetComponent<Collider>().enabled = false;
 	}
 
 }

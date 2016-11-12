@@ -27,8 +27,8 @@ public class LaserGun : Weapon {
 			renderers[i].enabled = true;
 		}
 
-		GameObject machine = Instantiate (laserMachinePrefab, transform.position + laserSpawn.position, laserSpawn.rotation, transform) as GameObject;
-		machine.GetComponent<Rigidbody> ().AddForce ((transform.up * force) + (transform.parent.forward * force));
+		GameObject machine = Instantiate (laserMachinePrefab, laserSpawn.position, laserSpawn.rotation) as GameObject;
+		machine.GetComponent<Rigidbody> ().AddForce ((transform.up * force) - (transform.right * force));
 		count++;
 
 		if (count == 1) {
@@ -60,7 +60,7 @@ public class LaserGun : Weapon {
 	{
 		for (int i = 0; i < renderers.Length; i++)
 		{
-			renderers[i].enabled = false;
+			// renderers[i].enabled = false;
 		}
 	}
 }
