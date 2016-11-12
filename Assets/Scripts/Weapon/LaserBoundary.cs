@@ -12,10 +12,12 @@ public class LaserBoundary : Weapon {
 	private bool isComplete;
 
 	void Start(){
+		lineRenderer = GetComponent<LineRenderer> ();
+		lineRenderer.enabled = false;
 	}
 
 	// Use this for initialization
-	void Update () {
+	public override void Update () {
 		if (isComplete) {
 			lineRenderer.SetPosition (0, origin.position);
 			lineRenderer.SetPosition (1, destination.position);
@@ -27,10 +29,11 @@ public class LaserBoundary : Weapon {
 		}
 	}
 
-	public void RenderLine(){
-		lineRenderer = GetComponent<LineRenderer> ();
+	public void RenderLine(){		
+		lineRenderer.enabled = true;
 
 		capsule = gameObject.AddComponent<CapsuleCollider> ();
+		capsule.isTrigger = true;
 		capsule.radius = lineWidth / 2; // same width as the line renderer
 		capsule.center = Vector3.zero; // center it to 0, 0, 0
 		capsule.direction = 2; // z-axis for easier lookAt orientation... apparently it helps!

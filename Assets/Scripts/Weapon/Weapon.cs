@@ -110,6 +110,30 @@ public class Weapon : MonoBehaviour
         }
     }
 
+	public virtual void OnTriggerEnter(Collider col){
+		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			Debug.Log("Boom");
+			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
+			char colPlayerChar = getPlayerChar();
+
+			if (manager.getPlayerChar() != colPlayerChar)
+			{
+				Vector3 direction = col.transform.position - transform.position;
+				manager.takeDamage(damage, direction);
+				Debug.Log (direction);
+
+				if (weaponSound != null) {
+					AudioSource audioSource = GetComponent<AudioSource>();
+					if (audioSource != null) {
+						audioSource.clip = weaponSound;
+						audioSource.Play ();
+					}
+				}
+			}
+		}
+	}
+
     public virtual void HoldAttack(ControlButton button)
     {
     }

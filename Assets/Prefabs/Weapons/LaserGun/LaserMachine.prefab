@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000013026960812}
   - 33: {fileID: 33000013690567220}
   - 23: {fileID: 23000013480914614}
-  - 65: {fileID: 65000010823003450}
   - 114: {fileID: 114000013633937440}
   - 54: {fileID: 54000013818701630}
+  - 135: {fileID: 135000012247543376}
   m_Layer: 10
   m_Name: LaserMachine
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011210855518}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54000013818701630
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -95,18 +95,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000010823003450
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011210855518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000013633937440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,9 +107,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  damage: 5
+  damage: 0
   attackRate: 0
   playerChar: 0
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
-  speed: 2
+--- !u!135 &135000012247543376
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011210855518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

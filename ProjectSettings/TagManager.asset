@@ -8,7 +8,6 @@ TagManager:
   - InventoryManager
   - Weapon Database
   - PlayerModel
-  - LaserLine
   layers:
   - Default
   - TransparentFX

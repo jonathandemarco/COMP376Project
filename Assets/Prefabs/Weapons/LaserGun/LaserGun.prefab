@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013118966912}
-  - 33: {fileID: 33000010724548834}
-  - 23: {fileID: 23000010439357194}
-  - 114: {fileID: 114000010066154236}
-  m_Layer: 10
+  - 33: {fileID: 33000013113389502}
+  - 23: {fileID: 23000010885485488}
+  - 114: {fileID: 114000010010519826}
+  m_Layer: 0
   m_Name: LaserGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &23000010439357194
+--- !u!23 &23000010885485488
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -55,13 +55,13 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_SelectedWireframeHidden: 0
@@ -71,14 +71,14 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000010724548834
+--- !u!33 &33000013113389502
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012386879662}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114000010066154236
+  m_Mesh: {fileID: 4300006, guid: 371ed6c0dd75f6a4ebd1dfcb0b578b46, type: 3}
+--- !u!114 &114000010010519826
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -101,3 +101,5 @@ MonoBehaviour:
     type: 2}
   laserApparatusPrefab: {fileID: 1000013430806456, guid: af7f547c468fc094b9eaf40dc5732032,
     type: 2}
+  laserSpawn: {fileID: 4000012609113044, guid: a9d38e28ae296b6429fbf69ef60a16e6, type: 2}
+  force: 500
