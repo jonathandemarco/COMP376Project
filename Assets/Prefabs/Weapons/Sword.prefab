@@ -289,7 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   damage: 20
-  attackRate: 0
+  attackRate: 1
   playerChar: 0
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 95000011504620284}
