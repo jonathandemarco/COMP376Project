@@ -232,7 +232,7 @@ public class PlayerManager : MonoBehaviour
             isEliminated = true;
         notify();
         disableModelRender(); // replace with mesh child
-        inventory.resetInventory();
+        inventory.resetInventory(false);
 
 
     }

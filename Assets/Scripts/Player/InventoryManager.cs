@@ -17,10 +17,7 @@ public class InventoryManager : MonoBehaviour
         inventory = new Weapon[maxInventorySize];
         database = GameObject.FindGameObjectWithTag("Weapon Database").GetComponent<WeaponDatabase>();
         nullWeapon = database.getNullWeapon();
-        
-        resetInventory();
-
-		GetComponentInParent<PlayerManager> ().notify();
+        resetInventory(true);
     }
 
     public void AddToInventory(Weapon wep)
@@ -90,18 +87,22 @@ public class InventoryManager : MonoBehaviour
         return database;
     }
     public void dropWeapon(int index) {
-        if (index < maxInventorySize)
+        if (index < maxInventorySize && inventory[index]!=nullWeapon)
         {
 
             Weapon w = inventory[index];
             inventory[index] = nullWeapon;
-            //Destroy(w.gameObject);
+            w.gameObject.SetActive(false);
+
         }
     }
-    public void resetInventory() {
+    public void resetInventory(bool start) {
 
         for (int i = 0; i < maxInventorySize; i++) {
-            inventory[i] = nullWeapon;
+            if(start)
+                inventory[i] = nullWeapon;
+            else
+                dropWeapon(i);
         }
         Weapon w = (Weapon)Instantiate(database.GetWeaponAt(0), new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
         w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
@@ -113,5 +114,6 @@ public class InventoryManager : MonoBehaviour
         {
             renderers[i].enabled = false;
         }
+        
     }
 }

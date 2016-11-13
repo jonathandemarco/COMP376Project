@@ -819,8 +819,11 @@ MonoBehaviour:
   skyboxMat: {fileID: 0}
   itemDropProb: 0.002
   meteorProb: 0
+  deformationProb: 0
   meteorShowerPrefab: {fileID: 0}
   skyBoxBlendSpeed: 0
+  warningTime: 0
+  warningStep: 0
 --- !u!23 &2035887939
 MeshRenderer:
   m_ObjectHideFlags: 0
