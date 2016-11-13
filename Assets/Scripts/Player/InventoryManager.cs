@@ -17,7 +17,6 @@ public class InventoryManager : MonoBehaviour
         inventory = new Weapon[maxInventorySize];
         database = GameObject.FindGameObjectWithTag("Weapon Database").GetComponent<WeaponDatabase>();
         nullWeapon = database.getNullWeapon();
-        
         resetInventory(true);
     }
 

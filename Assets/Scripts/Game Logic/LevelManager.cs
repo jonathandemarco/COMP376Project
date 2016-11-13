@@ -22,7 +22,6 @@ public class LevelManager : MonoBehaviour {
 		addPlayersToScene (GameState.playerCount);
 		Instantiate (WeaponDatabase);
         Instantiate(HUDPrefab);
-
         //RenderSettings.skybox = skyboxMat;
     }
 

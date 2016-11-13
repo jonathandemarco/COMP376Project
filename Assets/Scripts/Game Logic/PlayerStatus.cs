@@ -4,14 +4,19 @@ using System.Collections;
 public class PlayerStatus : MonoBehaviour {
 	public GameObject textPrefab;
 	public Material inventoryMaterial;
+	public Camera camera;
 	// Use this for initialization
 	void Start () {
-		
+		camera = GameObject.Find("HUDCam").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		for(int i = 0; i < transform.childCount; i++)
+		{
+			for (int j = 0; j < transform.GetChild (i).childCount; j++)
+				transform.GetChild (i).GetChild (j).transform.RotateAround(transform.GetChild(i).GetChild(j).transform.position, new Vector3(0, 1, 0), 0.5f);
+		}
 	}
 
 	public void setAvatar(PlayerManager player)
@@ -19,6 +24,7 @@ public class PlayerStatus : MonoBehaviour {
 		if (player == null)
 			return;
 
+		camera = GameObject.Find("HUDCam").GetComponent<Camera>();
 		GetComponent<MeshFilter> ().mesh = player.transform.FindChild("Model").GetComponent<MeshFilter> ().mesh;
 		GetComponent<Renderer> ().material = player.transform.FindChild("Model").GetComponentInChildren<Renderer> ().material;
 
@@ -38,8 +44,10 @@ public class PlayerStatus : MonoBehaviour {
 			Vector3 scale = b.size * 0.5f;
 			float n = Mathf.Clamp (scale.x, 0, 2.0f);
 
-			sphere.transform.position = transform.position - new Vector3(- i * n * 2 / itemCount - 2 - n * 0.5f / itemCount, 2, 2);
 			sphere.transform.localScale = new Vector3 (n / itemCount, n / itemCount, n / itemCount);
+			float offsetY = (sphere.GetComponent<Renderer> ().bounds.size.y + transform.parent.transform.FindChild("HealthBar").GetComponent<Renderer> ().bounds.size.y) / 2;
+			sphere.transform.localPosition = - new Vector3(- i * n * 2 / itemCount - 2 - n * 0.5f / itemCount, offsetY, 4);
+
 			if (weapons[i] != null && !(weapons [i] is NullWeapon)) {
 				GameObject w = Instantiate (weapons [i].gameObject, sphere.transform.position - new Vector3 (0, 0, 1), Quaternion.identity, sphere.transform) as GameObject;
 				w.layer = LayerMask.NameToLayer ("HUD");
@@ -78,20 +86,25 @@ public class PlayerStatus : MonoBehaviour {
 				maxBounds = bounds.max;
 				Vector3 size = maxBounds - minBounds;
 				float maxSize = Mathf.Max (size.x, Mathf.Max(size.y, size.z));
-				w.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f) / maxSize;
+				w.transform.localScale = new Vector3((float)Screen.width / 1000, (float)Screen.height / 1000, 1.5f) / maxSize;
 				Vector3 diff = 1.5f * (maxBounds + minBounds) / (2 * maxSize);
 				w.transform.localPosition = - new Vector3 (diff.x, diff.y, 5);
 			}
 		}
 
-		GameObject numOfLives = Instantiate (textPrefab, transform.position + new Vector3(1, 1.8f, 0), Quaternion.identity, transform) as GameObject;
+		Vector3 ballSize = GetComponent<Renderer>().bounds.size;
+
+		GameObject numOfLives = Instantiate (textPrefab, transform.position + new Vector3(ballSize.x * 0.8f, ballSize.y * 0.8f, 0), Quaternion.identity, transform) as GameObject;
 		numOfLives.layer = LayerMask.NameToLayer ("HUD");
-		numOfLives.transform.localScale = new Vector3 (0.3f, 0.4f, 1.0f);
+		numOfLives.transform.localScale = new Vector3 (0.1f * (float)Screen.width / 1000, 0.4f * (float)Screen.height / 1000, 1.0f);
 		TextMesh text = numOfLives.GetComponent<TextMesh> ();
 		text.text = "x";
 
-		numOfLives = Instantiate (textPrefab, transform.position + new Vector3(2.3f, 2.5f, 0), Quaternion.identity, transform) as GameObject;
+		Vector3 xSize = numOfLives.GetComponent<Renderer> ().bounds.size;
+		numOfLives = Instantiate (textPrefab, transform.position, Quaternion.identity, transform) as GameObject;
 		numOfLives.layer = LayerMask.NameToLayer ("HUD");
+		numOfLives.transform.localScale = new Vector3 (0.4f * (float)Screen.width / 1000, 0.7f * (float)Screen.height / 1000, 1.0f);
+		numOfLives.transform.localPosition += new Vector3 (ballSize.x * 0.9f + xSize.x / 2 + numOfLives.GetComponent<Renderer> ().bounds.size.x / 2, ballSize.y * 0.8f, 0);
 		text = numOfLives.GetComponent<TextMesh> ();
 		text.text = "" + player.getNumLives();
 	}
