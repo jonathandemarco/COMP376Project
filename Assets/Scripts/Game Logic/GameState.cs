@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public enum GameMode {STOCK, TIMER};
 
-public class GameState : MonoBehaviour {
+public class GameState {
 
 	public static GameMode gameMode;
 	public static LevelManager currentLevelManager;
-	public static int playerCount = 2;
+	public static int playerCount = 4;
 	public static bool camFollow = true;
 	public static int winScore;
 	public static List<int> accumScoreList = new List<int>();

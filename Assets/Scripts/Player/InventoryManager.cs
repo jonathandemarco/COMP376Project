@@ -19,6 +19,8 @@ public class InventoryManager : MonoBehaviour
         nullWeapon = database.getNullWeapon();
         
         resetInventory();
+
+		GetComponentInParent<PlayerManager> ().notify();
     }
 
     public void AddToInventory(Weapon wep)

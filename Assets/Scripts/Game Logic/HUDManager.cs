@@ -7,6 +7,7 @@ public class HUDManager : MonoBehaviour {
 	public static HUDManager currentHUD;
 	public GameObject textPrefab;
 	public GameObject healthBarPrefab;
+	new public Camera camera;
 	private float time;
 	private TextMesh timeKeeper;
 	public List<PlayerManager> players;
@@ -20,9 +21,35 @@ public class HUDManager : MonoBehaviour {
 			players.Add(p[i].GetComponent<PlayerManager> ());
 		
 		currentHUD = GetComponent<HUDManager>();
+
+		camera = GameObject.Find ("HUDCam").GetComponent<Camera>();
+		float width = camera.pixelWidth;
+		float height = camera.pixelHeight;
+
+		float xMargin = 0;
+		float yMargin = 0.05f * Screen.height;
+
 		for (int i = 0; i < p.Count; i++) {
 			GameObject hB = Instantiate (healthBarPrefab, transform) as GameObject;
-			hB.transform.position += new Vector3 (((i % 2) * 2 - 1) * 20 + 3, ((i / 2) * 2 - 1) * 10, 0);
+			hB.transform.localScale = new Vector3 (hB.transform.localScale.x * width / 1000, hB.transform.localScale.y * height / 1000, hB.transform.localScale.z);
+			Bounds bounds = hB.GetComponent<Renderer> ().bounds;
+			Renderer[] components = hB.GetComponentsInChildren<Renderer> ();
+
+			foreach (Renderer r in components) {
+				bounds.Encapsulate (r.bounds);
+			}
+
+			Vector3 size = bounds.size;
+
+			if(i == 0)
+				hB.transform.position = new Vector3(size.x / 2, - size.y / 2, hB.transform.position.z) + camera.ScreenToWorldPoint(new Vector3(xMargin, Screen.height - yMargin, 0));
+			else if(i == 1)
+				hB.transform.position = new Vector3(- size.x, - size.y / 2, hB.transform.position.z) + camera.ScreenToWorldPoint(new Vector3(Screen.width - xMargin, Screen.height - yMargin, 0));
+			else if(i == 2)
+				hB.transform.position = new Vector3(size.x / 2, size.y / 2, hB.transform.position.z) + camera.ScreenToWorldPoint(new Vector3(xMargin, yMargin, 0));
+			else if(i == 3)
+				hB.transform.position = new Vector3(- size.x, size.y / 2, hB.transform.position.z) + camera.ScreenToWorldPoint(new Vector3(Screen.width - xMargin, yMargin, 0));
+
 			hB.GetComponentInChildren<PlayerStatus> ().setAvatar(players[i]);
 		}
 
@@ -38,7 +65,6 @@ public class HUDManager : MonoBehaviour {
 	}
 
 	public void intializeHUD(GameObject[] playerObjects) {
-
 		for(int i = 0; i < playerObjects.Length; i++) {
 			//TODO: instantiate prefabs player stock / healthbar in HUD
 		}
@@ -52,7 +78,7 @@ public class HUDManager : MonoBehaviour {
 	public void update(PlayerManager player)
 	{
 		for (int i = 0; i < players.Count; i++) {
-			if (players != null && players [i] == player) {
+			if (players != null && players[i] != null && players [i] == player) {
 				transform.GetComponentsInChildren<StatusBar> () [i].setValue (player.getHealth (), player.maxHealth);
 				transform.GetChild(i).GetComponentInChildren<PlayerStatus> ().setAvatar(players[i]);
 				return;

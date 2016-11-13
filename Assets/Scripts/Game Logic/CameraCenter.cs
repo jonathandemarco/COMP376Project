@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CameraCenter : MonoBehaviour {
-	Camera camera;
+	new Camera camera;
 	Vector3 previousPos;
 	// Use this for initialization
 	void Start () {
@@ -41,7 +41,7 @@ public class CameraCenter : MonoBehaviour {
 			transform.position = center;
 			Vector3 diff = (camera.ScreenToWorldPoint (max) - camera.ScreenToWorldPoint (min)) / 2;
 
-			float h = Mathf.Max (diff.x, diff.z);
+			float h = Mathf.Max (diff.x, Mathf.Sqrt(diff.y * diff.y + diff.z * diff.z));
 			float f = h / Mathf.Tan (60 * Mathf.Deg2Rad);
 
 			f = Mathf.Max (10.0f, f);

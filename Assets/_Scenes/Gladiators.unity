@@ -90,6 +90,22 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &6719243 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012663987722, guid: c23bd205a5597d74e8754131c8cc3b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1041107511}
+--- !u!114 &6719250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 6719243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2a0051884ece45a76006610123895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &123269566
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +150,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294965247
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -288,6 +304,11 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 54000010227685104, guid: c23bd205a5597d74e8754131c8cc3b95,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c23bd205a5597d74e8754131c8cc3b95, type: 2}
   m_IsPrefabParent: 0
@@ -370,6 +391,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302253149}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &638212933 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012663987722, guid: c23bd205a5597d74e8754131c8cc3b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1097857608}
+--- !u!114 &638212940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 638212933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2a0051884ece45a76006610123895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &772070465
 Prefab:
   m_ObjectHideFlags: 0
@@ -412,6 +449,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 172d807b53d4bb743b79445d0173445e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &998674553 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012663987722, guid: c23bd205a5597d74e8754131c8cc3b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 281268317}
+--- !u!114 &998674560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998674553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2a0051884ece45a76006610123895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1041107511
 Prefab:
   m_ObjectHideFlags: 0
@@ -1078,7 +1131,7 @@ MonoBehaviour:
   allSpawnsList: []
   skyboxMat: {fileID: 2100000, guid: 0676e912ec97af9428afde2ff8f97b18, type: 2}
   itemDropProb: 0.002
-  meteorProb: 0.01
+  meteorProb: 0.001
   deformationProb: 0.1
   meteorShowerPrefab: {fileID: 1000012739722916, guid: ab69d8cdb694ec44e84a45d02b4f8484,
     type: 2}

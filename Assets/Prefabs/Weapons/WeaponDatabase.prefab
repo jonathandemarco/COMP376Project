@@ -55,5 +55,6 @@ MonoBehaviour:
   - {fileID: 114000013867529322, guid: 494b8278a798e9e4dba55c93c5a2889f, type: 2}
   - {fileID: 114000011008551264, guid: 7583cefa5692d8749b7cf4d1227fefe8, type: 2}
   - {fileID: 114000014200757644, guid: 987b9750c15af40e0913a8d7a2e189a9, type: 2}
+  - {fileID: 114000011541000112, guid: 6ebefdcaef66ca144b15afa4798a149c, type: 2}
   nullWeapon: {fileID: 114000010459361668, guid: 00a0367e1d259c3439af53069c430c95,
     type: 2}

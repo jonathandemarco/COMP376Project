@@ -14,7 +14,7 @@ public class Crate : MonoBehaviour {
 
 	void Start(){
 		grounded = false;
-		IDValue = Random.Range(1, max_size); //hardcoded sword.
+		IDValue = Random.Range(1, max_size); 
 	}
 		
 	void Update () {
