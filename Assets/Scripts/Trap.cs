@@ -9,7 +9,6 @@ public class Trap : MonoBehaviour {
 		Collider col = c.collider; 
 		if (col.gameObject.layer == LayerMask.NameToLayer("Player")) {
 			Vector3 direction = col.transform.position - transform.position;
-			Debug.Log ("Hit by Trap");
 			col.gameObject.GetComponent<PlayerManager> ().takeDamage (damage,direction);
 		}
 	}
