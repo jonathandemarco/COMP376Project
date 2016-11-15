@@ -19,6 +19,9 @@ public class MenuController : MonoBehaviour {
 	public GameObject p2Button;
 	public GameObject p3Button;
 	public GameObject p4Button;
+	//choosing map buttons
+	public GameObject map1Button;
+	public GameObject map2Button;
 	//Start Text
 	public Text pressStartText;
 	private bool isBlinking = false;
@@ -43,10 +46,18 @@ public class MenuController : MonoBehaviour {
 
 	}
 
-	public void LoadLevel(int num){
+	public void LoadLevel(string level){
+		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, 3);
+		SceneManager.LoadScene (level);
+	}
+
+	public void SetNumOfPlayers(int num){
 		GameState.playerCount = num;
-		GameState.initializeSettings (GameMode.STOCK, num, 3);
-		SceneManager.LoadScene ("Gladiators");
+		p2Button.SetActive (false);
+		p3Button.SetActive (false);
+		p4Button.SetActive (false);
+		map1Button.SetActive (true);
+		map2Button.SetActive (true);
 	}
 
 	void AddPlayers(){
