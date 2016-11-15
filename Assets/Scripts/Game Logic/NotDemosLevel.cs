@@ -19,11 +19,6 @@ public class NotDemosLevel : LevelManager {
 	// Use this for initialization
 
 	override public void Start () {
-		for (int i = 0; i < transform.childCount; i++) {
-			initialSpawnsList.Add (transform.GetChild (i).transform.position);
-			allSpawnsList.Add (transform.GetChild (i).transform.position);
-		}
-
 		base.Start ();
 
 		animationTime = 0;

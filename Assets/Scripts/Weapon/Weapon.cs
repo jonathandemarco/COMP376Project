@@ -97,7 +97,6 @@ public class Weapon : MonoBehaviour
             {
                 Vector3 direction = col.transform.position - transform.position;
                 manager.takeDamage(damage, direction);
-				Debug.Log (direction);
 
 				if (weaponSound != null) {
 					AudioSource audioSource = GetComponent<AudioSource>();

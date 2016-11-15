@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour {
 
     // Use this for initialization
     virtual public void Start () {
+		setUpSpawnPoints ();
 		GameState.currentLevelManager = GetComponent<LevelManager>();
 		addPlayersToScene (GameState.playerCount);
 		Instantiate (WeaponDatabase);
@@ -208,4 +209,13 @@ public class LevelManager : MonoBehaviour {
 		RenderSettings.skybox.SetFloat("_Blend", newBlend);
 	}
 
+	public void setUpSpawnPoints()
+	{
+		for (int i = 0; i < transform.childCount; i++) {
+			if (transform.GetChild (i).name == "SpawnPoint") {
+				initialSpawnsList.Add (transform.GetChild (i).transform.position);
+				allSpawnsList.Add (transform.GetChild (i).transform.position);
+			}
+		}
+	}
 }

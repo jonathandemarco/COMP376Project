@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CameraCenter : MonoBehaviour {
 	new Camera camera;
 	Vector3 previousPos;
+	public float interpolationSpeed;
 	// Use this for initialization
 	void Start () {
 		camera = transform.GetChild (0).GetComponent<Camera> ();
@@ -38,10 +39,10 @@ public class CameraCenter : MonoBehaviour {
 			}
 			
 			Vector3 center = camera.ScreenToWorldPoint ((max + min) / 2);
-			transform.position = center;
+			transform.localPosition += (center - transform.localPosition) * interpolationSpeed * Time.deltaTime;
 			Vector3 diff = (camera.ScreenToWorldPoint (max) - camera.ScreenToWorldPoint (min)) / 2;
 
-			float h = Mathf.Max (diff.x, Mathf.Sqrt(diff.y * diff.y + diff.z * diff.z));
+			float h = Mathf.Max (diff.x, Mathf.Sqrt (diff.y * diff.y + diff.z * diff.z));
 			float f = h / Mathf.Tan (60 * Mathf.Deg2Rad);
 
 			f = Mathf.Max (10.0f, f);

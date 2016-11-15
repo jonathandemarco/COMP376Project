@@ -4,7 +4,6 @@ using System.Collections;
 public class Vacuum : Weapon {
 	Renderer[] renderers;
 	GravitySource gSource;
-	bool isSucking;
 
 
 	public void Start()
@@ -14,31 +13,45 @@ public class Vacuum : Weapon {
 
 		gSource = new GravitySource (new GameObject("GravityCenter"), 0);
 		gSource.source.transform.SetParent (transform);
+		gSource.source.transform.rotation = Quaternion.Euler (0, 0, 0);
 		gSource.source.transform.localPosition = new Vector3 (0, 0, 0);
+
 		gSource.forceCalculation = delegate(GravitySource gS, Transform g) {
 			Vector3 diff = (gS.source.transform.position - g.transform.position);
-			return gS.mass * diff.normalized / (1.0f + diff.sqrMagnitude + Mathf.Pow(4 * Vector3.Angle(gS.source.transform.forward, (g.position - gS.source.transform.position).normalized) * Mathf.Deg2Rad, 4));
-		};
-		GravitationalForces.gravityCenters.Add (gSource);
+			float angle = Vector3.Angle(gS.source.transform.forward, (g.position - gS.source.transform.position).normalized) * Mathf.Deg2Rad;
+			Vector3 force = gS.mass * diff.normalized / (1.0f + diff.sqrMagnitude + Mathf.Pow(4 * angle, 4));
 
-		isSucking = false;
+			Bounds b = new Bounds();
+			if(g.gameObject.GetComponent<Renderer>())
+				b = g.gameObject.GetComponent<Renderer>().bounds;
+			
+			Renderer[] r = g.gameObject.GetComponentsInChildren<Renderer>();
+			foreach(Renderer rend in r)
+			{
+				b.Encapsulate(rend.bounds);
+			}
+
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, b.center);
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, new Vector3(b.min.x, b.center.y, b.center.z));
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, new Vector3(b.center.x, b.min.y, b.center.z));
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, new Vector3(b.center.x, b.center.y, b.min.z));
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, new Vector3(b.max.x, b.center.y, b.center.z));
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, new Vector3(b.center.x, b.max.y, b.center.z));
+			g.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(force, new Vector3(b.center.x, b.center.y, b.max.z));
+		};
+
+		GravitationalForces.gravityCenters.Add (gSource);
 	}
 
 	public override void Update()
 	{
-		if (!isSucking && gSource.mass > 0)
-			gSource.mass -= 200.0f * Time.deltaTime;
-
-		if (gSource.mass < 0)
-			gSource.mass = 0;
+		Debug.Log (transform.position);
 	}
 	public override void PressAttack(ControlButton button) {
 		for (int i = 0; i < renderers.Length; i++)
 		{
 			renderers[i].enabled = true;
 		}
-
-		isSucking = true;
 	}
 
 	public override void ReleaseAttack (ControlButton button) 
@@ -50,7 +63,7 @@ public class Vacuum : Weapon {
 			renderers[i].enabled = false;
 		}
 
-		isSucking = false;
+		gSource.mass = 0;
 	}
 
 	public override void HoldAttack (ControlButton button)

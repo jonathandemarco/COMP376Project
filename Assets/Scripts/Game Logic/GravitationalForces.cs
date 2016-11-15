@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GravitySource {
 	public GameObject source;
 	public float mass;
-	public delegate Vector3 CalculateForce(GravitySource gS, Transform g);
+	public delegate void CalculateForce(GravitySource gS, Transform g);
 	public CalculateForce forceCalculation;
 
 	public GravitySource(GameObject source, float mass)
@@ -15,10 +15,11 @@ public class GravitySource {
 		forceCalculation = defaultForceCalculation;
 	}
 
-	public static Vector3 defaultForceCalculation(GravitySource gS, Transform g)
+	public static void defaultForceCalculation(GravitySource gS, Transform g)
 	{
 		Vector3 diff = (gS.source.transform.position - g.transform.position);
-		return gS.mass * diff.normalized / (1.0f + diff.sqrMagnitude);
+		Vector3 force = gS.mass * diff.normalized / (1.0f + diff.sqrMagnitude);
+		g.gameObject.GetComponent<Rigidbody> ().AddForce (force);
 	}
 }
 
@@ -34,7 +35,8 @@ public class GravitationalForces : MonoBehaviour {
 		foreach (GravitySource g in gravityCenters) {
 			if (!isAncestor (g.source.transform))
 			{	
-				GetComponent<Rigidbody> ().AddForce (g.forceCalculation(g, transform));
+				g.forceCalculation (g, transform);
+
 			}
 		}
 	}
