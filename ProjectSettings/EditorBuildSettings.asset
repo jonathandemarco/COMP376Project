@@ -10,6 +10,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Gladiators.unity
   - enabled: 1
+    path: Assets/_Scenes/Simon_test.unity
+  - enabled: 1
     path: Assets/_Scenes/RoundOver.unity
   - enabled: 1
     path: Assets/_Scenes/GameOver.unity
