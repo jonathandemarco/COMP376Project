@@ -183,7 +183,7 @@ public class NotDemosLevel : LevelManager {
 		Vector3 min = GetComponent<Renderer> ().bounds.min;
 		Vector3 max = GetComponent<Renderer> ().bounds.max;
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
-		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 50, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
+		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 20, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
 	}
 
 	void spawnMeteorShower() {

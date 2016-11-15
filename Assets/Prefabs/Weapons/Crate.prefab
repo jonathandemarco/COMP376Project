@@ -57,6 +57,7 @@ GameObject:
   - 65: {fileID: 65000012621991310}
   - 54: {fileID: 54000013336412640}
   - 75: {fileID: 75000013430168620}
+  - 114: {fileID: 114000013054933808}
   m_Layer: 12
   m_Name: Crate
   m_TagString: Untagged
@@ -211,10 +212,21 @@ ConstantForce:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013879583652}
   m_Enabled: 1
-  m_Force: {x: 0, y: 8, z: 0}
+  m_Force: {x: 0, y: 9.5, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &114000013054933808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013879583652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2a0051884ece45a76006610123895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013747155194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,6 +240,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IDValue: 0
   delta: 30
-  speed: 1
+  speed: 5
   idleTime: 10
-  max_size: 4
+  maxSize: 0
