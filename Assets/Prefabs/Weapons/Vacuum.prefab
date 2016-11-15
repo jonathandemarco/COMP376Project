@@ -177,3 +177,5 @@ MonoBehaviour:
   playerChar: 0
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
+  maxSuction: 800
+  suctionIncrement: 400

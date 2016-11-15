@@ -4,7 +4,8 @@ using System.Collections;
 public class Vacuum : Weapon {
 	Renderer[] renderers;
 	GravitySource gSource;
-
+	public float maxSuction;
+	public float suctionIncrement;
 
 	public void Start()
 	{
@@ -14,11 +15,11 @@ public class Vacuum : Weapon {
 		gSource = new GravitySource (new GameObject("GravityCenter"), 0);
 		gSource.source.transform.SetParent (transform);
 		gSource.source.transform.rotation = Quaternion.Euler (0, 0, 0);
-		gSource.source.transform.localPosition = new Vector3 (0, 0, 0);
+		gSource.source.transform.localPosition = new Vector3 (1, 0, 0);
 
 		gSource.forceCalculation = delegate(GravitySource gS, Transform g) {
 			Vector3 diff = (gS.source.transform.position - g.transform.position);
-			float angle = Vector3.Angle(gS.source.transform.forward, (g.position - gS.source.transform.position).normalized) * Mathf.Deg2Rad;
+			float angle = Vector3.Angle(gS.source.transform.parent.up, (g.position - gS.source.transform.position).normalized) * Mathf.Deg2Rad;
 			Vector3 force = gS.mass * diff.normalized / (1.0f + diff.sqrMagnitude + Mathf.Pow(4 * angle, 4));
 
 			Bounds b = new Bounds();
@@ -45,7 +46,7 @@ public class Vacuum : Weapon {
 
 	public override void Update()
 	{
-		Debug.Log (transform.position);
+		
 	}
 	public override void PressAttack(ControlButton button) {
 		for (int i = 0; i < renderers.Length; i++)
@@ -68,13 +69,12 @@ public class Vacuum : Weapon {
 
 	public override void HoldAttack (ControlButton button)
 	{
-		if(gSource.mass < 800)
-			gSource.mass += 100.0f * Time.deltaTime;
+		if(gSource.mass < maxSuction)
+			gSource.mass += suctionIncrement * Time.deltaTime;
 	}
 
 	public void OnDestroy()
 	{
-//		for (int i = 0; i < gSources.Length; i++)
-//			GravitationalForces.gravityCenters.Remove (gSources [i]);
+		GravitationalForces.gravityCenters.Remove (gSource);
 	}
 }

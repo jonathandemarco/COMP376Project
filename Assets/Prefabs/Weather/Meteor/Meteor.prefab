@@ -18,6 +18,7 @@ GameObject:
   - 82: {fileID: 82000010668262494}
   - 114: {fileID: 114000012954793830}
   - 135: {fileID: 135000010624722644}
+  - 114: {fileID: 114000010591241058}
   m_Layer: 10
   m_Name: Meteor
   m_TagString: Untagged
@@ -310,6 +311,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000010591241058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2a0051884ece45a76006610123895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000010619415440
 MonoBehaviour:
   m_ObjectHideFlags: 1

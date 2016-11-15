@@ -93,7 +93,7 @@ public class InventoryManager : MonoBehaviour
             Weapon w = inventory[index];
             inventory[index] = nullWeapon;
             w.gameObject.SetActive(false);
-
+			Destroy (w.gameObject);
         }
     }
     public void resetInventory(bool start) {
