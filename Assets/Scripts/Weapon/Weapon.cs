@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public enum WeaponType { Melee, Range };
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour, MessagePassing
 {
 
     public WeaponType type;
     public int damage;
     public float attackRate;
+	public float abundance;
+	public int lifetime = -1;
 
     public char playerChar;
 
@@ -87,6 +89,9 @@ public class Weapon : MonoBehaviour
    	public virtual void OnCollisionEnter(Collision c)
     {
 		Collider col = c.collider;
+
+		MessagePassingHelper.passMessageOnCollision (this, col);
+
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("Boom");
@@ -95,9 +100,6 @@ public class Weapon : MonoBehaviour
 
             if (manager.getPlayerChar() != colPlayerChar)
             {
-                Vector3 direction = col.transform.position - transform.position;
-                manager.takeDamage(damage, direction);
-
 				if (weaponSound != null) {
 					AudioSource audioSource = GetComponent<AudioSource>();
 					if (audioSource != null) {
@@ -109,7 +111,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
-	public virtual void OnTriggerEnter(Collider col){
+/*	public virtual void OnTriggerEnter(Collider col){
+		
+		if(col.gameObject.GetComponent<PlayerManager> () != null)
+			(col.gameObject.GetComponent<PlayerManager> () as MessagePassing).collisionWith (col);
+		else if(col.gameObject.GetComponent<Weapon> () != null)
+			(col.gameObject.GetComponent<Weapon> () as MessagePassing).collisionWith (col);
+		else if(col.gameObject.GetComponent<HostileTerrain> () != null)
+			(col.gameObject.GetComponent<HostileTerrain> () as MessagePassing).collisionWith (col);
+
 		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
 			Debug.Log("Boom");
@@ -118,9 +128,9 @@ public class Weapon : MonoBehaviour
 
 			if (manager.getPlayerChar() != colPlayerChar)
 			{
-				Vector3 direction = col.transform.position - transform.position;
-				manager.takeDamage(damage, direction);
-				Debug.Log (direction);
+//				Vector3 direction = col.transform.position - transform.position;
+//				manager.takeDamage(damage, direction);
+//				Debug.Log (direction);
 
 				if (weaponSound != null) {
 					AudioSource audioSource = GetComponent<AudioSource>();
@@ -131,7 +141,7 @@ public class Weapon : MonoBehaviour
 				}
 			}
 		}
-	}
+	}*/
 
     public virtual void HoldAttack(ControlButton button)
     {
@@ -146,6 +156,10 @@ public class Weapon : MonoBehaviour
     {
     }
 
+	void MessagePassing.collisionWith(Collider c)
+	{
+		
+	}
 }
 
 

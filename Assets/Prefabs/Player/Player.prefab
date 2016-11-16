@@ -365,7 +365,7 @@ MonoBehaviour:
     groundDistance: 0.51
     frontDistance: 1.3
     pushbackParalizationTime: 1
-    pushbackFactor: 20
+    pushbackFactor: 200
     tapTime: 1
     buttonCooldown: 0.3
 --- !u!136 &136000011085656156

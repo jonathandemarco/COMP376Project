@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Meteor : MonoBehaviour {
+public class Meteor : HostileTerrain {
 
     public float speed;
     public ParticleSystem MeteorExplosionParticleSystem;
@@ -9,7 +9,6 @@ public class Meteor : MonoBehaviour {
     public Material[] MeteorMaterials;
     public Mesh meteorMesh;
 
-    private int damage = 1;
     private Vector3 direction;
     private AudioSource[] audioSources;
     private bool soundPlayed = false;
@@ -46,12 +45,12 @@ public class Meteor : MonoBehaviour {
         this.direction = direction;
     }
 
-    void OnCollisionEnter(Collision col) {
+    override public void OnCollisionEnter(Collision col) {
         /*
         //TODO: handle collision with player --> apply damage
         //TODO: handle collision with other meteors --> dont explode
         */
-
+		base.OnCollisionEnter (col);
 
         if (col.collider.tag == "meteor" || soundPlayed) {
             return;

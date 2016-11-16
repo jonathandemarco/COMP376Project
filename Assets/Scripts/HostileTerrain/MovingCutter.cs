@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovingCutter : MonoBehaviour {
+public class MovingCutter : HostileTerrain {
 
 	public float speed = 15;
-	public int damage = 25;
 
 	void Start() {
 		// Initial Velocity
+		damage = 25;
 		GetComponent<Rigidbody>().velocity = Vector3.right * speed;
 	}
 
@@ -16,13 +16,11 @@ public class MovingCutter : MonoBehaviour {
 			GetComponent<Rigidbody> ().velocity = new Vector3(GetComponent<Rigidbody> ().velocity.x, 0, GetComponent<Rigidbody> ().velocity.z);
 	}
 
-	void OnCollisionEnter(Collision c){
+	override public void OnCollisionEnter(Collision c){
+		base.OnCollisionEnter (c);
+
 		Collider col = c.collider;
 		if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain"))
 			GetComponent<Rigidbody> ().velocity = GetComponent<Rigidbody> ().velocity.normalized * speed;
-		if (col.gameObject.layer == LayerMask.NameToLayer("Player")) {
-			Vector3 direction = col.transform.position - transform.position;
-			col.gameObject.GetComponent<PlayerManager> ().takeDamage (damage,direction);
-		}
 	}
 }

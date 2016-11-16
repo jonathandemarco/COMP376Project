@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerStatus : MonoBehaviour {
 	public GameObject textPrefab;
 	public Material inventoryMaterial;
-	public Camera camera;
+	new public Camera camera;
 	// Use this for initialization
 	void Start () {
 		camera = GameObject.Find("HUDCam").GetComponent<Camera>();

@@ -22,9 +22,10 @@ GameObject:
   - 33: {fileID: 33000011866933064}
   - 65: {fileID: 65000011867181800}
   - 23: {fileID: 23000013121158874}
-  - 114: {fileID: 114000012792897702}
   - 54: {fileID: 54000010227685104}
-  m_Layer: 10
+  - 114: {fileID: 114000010324735654}
+  - 114: {fileID: 114000012787057988}
+  m_Layer: 9
   m_Name: DeathCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +108,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114000012792897702
+--- !u!114 &114000010324735654
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -115,12 +116,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012663987722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827cb530dd657d245b9ecbc4bbb93f39, type: 3}
+  m_Script: {fileID: 11500000, guid: f281290a8a8f9214d823241921f6a7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  damage: 35
-  attackRate: 0
-  playerChar: 90
-  weaponSound: {fileID: 0}
-  weaponAnimator: {fileID: 0}
+  damage: 5
+--- !u!114 &114000012787057988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012663987722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2a0051884ece45a76006610123895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
