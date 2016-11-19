@@ -150,6 +150,8 @@ MonoBehaviour:
   type: 0
   damage: 0
   attackRate: 0
+  abundance: 0
+  lifetime: -1
   playerChar: 0
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
@@ -160,4 +162,4 @@ MonoBehaviour:
   laserApparatusPrefab: {fileID: 1000013430806456, guid: af7f547c468fc094b9eaf40dc5732032,
     type: 2}
   laserSpawn: {fileID: 4000014267440468}
-  force: 500
+  force: 1500

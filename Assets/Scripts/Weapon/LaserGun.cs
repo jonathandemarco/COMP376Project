@@ -28,7 +28,7 @@ public class LaserGun : Weapon {
 		}
 
 		GameObject machine = Instantiate (laserMachinePrefab, laserSpawn.position, laserSpawn.rotation) as GameObject;
-		machine.GetComponent<Rigidbody> ().AddForce ((transform.up * force) - (transform.right * force));
+		machine.GetComponent<Rigidbody> ().AddForce (-transform.right * force);
 		count++;
 
 		if (count == 1) {

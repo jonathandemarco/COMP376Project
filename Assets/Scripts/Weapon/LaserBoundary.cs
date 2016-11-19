@@ -7,6 +7,7 @@ public class LaserBoundary : Weapon {
 	public Transform origin;
 	public Transform destination;
 	public float lineWidth;
+	public GameObject SphericalMachine;
 
 	private CapsuleCollider capsule;
 	private bool isComplete;
@@ -25,7 +26,7 @@ public class LaserBoundary : Weapon {
 
 			capsule.transform.position = origin.position + (destination.position - origin.position) / 2; // find the mid point
 			capsule.transform.LookAt (origin.position);
-			capsule.height = (destination.position - origin.position).magnitude;
+			capsule.height = (destination.position - origin.position - Vector3.Normalize(destination.position - origin.position) * (SphericalMachine.GetComponent<SphereCollider>().radius * 2 + 0.1f)).magnitude;
 		}
 	}
 
@@ -33,7 +34,6 @@ public class LaserBoundary : Weapon {
 		lineRenderer.enabled = true;
 
 		capsule = gameObject.AddComponent<CapsuleCollider> ();
-		capsule.isTrigger = true;
 		capsule.radius = lineWidth / 2; // same width as the line renderer
 		capsule.center = Vector3.zero; // center it to 0, 0, 0
 		capsule.direction = 2; // z-axis for easier lookAt orientation... apparently it helps!
