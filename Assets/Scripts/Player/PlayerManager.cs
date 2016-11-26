@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
 
 
-    void takeDamage(float damage, Vector3 direction)
+    public void takeDamage(float damage, Vector3 direction)
     {
         if (!invulnerable)
         {
@@ -388,7 +388,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         notify();
     }
 
-    public void getMessage(ControlButton button)
+    public void getButton(ControlButton button)
     {
         int buttonID = button.getID();
         ControlButton.ACTION action = button.getLastState();
@@ -409,6 +409,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             case 4:
                 button4(button, action);
                 break;
+			case 5:
+				button5(button, action);
+				break;
         }
     }
 
@@ -470,10 +473,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
                 actionButton_1 = false;
             }
         }
-        else if (dropWeapon)
-        {
-            drop(0);
-        }
+
     }
     public void button3(ControlButton button, ControlButton.ACTION action)
     {
@@ -498,16 +498,16 @@ public class PlayerManager : MonoBehaviour, MessagePassing
                 actionButton_2 = false;
             }
         }
-        else if (dropWeapon) {
-            drop(1);
-        }
+
     }
     public void button4(ControlButton button, ControlButton.ACTION action)
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-            dropWeapon = true;
-            Debug.Log("DROPPING!");
+			Debug.Log ("DROPPING WEAPON 1 ");
+		
+			drop(0);
+
         }
         else if (action == ControlButton.ACTION.HOLD)
         {
@@ -516,9 +516,27 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         else if (action == ControlButton.ACTION.RELEASE)
         {
             //release Button4;
-            dropWeapon = false;
         }
     }
+
+	public void button5(ControlButton button, ControlButton.ACTION action)
+	{
+		if (action == ControlButton.ACTION.PRESS)
+		{
+			Debug.Log ("DROPPING WEAPON 2 ");
+
+			drop(1);
+
+		}
+		else if (action == ControlButton.ACTION.HOLD)
+		{
+			//hold Button4;
+		}
+		else if (action == ControlButton.ACTION.RELEASE)
+		{
+			//release Button4;
+		}
+	}
 
 	void MessagePassing.collisionWith(Collider c)
 	{

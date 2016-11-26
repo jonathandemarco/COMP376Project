@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCollider : MonoBehaviour
+public class PlayerCollider : MonoBehaviour, MessagePassing
 {
-
     private InventoryManager inventoryManager;
 
     void Start()
@@ -57,7 +56,32 @@ public class PlayerCollider : MonoBehaviour
 		}
 		
 	}
-
+	
+	void MessagePassing.collisionWith(Collider c)
+	{
+		Vector3 direction = transform.position - c.transform.position;
+		if (c.gameObject.layer == LayerMask.NameToLayer ("Weapon")) {
+			if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != GetComponent<PlayerManager> ().getPlayerChar ()) {
+				GetComponent<PlayerManager> ().takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction);
+			}
+		} else if (c.gameObject.layer == LayerMask.NameToLayer ("HostileTerrain")) {
+			GetComponent<PlayerManager> ().takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction);
+		} else if (c.gameObject.layer == LayerMask.NameToLayer ("Crate")) {
+			if (inventoryManager.GetWeaponCount () < inventoryManager.maxInventorySize) {
+				//add the item to player's inventory
+				int id = c.GetComponent<Crate> ().IDValue;
+				WeaponDatabase database = inventoryManager.GetWeaponDatabase ();
+				Weapon weaponToAdd = database.GetComponent<WeaponDatabase> ().GetWeaponAt (id);
+				inventoryManager.AddToInventory (weaponToAdd);
+			}
+			/* 
+				Weapon w = (Weapon) Instantiate (weaponToAdd, transform.parent);
+                w.setPlayerChar(GetComponent<PlayerManager>().getPlayerChar());
+                w.transform.parent = transform; */
+			notify ();
+		}
+	}
+	
     // Notifies all pertinent observers of any changes made to the player
     private void notify()
     {

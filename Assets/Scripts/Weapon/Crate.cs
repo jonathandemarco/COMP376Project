@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Crate : MonoBehaviour {
 
-	public AudioClip crateHitsound;
 	public int IDValue; //To give the specefic item from database to player
 
 	public float delta = 1.5f;  // Amount to move left and right from the start point
@@ -32,9 +31,13 @@ public class Crate : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c)
 	{
-		if (c.collider.gameObject.layer == LayerMask.NameToLayer ("Terrain")) {
+		Collider col = c.collider;
+
+		MessagePassingHelper.passMessageOnCollision (this, col);
+
+		if (c.collider.gameObject.layer == LayerMask.NameToLayer ("Terrain"))
 			grounded = true;
-		}
+		else if(c.collider.gameObject.layer == LayerMask.NameToLayer ("Crate"))
+			Destroy (c.gameObject);
 	}
 }
-
