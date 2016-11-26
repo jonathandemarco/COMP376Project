@@ -11,6 +11,7 @@ public class Latch : Weapon {
 	private float time;
 	private Vector3 initialDistance;
 	private Vector3 maxVectorDistance;
+	private Renderer [] renderers;
 
 	// Use this for initialization
 	void Start () {
@@ -18,27 +19,38 @@ public class Latch : Weapon {
 		isLaunched = false;
 		time = 0.0f;
 		initialDistance = handle.transform.localPosition - transform.localPosition;
-		maxVectorDistance = new Vector3 (0.0f, 0.0f, maxDistance);
 	}
 	
 	// Update is called once per frame
 	public override void Update () {	
 	
-		Vector3 currentDistance = handle.transform.localPosition - transform.localPosition;
+		if (isUsed) {
+			Vector3 currentDistance = handle.transform.localPosition - transform.localPosition;
+			float distanceBetweenWep = (currentDistance - maxVectorDistance).magnitude;
 
-		if (isLaunched && maxVectorDistance != currentDistance) {
-			transform.position = handle.transform.right * time;
-			time += Time.deltaTime;
-		} else if (!isLaunched && isUsed && currentDistance != initialDistance) {
-			transform.position = -handle.transform.right * time;
-			time += Time.deltaTime;
-		} else {
-			time = 0.0f;
-			isUsed = false;
+			if (isLaunched && distanceBetweenWep < maxDistance) {
+				transform.position = handle.transform.forward * time;
+				time += Time.deltaTime;
+			} else if (isLaunched && distanceBetweenWep >= maxDistance) {
+				// reached max distance
+				time = 0.0f;
+				time += Time.deltaTime;
+				Pull ();
+			} else if (!isLaunched && isUsed && distanceBetweenWep > 0) {
+				transform.position = -handle.transform.forward * time;
+				time += Time.deltaTime;
+			} else if (!isLaunched && isUsed && distanceBetweenWep <= 0){
+				for(int r = 0; r < renderers.Length; ++r){
+					renderers [r].enabled = false;
+				}
+				time = 0.0f;
+				isUsed = false;
+			}
 		}
 	}
 
-	public void Launch(){
+	public void Launch(Renderer [] rend){
+		renderers = rend;
 		isUsed = true;
 		isLaunched = true;
 	}

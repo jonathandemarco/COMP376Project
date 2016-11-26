@@ -18,18 +18,6 @@ public class Hook : Weapon {
 			renderers[i].enabled = true;
 		}
 
-		latchWep.Launch ();
-	}
-
-
-	public override void ReleaseAttack (ControlButton button) 
-	{
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = false;
-		}
-
-
-		latchWep.Pull ();
+		latchWep.Launch (renderers);
 	}
 }
