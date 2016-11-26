@@ -5,7 +5,10 @@ public class Hook : Weapon {
 	
 	public GameObject latch;
 	Renderer[] renderers;
+
+
 	private Latch latchWep;
+
 
 	void Start() {
 		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();

@@ -26,20 +26,21 @@ public class Latch : Weapon {
 	
 		if (isUsed) {
 			Vector3 currentDistance = handle.transform.localPosition - transform.localPosition;
-			float distanceBetweenWep = (currentDistance - maxVectorDistance).magnitude;
+			float maxDistanceBetweenWep = (currentDistance - maxVectorDistance).magnitude;
+			float minDistanceBetweenWep = (currentDistance - initialDistance).magnitude;
 
-			if (isLaunched && distanceBetweenWep < maxDistance) {
+			if (isLaunched && maxDistanceBetweenWep < maxDistance) {
 				transform.position = handle.transform.forward * time;
 				time += Time.deltaTime;
-			} else if (isLaunched && distanceBetweenWep >= maxDistance) {
+			} else if (isLaunched && maxDistanceBetweenWep >= maxDistance) {
 				// reached max distance
 				time = 0.0f;
 				time += Time.deltaTime;
 				Pull ();
-			} else if (!isLaunched && isUsed && distanceBetweenWep > 0) {
+			} else if (!isLaunched && isUsed && minDistanceBetweenWep > 0) {
 				transform.position = -handle.transform.forward * time;
 				time += Time.deltaTime;
-			} else if (!isLaunched && isUsed && distanceBetweenWep <= 0){
+			} else if (!isLaunched && isUsed && minDistanceBetweenWep <= 0){
 				for(int r = 0; r < renderers.Length; ++r){
 					renderers [r].enabled = false;
 				}
