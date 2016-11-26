@@ -5,6 +5,12 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour {
 
+	//UI Sounds
+	AudioSource[] uiSounds;
+	AudioSource swordSound2;
+	AudioSource startSound;
+	AudioSource swordStart;
+
 	//Input pressed by players
 	public bool player1Start;
 	public bool player2Start;
@@ -25,11 +31,17 @@ public class MenuController : MonoBehaviour {
 	//Start Text
 	public Text pressStartText;
 	private bool isBlinking = false;
+	//levelshortcut because you can't pass parameters to 'Invoke'
+	private string lvl;
 
 	[SerializeField] int numOfPlayers = 0;
 
 	void Start(){
 		InvokeRepeating("BlinkText", 0.0f, 0.6f);
+		uiSounds = GetComponents<AudioSource>();
+		swordStart = uiSounds[0];
+		startSound = uiSounds[1];
+		swordSound2 = uiSounds[2];
 	}
 
 	void Update(){
@@ -40,6 +52,7 @@ public class MenuController : MonoBehaviour {
 			p2Button.SetActive(true);
 			p3Button.SetActive(true);
 			p4Button.SetActive(true);
+			swordStart.Play();
 		}
 
 		AddPlayers ();
@@ -47,11 +60,18 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void LoadLevel(string level){
+		startSound.Play ();
+		lvl = level;
 		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, 3);
-		SceneManager.LoadScene (level);
+		Invoke ("LoadLevelAfterSoundEnd", 3.0f);
+	}
+
+	public void LoadLevelAfterSoundEnd () {
+		SceneManager.LoadScene (lvl);
 	}
 
 	public void SetNumOfPlayers(int num){
+		swordSound2.Play();
 		GameState.playerCount = num;
 		p2Button.SetActive (false);
 		p3Button.SetActive (false);
