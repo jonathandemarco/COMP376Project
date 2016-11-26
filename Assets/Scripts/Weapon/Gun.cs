@@ -19,6 +19,7 @@ public class Gun : Weapon {
 		goalScale = transform.localScale;
 		transform.Rotate (new Vector3 (-90.0f, 0.0f, 0.0f));
         renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+		wasloaded = false;
     }
 
     public override void PressAttack(ControlButton button) {
@@ -48,7 +49,13 @@ public class Gun : Weapon {
 
 		if (diff.magnitude > 0.01f)
 			transform.localScale += diff / 10.0f;
-		
+		else if (!wasloaded) {
+			loader = (GameObject)Instantiate (mLoadingPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation, bulletSpawnPos);
+			wasloaded = true;
+		} else {
+			loader.GetComponent<Weapon> ().damage += 0.5f;
+			loader.transform.localScale += new Vector3 (0.1f, 0.1f, 0.1f);
+		}
         // if(button.allowAttack()){
 /*       	Debug.Log ("Charging");
 			if (!wasloaded) {
