@@ -24,7 +24,7 @@ GameObject:
   - 65: {fileID: 65000011360794352}
   - 54: {fileID: 54000011185687496}
   - 82: {fileID: 82000012045203032}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BedPillow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,6 +243,8 @@ MonoBehaviour:
   type: 0
   damage: 10
   attackRate: 1
+  abundance: 0
+  lifetime: -1
   playerChar: 0
   weaponSound: {fileID: 8300000, guid: cbe8fe1752ebc9e49aec68d7ba13f04d, type: 3}
   weaponAnimator: {fileID: 95000012923208580}

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Sword : Weapon
 {
     Renderer[] renderers;
+	public AudioClip swordSound2;
 
     public void Start() {
         GetComponent<Collider>().enabled = false;

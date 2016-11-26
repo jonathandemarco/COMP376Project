@@ -156,7 +156,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
 
 
-    void takeDamage(float damage, Vector3 direction)
+    public void takeDamage(float damage, Vector3 direction)
     {
         if (!invulnerable)
         {
@@ -512,7 +512,6 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             //release Button4;
         }
     }
-
 
 	public void button5(ControlButton button, ControlButton.ACTION action)
 	{
