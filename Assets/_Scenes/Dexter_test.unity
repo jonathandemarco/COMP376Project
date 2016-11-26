@@ -122,6 +122,8 @@ MonoBehaviour:
   type: 0
   damage: 100000
   attackRate: 0
+  abundance: 0
+  lifetime: -1
   playerChar: 90
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
@@ -624,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f541d87c156e7074589236945797f0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interpolationSpeed: 0
 --- !u!23 &1833386170
 MeshRenderer:
   m_ObjectHideFlags: 0
