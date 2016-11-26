@@ -9,12 +9,14 @@ public class PlayerSettings
     public float maxHeldTimeDash;
     public float dashCoolDownTime;
     public float jumpForce;
+	public float jumpFowardVelocity;
     public float jumpCooldownTime;
     public float moveSpeed;
     public float groundDragForce;
     public float airDragForce;
     public float airMoveForce;
     public float rotateSpeed;
+	public float maxSpeed;
     public int inventorySize;
 
     public float invinsibilityTime;
@@ -67,12 +69,14 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     private float dashStopTime;
 
     private float nextJump = 0;
+	private float timeAtJump = 0;
 
     private float dashSpeedRatio;
 
     private Vector3 lastPosition;
+	private Vector3 frontVector;
 
-    Vector3 velocity;
+    Vector3 tempVelocity;
     private MeshRenderer mesh;
 
     private bool actionButton_1, actionButton_2;
@@ -117,8 +121,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     {
         if (!isEliminated)
         {
-            velocity = (transform.position - lastPosition) / Time.deltaTime;
+			tempVelocity = (transform.position - lastPosition) / Time.deltaTime;
             lastPosition = transform.position;
+			frontVector = tempVelocity.normalized;
             if (!isAlive)
             {
                 timeSinceDeath += Time.deltaTime;
@@ -262,22 +267,27 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     {
         if (checkGround() && Time.time > nextJump)
         {
+			timeAtJump = Time.time;
             nextJump = Time.time + settings.jumpCooldownTime;
-            rb.velocity = velocity;
-            rb.AddForce(Vector3.up * settings.jumpForce);
             grounded = false;
+			if (tempVelocity.magnitude != 0) {
+				rb.velocity = tempVelocity;
+
+			}
+			
+			rb.AddForce(Vector3.up * settings.jumpForce);
+			
         }
     }
     private void land()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+       rb.velocity/=2;
     }
     private bool checkGround()
     {
-        bool previousState = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height * settings.groundDistance * transform.localScale.y);
 
-        if (previousState == false && grounded == true)
+		if (Time.time-timeAtJump>0.1 && grounded == true)
             land();
         return grounded;
     }
@@ -309,36 +319,16 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     }
 
     private void flipModelRender() {
-        /*
-        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            meshes[i].enabled = !meshes[i].enabled;
-        }
-        */
+
         mesh.enabled = !mesh.enabled;
     }
     private void enableModelRender()
     {
-        /*
-        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            meshes[i].enabled = true;
-        }
-        */
         mesh.enabled = true;
     }
     private void disableModelRender()
     {
         mesh.enabled = false;
-        /*
-        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            meshes[i].enabled = false;
-        }
-        */
     }
 
     private void manageStates()
@@ -381,6 +371,10 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         }
         else
             rb.drag = settings.airDragForce;
+
+		if (rb.velocity.magnitude > settings.maxSpeed) {
+			rb.velocity = rb.velocity.normalized * settings.maxSpeed;
+		}
     }
 
     public void drop(int index) {
