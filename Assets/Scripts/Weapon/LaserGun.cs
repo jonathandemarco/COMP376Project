@@ -60,7 +60,7 @@ public class LaserGun : Weapon {
 	{
 		for (int i = 0; i < renderers.Length; i++)
 		{
-			// renderers[i].enabled = false;
+			renderers[i].enabled = false;
 		}
 	}
 }
