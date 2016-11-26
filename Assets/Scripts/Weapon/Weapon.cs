@@ -15,12 +15,17 @@ public class Weapon : MonoBehaviour, MessagePassing
 
     public char playerChar;
 
-    public AudioClip weaponSound;
+	public AudioClip impactSound;
+	public AudioClip attackSound;
     public Animator weaponAnimator;
 
     public virtual void Update()
     {
     }
+
+	public virtual void playSound() {
+
+	}
 
     public void setPlayerChar(char c)
     {
@@ -100,10 +105,10 @@ public class Weapon : MonoBehaviour, MessagePassing
 
             if (manager.getPlayerChar() != colPlayerChar)
             {
-				if (weaponSound != null) {
+				if (impactSound != null) {
 					AudioSource audioSource = GetComponent<AudioSource>();
 					if (audioSource != null) {
-						audioSource.clip = weaponSound;
+						audioSource.clip = impactSound;
 						audioSource.Play ();
 					}
 				}
