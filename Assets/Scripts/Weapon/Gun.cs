@@ -50,7 +50,7 @@ public class Gun : Weapon {
 			transform.localScale += diff / 10.0f;
 		
         // if(button.allowAttack()){
- /*       Debug.Log ("Charging");
+/*       	Debug.Log ("Charging");
 			if (!wasloaded) {
 				loader = (GameObject)Instantiate (mLoadingPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation, bulletSpawnPos);
 				wasloaded = true;
