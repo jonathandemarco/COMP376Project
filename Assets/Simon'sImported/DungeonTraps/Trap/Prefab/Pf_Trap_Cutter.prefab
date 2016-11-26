@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 454860}
   - 111: {fileID: 11154864}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Pf_Trap_Cutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 65: {fileID: 6554864}
   - 114: {fileID: 114000010500715336}
   - 54: {fileID: 54000010832688458}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Cutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - 4: {fileID: 454864}
   - 33: {fileID: 3354864}
   - 23: {fileID: 2354864}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Trap_Cutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,3 +231,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24647e19f8216654c8d285f338199fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0

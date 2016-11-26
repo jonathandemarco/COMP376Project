@@ -31,7 +31,13 @@ public class Crate : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c)
 	{
+		Collider col = c.collider;
+
+		MessagePassingHelper.passMessageOnCollision (this, col);
+
 		if (c.collider.gameObject.layer == LayerMask.NameToLayer ("Terrain"))
 			grounded = true;
+		else if(c.collider.gameObject.layer == LayerMask.NameToLayer ("Crate"))
+			Destroy (c.gameObject);
 	}
 }

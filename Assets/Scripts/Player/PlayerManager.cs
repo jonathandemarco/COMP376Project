@@ -28,7 +28,7 @@ public class PlayerSettings
     public float buttonCooldown;
 
 }
-public class PlayerManager : MonoBehaviour, MessagePassing
+public class PlayerManager : MonoBehaviour
 {
 
     // Use this for initialization
@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
 
 
-    void takeDamage(float damage, Vector3 direction)
+    public void takeDamage(float damage, Vector3 direction)
     {
         if (!invulnerable)
         {
@@ -519,18 +519,4 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             dropWeapon = false;
         }
     }
-
-	void MessagePassing.collisionWith(Collider c)
-	{
-		Vector3 direction = transform.position - c.transform.position;
-		if (c.gameObject.GetComponent<Weapon> ()) {
-			if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != getPlayerChar ()) {
-				takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction);
-			}
-		}
-		else if (c.gameObject.GetComponent<HostileTerrain> ()) {
-			Debug.Log (direction);
-			takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction);
-		}
-	}
 }
