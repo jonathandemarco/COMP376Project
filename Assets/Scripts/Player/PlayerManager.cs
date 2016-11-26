@@ -28,7 +28,7 @@ public class PlayerSettings
     public float buttonCooldown;
 
 }
-public class PlayerManager : MonoBehaviour, MessagePassing
+public class PlayerManager : MonoBehaviour
 {
 
     // Use this for initialization
@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
 
 
-    void takeDamage(float damage, Vector3 direction)
+    public void takeDamage(float damage, Vector3 direction)
     {
         if (!invulnerable)
         {
@@ -518,6 +518,8 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             //release Button4;
         }
     }
+<<<<<<< HEAD
+=======
 
 
 	public void button5(ControlButton button, ControlButton.ACTION action)
@@ -552,4 +554,5 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 			takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction);
 		}
 	}
+>>>>>>> 3adcaf4bf31f1f9c27c4158c675449a4f9062b1f
 }
