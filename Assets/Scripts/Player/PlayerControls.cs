@@ -3,76 +3,81 @@ using System.Collections.Generic;
 
 
 public class ControlButton {
-    public string buttonCallName;
-    
-    private int buttonID;
-    private PlayerManager manager;
+	public string buttonCallName;
 
-    public enum ACTION {PRESS,HOLD,RELEASE};
+	private int buttonID;
+	private PlayerManager manager;
 
-    public ControlButton(string name,int id, PlayerManager m) {
-        setName(name);
-        setManager(m);
-        buttonID = id;
-   }
-    public void setName(string name) {
-        buttonCallName = name;
-    }
-    private void setManager(PlayerManager m) {
-        manager = m;
-    }
+	private float timeAtPress;
+	private float timeAtLastPress;
+	private float holdTime;
+	private float netHoldTime;
+	private ACTION lastState;
 
-    private float timeAtPress;
-    private float holdTime;
-    private float netHoldTime;
-    private ACTION lastState;
-    public void check() {
+	public enum ACTION {PRESS,HOLD,RELEASE};
 
-        if (Input.GetButton(buttonCallName))
-        {
-            holdTime += Time.deltaTime;
-            netHoldTime += Time.deltaTime;
-            lastState = ACTION.HOLD;
-            manager.getMessage(this);
-            
-        }
-        if (Input.GetButtonDown(buttonCallName))
-        {
-            Debug.Log("Press" + buttonCallName);
-            holdTime = 0;
-            timeAtPress = Time.time;
-            lastState = ACTION.PRESS;
-            manager.getMessage(this);
-        }
-        if (Input.GetButtonUp(buttonCallName))
-        {
-            lastState = ACTION.RELEASE;
-            manager.getMessage(this);
-            holdTime = 0;
-        }
+	public ControlButton(string name,int id, PlayerManager m) {
+		setName(name);
+		setManager(m);
+		buttonID = id;
+	}
+	public void setName(string name) {
+		buttonCallName = name;
+	}
+	private void setManager(PlayerManager m) {
+		manager = m;
+	}
 
-    }
 
-    public float getTimeAtPress() {
-        return timeAtPress;
-    }
-    public float getHoldTime() {
-        return holdTime;
-    }
-    public float getNetHoldTime() {
-        return netHoldTime;
-    }
-    public void resetNetHoldTime() {
-        netHoldTime = 0;
-    }
-    public int getID() {
-        return buttonID;
-    }
-    public ACTION getLastState() {
-        return lastState;
-    }
+	public void check() {
+
+		if (Input.GetButton(buttonCallName))
+		{
+			holdTime += Time.deltaTime;
+			netHoldTime += Time.deltaTime;
+			lastState = ACTION.HOLD;
+			manager.getButton(this);
+
+		}
+		if (Input.GetButtonDown(buttonCallName))
+		{
+			holdTime = 0;
+			timeAtPress = Time.time;
+			lastState = ACTION.PRESS;
+			manager.getButton(this);
+		}
+		if (Input.GetButtonUp(buttonCallName))
+		{
+			lastState = ACTION.RELEASE;
+			timeAtLastPress = timeAtPress;
+			manager.getButton(this);
+			holdTime = 0;
+		}
+
+	}
+
+	public float getTimeAtPress() {
+		return timeAtPress;
+	}
+	public float getTimeAtLastPress() {
+		return timeAtPress;
+	}
+	public float getHoldTime() {
+		return holdTime;
+	}
+	public float getNetHoldTime() {
+		return netHoldTime;
+	}
+	public void resetNetHoldTime() {
+		netHoldTime = 0;
+	}
+	public int getID() {
+		return buttonID;
+	}
+	public ACTION getLastState() {
+		return lastState;
+	}
 }
-
 public class ControlJoysitck {
     public string joystickCallName;
     public float deadzone;

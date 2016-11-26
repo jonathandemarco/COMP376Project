@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011728057906}
   - 114: {fileID: 114000011347323234}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaserGunPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014267440468}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaserSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   - 4: {fileID: 4000013857048444}
   - 33: {fileID: 33000013631134614}
   - 23: {fileID: 23000014041963924}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaserGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,6 +150,8 @@ MonoBehaviour:
   type: 0
   damage: 0
   attackRate: 0
+  abundance: 0
+  lifetime: -1
   playerChar: 0
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
@@ -160,4 +162,4 @@ MonoBehaviour:
   laserApparatusPrefab: {fileID: 1000013430806456, guid: af7f547c468fc094b9eaf40dc5732032,
     type: 2}
   laserSpawn: {fileID: 4000014267440468}
-  force: 500
+  force: 1500

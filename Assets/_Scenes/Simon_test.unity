@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692492, g: 0.4967869, b: 0.57508546, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2925,6 +2925,21 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 459002, guid: eb3ce30d38ba56549860c5343181cc4d, type: 2}
   m_PrefabInternal: {fileID: 542804154}
+--- !u!1 &196355420 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 131288, guid: 3dac42fa34cbbf747b71f3f4add04791, type: 2}
+  m_PrefabInternal: {fileID: 112777169}
+--- !u!114 &196355423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 196355420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20998bf56417ca241aaabc56d6e7b7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &196983986
 Prefab:
   m_ObjectHideFlags: 0
@@ -10926,7 +10941,7 @@ Transform:
   m_GameObject: {fileID: 678407567}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0.486, z: -6}
-  m_LocalScale: {x: 0.049999997, y: 1.0000006, z: 12}
+  m_LocalScale: {x: 0.049999997, y: 1.0000006, z: 34.3}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children: []
   m_Father: {fileID: 1379588400}
@@ -13408,6 +13423,11 @@ Prefab:
     - target: {fileID: 1000011320532556, guid: 485f3afb8da8f9b4f9639e838afa27e4, type: 2}
       propertyPath: m_Name
       value: Moving_Cutter
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013074994308, guid: 485f3afb8da8f9b4f9639e838afa27e4,
+        type: 2}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 485f3afb8da8f9b4f9639e838afa27e4, type: 2}
@@ -17142,6 +17162,8 @@ MonoBehaviour:
   type: 0
   damage: 100000
   attackRate: 0
+  abundance: 0
+  lifetime: -1
   playerChar: 90
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
@@ -18136,7 +18158,7 @@ Transform:
   m_GameObject: {fileID: 1055920371}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0, z: -6}
-  m_LocalScale: {x: 0.049999997, y: 1.0000006, z: 12}
+  m_LocalScale: {x: 0.049999997, y: 1.0000006, z: 34.3}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1379588400}
@@ -29409,6 +29431,11 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 4.9999995
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013074994308, guid: 485f3afb8da8f9b4f9639e838afa27e4,
+        type: 2}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 485f3afb8da8f9b4f9639e838afa27e4, type: 2}
   m_IsPrefabParent: 0
@@ -29874,7 +29901,7 @@ Transform:
   m_GameObject: {fileID: 1547506398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0, z: -6}
-  m_LocalScale: {x: 0.049999993, y: 1.0000013, z: 12.000008}
+  m_LocalScale: {x: 0.049999993, y: 1.0000013, z: 34.3}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1379588400}
@@ -36082,7 +36109,7 @@ Transform:
   m_GameObject: {fileID: 1870847441}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.52, z: -5.83}
-  m_LocalScale: {x: 0.05000007, y: 1.0000017, z: 12.000011}
+  m_LocalScale: {x: 0.05000007, y: 1.0000017, z: 34.3}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children: []
   m_Father: {fileID: 1379588400}

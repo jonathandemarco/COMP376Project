@@ -65,11 +65,7 @@ public class InventoryManager : MonoBehaviour
     {
         return inventory;
     }
-    public void DropFromInventory(int index)
-    {
-        inventory[index] = nullWeapon;
-        //TODO Drop?
-    }
+
 
     public int GetWeaponCount()
     {
@@ -91,6 +87,8 @@ public class InventoryManager : MonoBehaviour
         {
 
             Weapon w = inventory[index];
+			Debug.Log ("DROPPING WEAPON  "+ w);
+
             inventory[index] = nullWeapon;
             w.gameObject.SetActive(false);
 			Destroy (w.gameObject);

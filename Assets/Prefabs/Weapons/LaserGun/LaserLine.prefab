@@ -55,12 +55,16 @@ MonoBehaviour:
   type: 0
   damage: 40
   attackRate: 0
+  abundance: 0
+  lifetime: -1
   playerChar: 32
   weaponSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
   origin: {fileID: 0}
   destination: {fileID: 0}
   lineWidth: 0.25
+  SphericalMachine: {fileID: 1000011210855518, guid: 76cb328b136e0254ea54e3f765875635,
+    type: 2}
 --- !u!120 &120000010994645830
 LineRenderer:
   m_ObjectHideFlags: 1
