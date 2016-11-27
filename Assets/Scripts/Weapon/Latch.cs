@@ -27,12 +27,11 @@ public class Latch : Weapon {
 	public override void Update () {
 	
 		if (isUsed) {
-			float distanceBetweenWep = (handle.transform.position - transform.position).magnitude;
 			if (isLaunched) {
 				time += Time.deltaTime;
-				if (distanceBetweenWep < maxDistance && time < 2.0f) {
-					transform.position += movingDistance / 10;
-				} else if (distanceBetweenWep >= maxDistance) {
+				if (time < 2.0f) {
+					transform.localPosition += movingDistance / 10;
+				} else {
 					Pull ();
 				}
 			} else {	
@@ -46,7 +45,7 @@ public class Latch : Weapon {
 					collided = false;
 					time = 0.0f;
 				} else {
-					transform.position += -movingDistance / 10;
+					transform.localPosition += -movingDistance / 10;
 				} 
 			}
 		}
