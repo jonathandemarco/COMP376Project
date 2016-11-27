@@ -19,7 +19,6 @@ public class Latch : Weapon {
 		isUsed = false;
 		isLaunched = false;
 		collided = false;
-		initialDistance = handle.transform.position - transform.position;
 		movingDistance = new Vector3(0, 0, maxDistance);
 		time = 0.0f;
 	}
