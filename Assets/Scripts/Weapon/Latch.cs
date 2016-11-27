@@ -26,21 +26,20 @@ public class Latch : Weapon {
 	public override void Update () {
 	
 		if (isUsed) {
-			Vector3 currentDistance = handle.transform.position - transform.position;
-			float distanceBetweenWep = (currentDistance - initialDistance).magnitude;
-		
+			float distanceBetweenWep = (handle.transform.position - transform.position).magnitude;
 
 			if (isLaunched) {
 				if (distanceBetweenWep < maxDistance) {
-					transform.position += movingDistance * 5.0f;
-				} else if (distanceBetweenWep >= maxDistance) {					
+					transform.position += movingDistance / 2;
+					movingDistance = movingDistance / 2;
+				} else if (distanceBetweenWep >= maxDistance) {	
+					movingDistance = new Vector3(0, 0, maxDistance);
 					Pull ();
 				}
 			}
 		}
-		else{
-			movingDistance = movingDistance / 1.5f;
-			if (movingDistance.magnitude < 1.0f) {
+		else {			
+			if (movingDistance.magnitude < 2.0f) {
 				for (int r = 0; r < renderers.Length; ++r) {
 					renderers [r].enabled = false;
 				}
@@ -50,8 +49,9 @@ public class Latch : Weapon {
 				isUsed = false;
 				collided = false;
 			} 
-			if(isUsed) {
-				transform.position += -movingDistance * 5.0f;
+			else {
+				transform.position += -movingDistance / 2;
+				movingDistance = movingDistance / 2;
 			} 
 		}
 	}
