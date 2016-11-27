@@ -18,6 +18,11 @@ public class LevelManager : MonoBehaviour {
 
     // Use this for initialization
     virtual public void Start () {
+		if (GameState.gameMode == GameMode.STOCK)
+			timeLeft = 0.0f;
+		else if(GameState.gameMode == GameMode.TIMER)
+			timeLeft = GameState.gameTime;
+		
 		setUpSpawnPoints ();
 		GameState.currentLevelManager = GetComponent<LevelManager>();
 		addPlayersToScene (GameState.playerCount);
@@ -28,8 +33,10 @@ public class LevelManager : MonoBehaviour {
 
     // Update is called once per frame
     virtual public void Update () {
-	
-		timeLeft -= Time.deltaTime;
+		if (GameState.gameMode == GameMode.STOCK)
+			timeLeft += Time.deltaTime;
+		else if(GameState.gameMode == GameMode.TIMER)
+			timeLeft -= Time.deltaTime;
 
 		List<int> winningPlayers = isRoundOver ();
 		if (winningPlayers[0] != -1) {

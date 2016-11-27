@@ -4,14 +4,15 @@ using System.Collections;
 public class BulletMove : MonoBehaviour
 {
 
-	float mExpirationTime = 5.0f;
+	public float mExpirationTime;
 	float mTimer = 0.0f;
-	float speed = 20.0f;
+	ParticleSystem.Particle[] m_Particles;
+	public float speed;
 
 	// Use this for initialization
 	void Start ()
 	{
-	
+		transform.localScale = (GetComponent<Weapon> ().damage / 100.0f) * 5.0f * new Vector3(1.0f, 1.0f, 1.0f);
 	}
 	
 	// Update is called once per frame

@@ -53,6 +53,8 @@ public class LaserGun : Weapon {
 			laser.RenderLine ();
 
 			count = 0;
+			loseDurability(1);
+
 		}
 
 		AudioSource audioSource = GetComponent<AudioSource> ();

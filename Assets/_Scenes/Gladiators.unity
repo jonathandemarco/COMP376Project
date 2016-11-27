@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &249656495
 Transform:
   m_ObjectHideFlags: 0
@@ -212,8 +212,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 249656494}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 600.0002, z: 50.000095}
-  m_LocalScale: {x: 5, y: 100.000114, z: 1200.0005}
+  m_LocalPosition: {x: 0, y: 20, z: 50}
+  m_LocalScale: {x: 5, y: 100.000114, z: 40}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children: []
   m_Father: {fileID: 130455117}
@@ -351,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &302253150
 Transform:
   m_ObjectHideFlags: 0
@@ -359,8 +359,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302253149}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 50, y: 600.0002, z: 0.00009536743}
-  m_LocalScale: {x: 5, y: 100.0001, z: 1200.0004}
+  m_LocalPosition: {x: 50, y: 20, z: 0}
+  m_LocalScale: {x: 5, y: 100.0001, z: 40}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 130455117}
@@ -484,7 +484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1023947381
 Transform:
   m_ObjectHideFlags: 0
@@ -492,8 +492,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1023947380}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -50, y: 600.0002, z: 0.00009536743}
-  m_LocalScale: {x: 5, y: 100.00017, z: 1200.0011}
+  m_LocalPosition: {x: -50, y: 20, z: 0}
+  m_LocalScale: {x: 5, y: 100.00017, z: 40}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 130455117}
@@ -1204,7 +1204,7 @@ GameObject:
   - 23: {fileID: 1675934363}
   - 114: {fileID: 1675934367}
   - 54: {fileID: 1675934368}
-  - 154: {fileID: 1675934364}
+  - 64: {fileID: 1675934364}
   m_Layer: 9
   m_Name: Level
   m_TagString: Untagged
@@ -1225,7 +1225,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 43953ed35486c824ea14c914ce79511b, type: 2}
+  - {fileID: 2100000, guid: 450a7939064c44c9c8f227614a509734, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1241,16 +1241,18 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!154 &1675934364
-TerrainCollider:
+--- !u!64 &1675934364
+MeshCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1675934362}
   m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: d33be7068aa818e459ca3cf1f0f7332e, type: 2}
-  m_EnableTreeColliders: 0
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1675934365
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1301,7 +1303,7 @@ MonoBehaviour:
   skyboxMat: {fileID: 2100000, guid: 0676e912ec97af9428afde2ff8f97b18, type: 2}
   itemDropProb: 0.005
   meteorProb: 0.001
-  deformationProb: 0.0001
+  deformationProb: 0
   meteorShowerPrefab: {fileID: 1000012739722916, guid: ab69d8cdb694ec44e84a45d02b4f8484,
     type: 2}
   skyBoxBlendSpeed: 0.001
@@ -1354,7 +1356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1880740148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,7 +1374,8 @@ MonoBehaviour:
   abundance: 0
   lifetime: -1
   playerChar: 90
-  weaponSound: {fileID: 0}
+  impactSound: {fileID: 0}
+  attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!54 &1880740149
 Rigidbody:

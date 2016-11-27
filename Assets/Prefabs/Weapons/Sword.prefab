@@ -311,7 +311,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -333,7 +333,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &95000011504620284
 Animator:
   serializedVersion: 3
@@ -367,7 +367,9 @@ MonoBehaviour:
   attackRate: 1
   abundance: 0
   lifetime: -1
+  durability: 8
   playerChar: 0
+  index: 0
   impactSound: {fileID: 8300000, guid: 2420498bb7e9744478afb07b38118546, type: 3}
   attackSound: {fileID: 8300000, guid: e0ff4d7ba05e542288324a3fd5835596, type: 3}
   weaponAnimator: {fileID: 95000011504620284}

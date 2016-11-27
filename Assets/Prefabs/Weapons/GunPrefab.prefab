@@ -583,10 +583,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010948964292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.45, y: -0.8000001, z: -2.4126241}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children:
   - {fileID: 4000013968945154}
   - {fileID: 4000011400738324}
@@ -1420,11 +1420,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e5629b0fdabdf46bb9f5aa62e467d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   damage: 0
   attackRate: 0
+  abundance: 0
+  lifetime: -1
   playerChar: 0
-  weaponSound: {fileID: 0}
+  impactSound: {fileID: 0}
+  attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
   bulletSpawnPos: {fileID: 4000013365045000}
   mLoadingPrefab: {fileID: 1000012082933570, guid: 3e76eb4cbad3549d1b7ff97a6f59a509,

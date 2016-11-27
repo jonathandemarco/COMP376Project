@@ -8,12 +8,14 @@ public class Weapon : MonoBehaviour, MessagePassing
 {
 
     public WeaponType type;
-    public int damage;
+    public float damage;
     public float attackRate;
 	public float abundance;
-	public int lifetime = -1;
+	public int lifetime = -1; // lifetime is probably the same as weapon durability, not sure;
+	public int durability;
 
     public char playerChar;
+	public int index;
 
 	public AudioClip impactSound;
 	public AudioClip attackSound;
@@ -153,12 +155,20 @@ public class Weapon : MonoBehaviour, MessagePassing
 
 
 	public virtual void PressAttack(InputSystem button)
-    {
-    }
+	{
+	}
 
 	public virtual void ReleaseAttack(InputSystem button)
     {
     }
+
+	// call this method after every attack
+	public void loseDurability(int d){
+		durability -= d;
+		Debug.Log ("Weapon broken");
+		if (durability <= 0)
+			GetComponentInParent<InventoryManager> ().dropWeapon (index);
+	}
 
 	void MessagePassing.collisionWith(Collider c)
 	{

@@ -91,6 +91,7 @@ public class ControlButton:InputSystem {
 		if (Input.GetButtonDown(callName))
 		{
 			press ();
+			Debug.Log ("Boop");
 			controller.getButton(this);
 
 		}
@@ -131,6 +132,7 @@ public class ControlAxis:InputSystem {
 			controller.getAxis (this);
 		}
 		if (input > axisThreshold && wasPressed == true) {
+			hold ();
 			controller.getAxis (this);
 
 
@@ -187,6 +189,7 @@ public class PlayerControls : MonoBehaviour {
             ControlButton b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>(), this);
             buttons.Add(b);
         }
+
 		axes = new List<ControlAxis>();
 		for (int i = 0; i < numOfAxes; i++)
 		{
@@ -195,7 +198,6 @@ public class PlayerControls : MonoBehaviour {
 		}
 		joystickCallNameHorizontal = ""+c+"H";
 		joystickCallNameVertical = ""+c+"V";
-			
     }
     public void setPlayer(PlayerManager p) {
         player = p;
@@ -379,6 +381,7 @@ public class PlayerControls : MonoBehaviour {
 	{
 		if (action == ControlButton.ACTION.PRESS)
 		{
+			Debug.Log ("DROP 0");
 
 			player.drop(0);
 
@@ -397,7 +400,7 @@ public class PlayerControls : MonoBehaviour {
 	{
 		if (action == ControlButton.ACTION.PRESS)
 		{
-
+			Debug.Log ("DROP 1");
 			player.drop(1);
 
 		}
@@ -416,6 +419,7 @@ public class PlayerControls : MonoBehaviour {
 		{
 			if (action == ControlAxis.ACTION.PRESS)
 			{
+				Debug.Log ("PRESS");
 				player.getInventory().GetWeapon(0).PressAttack(axis);
 				actionButton_1 = true;
 				nextButtonPress = Time.time + player.settings.buttonCooldown;
@@ -423,12 +427,16 @@ public class PlayerControls : MonoBehaviour {
 			}
 			else if (action == ControlAxis.ACTION.HOLD)
 			{
+				Debug.Log ("HOLD");
+
 				player.getInventory().GetWeapon(0).HoldAttack(axis);
 
 
 			}
 			else if (action == ControlAxis.ACTION.RELEASE)
 			{
+				Debug.Log ("RELEASE");
+
 				player.getInventory().GetWeapon(0).ReleaseAttack(axis);
 				actionButton_1 = false;
 			}
@@ -441,21 +449,27 @@ public class PlayerControls : MonoBehaviour {
 		{
 			if (action == ControlAxis.ACTION.PRESS)
 			{
+				Debug.Log ("PRESS");
+
 				player.getInventory().GetWeapon(1).PressAttack(axis);
 				actionButton_2 = true;
 				nextButtonPress = Time.time + player.settings.buttonCooldown;
-				Debug.Log ("BOOYA");
 			}
 			else if (action == ControlAxis.ACTION.HOLD)
 			{
+				Debug.Log ("HOLD");
+
 				player.getInventory().GetWeapon(1).HoldAttack(axis);
 
 
 			}
 			else if (action == ControlAxis.ACTION.RELEASE)
 			{
+				Debug.Log ("RELEASE");
+
 				player.getInventory().GetWeapon(1).ReleaseAttack(axis);
 				actionButton_2 = false;
+
 			}
 		}
 	}

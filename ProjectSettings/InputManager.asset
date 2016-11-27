@@ -420,7 +420,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: B4
     descriptiveName: Drop Weapon 1 Player B
@@ -436,7 +436,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 4
+    joyNum: 2
   - serializedVersion: 3
     m_Name: B5
     descriptiveName: Drop Weapon 1 Player B
@@ -579,8 +579,72 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 8
+    axis: 9
     joyNum: 2
+  - serializedVersion: 3
+    m_Name: C-AXIS-0
+    descriptiveName: Attack 1 Player C
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 1
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: C-AXIS-1
+    descriptiveName: Attack 2 Player C
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 1
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: D-AXIS-0
+    descriptiveName: Attack 1 Player D
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 1
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: D-AXIS-1
+    descriptiveName: Attack 2 Player D
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 1
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
+    joyNum: 4
   - serializedVersion: 3
     m_Name: KH
     descriptiveName: Left/Right
