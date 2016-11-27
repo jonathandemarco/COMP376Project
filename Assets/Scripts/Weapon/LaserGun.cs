@@ -34,6 +34,11 @@ public class LaserGun : Weapon {
 		if (count == 1) {
 			// make gameObject to contain both laser machines
 			laserApparatus = Instantiate (laserApparatusPrefab, laserApparatusPrefab.transform.position, laserApparatusPrefab.transform.rotation) as GameObject;
+
+			// the machine will be paired up
+			machine.GetComponent<LaserMachine> ().IsPairedUp ();
+
+			// set the machine as a child of the laser apparatus
 			machine.transform.parent = laserApparatus.transform;
 
 			// create the line renderer
@@ -67,6 +72,12 @@ public class LaserGun : Weapon {
 		for (int i = 0; i < renderers.Length; i++)
 		{
 			renderers[i].enabled = false;
+		}
+	}
+
+	public void decreaseNumOfMachines(){
+		if (count > 0) {
+			--count;
 		}
 	}
 }

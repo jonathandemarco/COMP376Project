@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// Holds the two machines 
 public class LaserApparatus : MonoBehaviour {
 
 	public float lifeTime;

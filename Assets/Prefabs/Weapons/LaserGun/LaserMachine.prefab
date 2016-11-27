@@ -107,16 +107,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  damage: 0
-  attackRate: 0
+  damage: 50
+  attackRate: 1
   abundance: 0
   lifetime: -1
-  durability: 0
+  durability: 5
   playerChar: 0
   index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
+  lifeTime: 0
 --- !u!135 &135000012247543376
 SphereCollider:
   m_ObjectHideFlags: 1

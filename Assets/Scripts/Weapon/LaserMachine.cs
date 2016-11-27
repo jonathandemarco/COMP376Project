@@ -3,22 +3,67 @@ using System.Collections;
 
 public class LaserMachine : Weapon {
 
-	private Transform collidedObject;
-	private Vector3 collisionPoint;
+	public float lifeTime;
+	private bool isAlone;
 
-	public override void Update(){
-		if (collidedObject != null) {
-			transform.position = collidedObject.position - collisionPoint;
-		}
-
+	void Start(){
+		isAlone = true;
+		lifeTime = 0.0f;
 	}
+
+	public override void Update ()
+	{
+		if (isAlone) {
+			lifeTime += Time.deltaTime;
+
+			if (lifeTime > 5.0f) {
+				// decrease the count of the machines by getting the LaserGun component
+				transform.parent.GetComponent<LaserGun> ().decreaseNumOfMachines ();
+
+				// TODO: initiate explosion
+
+				// destroy the object
+				Destroy (gameObject);
+			}
+		} else {
+			lifeTime = 0.0f;
+		}
+	}
+
 
 	public override void OnCollisionEnter(Collision c)
 	{
+		// Set the laser machiine to the collision point
 		Collider col = c.collider; 
-		collidedObject = col.gameObject.transform;
-		collisionPoint = collidedObject.position - c.contacts [0].point;
+		Transform collidedObject = col.gameObject.transform;
+		Vector3 collisionPoint = collidedObject.position - c.contacts [0].point;
+
+		// Disable the collider so it is not affected by the laser line
 		gameObject.GetComponent<Collider>().enabled = false;
+		gameObject.GetComponent<Rigidbody>().isKinematic = true;
+		transform.position = collidedObject.position - collisionPoint;
+
+		MessagePassingHelper.passMessageOnCollision (this, col);
+
+		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			Debug.Log("Boom");
+			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
+			char colPlayerChar = getPlayerChar();
+			if (manager.getPlayerChar() != colPlayerChar)
+			{
+				if (impactSound != null) {
+					AudioSource audioSource = GetComponent<AudioSource>();
+					if (audioSource != null) {
+						audioSource.clip = impactSound;
+						audioSource.Play ();
+					}
+				}
+			}
+		}
 	}
 
+	public void IsPairedUp(){
+		isAlone = false;
+	}
 }
