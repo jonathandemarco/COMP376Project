@@ -16,7 +16,7 @@ public class Crate : MonoBehaviour {
 	void Start(){
 		maxSize = WeaponDatabase.currentWeaponDatabase.weaponDatabase.Count;
 		grounded = false;
-		IDValue = 5; //Random.Range(1, maxSize); 
+		IDValue = Random.Range(1, maxSize); 
 	}
 		
 	void Update () {
