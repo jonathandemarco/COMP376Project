@@ -51,7 +51,7 @@ public class PlayerCollider : MonoBehaviour, MessagePassing
                 w.transform.parent = transform;
 				*/
 			}
-			Destroy (col.gameObject);
+			//Destroy (col.gameObject);
 			notify ();
 		}
 		

@@ -54,6 +54,10 @@ public class LaserGun : Weapon {
 
 			count = 0;
 		}
+
+		AudioSource audioSource = GetComponent<AudioSource> ();
+		audioSource.clip = attackSound;
+		audioSource.Play ();
 	}
 		
 	public override void ReleaseAttack (ControlButton button) 

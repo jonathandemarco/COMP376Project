@@ -102,7 +102,6 @@ public class Weapon : MonoBehaviour, MessagePassing
             Debug.Log("Boom");
             PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
             char colPlayerChar = getPlayerChar();
-
             if (manager.getPlayerChar() != colPlayerChar)
             {
 				if (impactSound != null) {
