@@ -47,5 +47,7 @@ public class Sword : Weapon
             renderers[i].enabled = false;
         }
 		stopAnimation ();
+		loseDurability(1);
+
     }
 }
