@@ -29,6 +29,7 @@ public class LaserGun : Weapon {
 
 		GameObject machine = Instantiate (laserMachinePrefab, laserSpawn.position, laserSpawn.rotation) as GameObject;
 		machine.GetComponent<Rigidbody> ().AddForce (-transform.right * force);
+		machine.GetComponent<LaserMachine> ().setPlayerChar (getPlayerChar ());
 		count++;
 
 		if (count == 1) {
@@ -37,12 +38,14 @@ public class LaserGun : Weapon {
 
 			// the machine will be paired up
 			machine.GetComponent<LaserMachine> ().IsPairedUp ();
+			machine.GetComponent<LaserMachine> ().setPlayerChar (getPlayerChar ());
 
 			// set the machine as a child of the laser apparatus
 			machine.transform.parent = laserApparatus.transform;
 
 			// create the line renderer
 			laserLine = Instantiate (laserRenderer, laserRenderer.transform.position + transform.position, laserRenderer.transform.rotation, laserApparatus.transform) as GameObject;
+			laserLine.GetComponent<LaserBoundary> ().setPlayerChar (getPlayerChar ());
 
 			// get the script in order to assign origin
 			laser = laserLine.GetComponent<LaserBoundary> ();
@@ -78,30 +81,6 @@ public class LaserGun : Weapon {
 	public void decreaseNumOfMachines(){
 		if (count > 0) {
 			--count;
-		}
-	}
-
-	public override void OnCollisionEnter(Collision c)
-	{
-		Collider col = c.collider;
-
-		MessagePassingHelper.passMessageOnCollision (this, col);
-
-		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
-		{
-			Debug.Log("Boom");
-			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
-			char colPlayerChar = getPlayerChar();
-			if (manager.getPlayerChar() != colPlayerChar)
-			{
-				if (impactSound != null) {
-					AudioSource audioSource = GetComponent<AudioSource>();
-					if (audioSource != null) {
-						audioSource.clip = impactSound;
-						audioSource.Play ();
-					}
-				}
-			}
 		}
 	}
 }

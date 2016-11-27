@@ -100,7 +100,8 @@ public class Latch : Weapon {
 			PlayerManager manager = col.gameObject.GetComponent<PlayerManager> ();
 			char colPlayerChar = getPlayerChar ();
 
-			if (manager.getPlayerChar () != colPlayerChar) {
+			if (manager.getPlayerChar () != colPlayerChar) 
+			{
 				MessagePassingHelper.passMessageOnCollision (this, col);
 				if (!latchedOn) {
 					latchedOn = true;
@@ -113,7 +114,6 @@ public class Latch : Weapon {
 					if (isLaunched) {
 						Pull ();
 					}
-
 				}
 
 				if (impactSound != null) {
@@ -125,7 +125,6 @@ public class Latch : Weapon {
 				}
 			}
 		} else if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain") && !collided){
-			Debug.Log ("Collided with Terrain");
 			MessagePassingHelper.passMessageOnCollision (this, col);
 			collided = true;
 			Pull ();

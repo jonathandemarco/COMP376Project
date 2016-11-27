@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LaserMachine : Weapon {
 
-	public float lifeTime;
+	private float lifeTime;
 	private bool isAlone;
 
 	void Start(){
@@ -39,6 +39,7 @@ public class LaserMachine : Weapon {
 		Vector3 collisionPoint = collidedObject.position - c.contacts [0].point;
 
 		// Disable the collider so it is not affected by the laser line
+
 		gameObject.GetComponent<Collider>().enabled = false;
 		gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		transform.position = collidedObject.position - collisionPoint;
@@ -50,14 +51,11 @@ public class LaserMachine : Weapon {
 			Debug.Log("Boom");
 			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
 			char colPlayerChar = getPlayerChar();
-			if (manager.getPlayerChar() != colPlayerChar)
-			{
-				if (impactSound != null) {
-					AudioSource audioSource = GetComponent<AudioSource>();
-					if (audioSource != null) {
-						audioSource.clip = impactSound;
-						audioSource.Play ();
-					}
+			if (impactSound != null) {
+				AudioSource audioSource = GetComponent<AudioSource>();
+				if (audioSource != null) {
+					audioSource.clip = impactSound;
+					audioSource.Play ();
 				}
 			}
 		}
