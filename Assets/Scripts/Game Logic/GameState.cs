@@ -14,6 +14,7 @@ public class GameState {
 	public static int winScore;
 	public static float gameTime;
 	public static List<int> accumScoreList = new List<int>();
+    public static string level;
 
 	//returns index of winning player or -1
 	public static List<int> isGameOver() {
@@ -48,11 +49,12 @@ public class GameState {
         roundOverScene(winningPlayers);
     }
 
-	public static void initializeSettings(GameMode gameMode, int playerCount, int winScore, float gameTime) {
+	public static void initializeSettings(GameMode gameMode, int playerCount, int winScore, float gameTime, string level) {
 		GameState.gameMode = gameMode;
 		GameState.playerCount = playerCount;
 		GameState.winScore = winScore;
 		GameState.gameTime = gameTime;
+        GameState.level = level;
 		accumScoreList.Clear ();
 
         for (int i = 0; i < playerCount; i++) {
