@@ -8,7 +8,7 @@ public class loadfx : MonoBehaviour {
 
 	void Update () {
 		
-		transform.GetChild(0).transform.localScale += new Vector3 (0.33f, 0.33f, 0.33f) * Time.deltaTime;
+//		transform.GetChild(0).transform.localScale += new Vector3 (0.33f, 0.33f, 0.33f) * Time.deltaTime;
 
 
 	}

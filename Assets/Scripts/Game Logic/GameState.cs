@@ -12,6 +12,7 @@ public class GameState {
 	public static int playerCount = 4;
 	public static bool camFollow = true;
 	public static int winScore;
+	public static float gameTime;
 	public static List<int> accumScoreList = new List<int>();
 
 	//returns index of winning player or -1
@@ -47,10 +48,11 @@ public class GameState {
         roundOverScene(winningPlayers);
     }
 
-    public static void initializeSettings(GameMode gameMode, int playerCount, int winScore) {
+	public static void initializeSettings(GameMode gameMode, int playerCount, int winScore, float gameTime) {
 		GameState.gameMode = gameMode;
 		GameState.playerCount = playerCount;
 		GameState.winScore = winScore;
+		GameState.gameTime = gameTime;
 		accumScoreList.Clear ();
 
         for (int i = 0; i < playerCount; i++) {

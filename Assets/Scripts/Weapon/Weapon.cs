@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour, MessagePassing
 {
 
     public WeaponType type;
-    public int damage;
+    public float damage;
     public float attackRate;
 	public float abundance;
 	public int lifetime = -1;

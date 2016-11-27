@@ -152,8 +152,8 @@ public class PlayerControls : MonoBehaviour {
             buttons.Add(b);
         }
 
-            joystickCallNameHorizontal = c + "H";
-            joystickCallNameVertical = c + "V";
+        joystickCallNameHorizontal = c + "H";
+        joystickCallNameVertical = c + "V";
     }
     public void setPlayer(PlayerManager p) {
         player = p;
