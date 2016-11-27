@@ -30,6 +30,7 @@ public class MenuController : MonoBehaviour {
 	public GameObject map2Button;
 	//Start Text
 	public Text pressStartText;
+	private bool hasPressedStart = false;
 	private bool isBlinking = false;
 	//levelshortcut because you can't pass parameters to 'Invoke'
 	private string lvl;
@@ -46,7 +47,8 @@ public class MenuController : MonoBehaviour {
 
 	void Update(){
 
-		if(Input.GetKeyDown("space")){
+		if(Input.GetKeyDown("space") && !hasPressedStart){
+			hasPressedStart = true;
 			pressStartText.enabled = false;
 			CancelInvoke ();
 			p2Button.SetActive(true);

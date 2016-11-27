@@ -1887,6 +1887,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: 183214985c2563e4ea9ad9f291905df2, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 183214985c2563e4ea9ad9f291905df2, type: 2}
   m_IsPrefabParent: 0
@@ -4863,7 +4867,9 @@ MonoBehaviour:
   attackRate: 0
   abundance: 0
   lifetime: -1
+  durability: 0
   playerChar: 90
+  index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
