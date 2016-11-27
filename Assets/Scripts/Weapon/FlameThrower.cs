@@ -22,14 +22,14 @@ public class FlameThrower : Weapon {
         renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
 
     }
-    public override void PressAttack(ControlButton button) {
+	public override void PressAttack(InputSystem button) {
         for (int i = 0; i < renderers.Length; i++)
         {
             renderers[i].enabled = true;
         }
 
     }
-    public override void ReleaseAttack (ControlButton button) 
+	public override void ReleaseAttack (InputSystem button) 
 	{
 		Debug.Log ("Released");
 
@@ -41,7 +41,7 @@ public class FlameThrower : Weapon {
     }
 
 
-	public override void HoldAttack (ControlButton button)
+	public override void HoldAttack (InputSystem button)
 	{
         Debug.Log ("Charging");
         if (Time.time > lastFire) {

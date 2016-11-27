@@ -20,6 +20,7 @@ public class PlayerSettings
     public int inventorySize;
 
     public float invinsibilityTime;
+	public float respawnInvisibleTime;
     public float invinsibilityFlickerRate;
     public float groundDistance;
     public float frontDistance;
@@ -248,6 +249,8 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         transform.position = getSpawnPoint();
         rb.velocity = new Vector3(0, 0, 0);
         enableModelRender(); // replace with mesh child
+		invulnerable = true;
+		nextDamage = Time.time + settings.respawnInvisibleTime;
         notify();
     }
 
@@ -389,13 +392,13 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         switch (buttonID)
         {
             case 0:
-                button0(button, action);
+                button0(button, action); // jump
                 break;
             case 1:
-                button1(button, action);
+                button1(button, action); // dash
                 break;
             case 2:
-                button2(button, action);
+                button2(button, action); 
                 break;
             case 3:
                 button3(button, action);
@@ -409,6 +412,20 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         }
     }
 
+
+	public void getAxis(ControlAxis axis)
+	{
+		int id = axis.getID();
+		ControlAxis.ACTION action = axis.getLastState();
+		switch (id) {
+		case 0:
+			axis0 (axis, action); // wep1
+			break;
+		case 1:
+			axis1 (axis, action); // wep2
+			break;
+		}
+	}
 
     public void button0(ControlButton butto, ControlButton.ACTION action)
     {
@@ -498,8 +515,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     {
         if (action == ControlButton.ACTION.PRESS)
         {
-			Debug.Log ("DROPPING WEAPON 1 ");
-		
+
 			drop(0);
 
         }
@@ -517,7 +533,6 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 	{
 		if (action == ControlButton.ACTION.PRESS)
 		{
-			Debug.Log ("DROPPING WEAPON 2 ");
 
 			drop(1);
 
@@ -529,6 +544,54 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 		else if (action == ControlButton.ACTION.RELEASE)
 		{
 			//release Button4;
+		}
+	}
+	public void axis0(ControlAxis Axis, ControlAxis.ACTION action)
+	{
+		if (!actionButton_2 && (Time.time > nextButtonPress || actionButton_1) && !dropWeapon)
+		{
+			if (action == ControlAxis.ACTION.PRESS)
+			{
+				inventory.GetWeapon(0).PressAttack(axis);
+				actionButton_1 = true;
+				nextButtonPress = Time.time + settings.buttonCooldown;
+			}
+			else if (action == ControlAxis.ACTION.HOLD)
+			{
+				inventory.GetWeapon(0).HoldAttack(axis);
+
+
+			}
+			else if (action == ControlAxis.ACTION.RELEASE)
+			{
+				inventory.GetWeapon(0).ReleaseAttack(axis);
+				actionButton_1 = false;
+			}
+		}
+	}
+
+	public void axis1(ControlAxis Axis, ControlAxis.ACTION action)
+	{
+		if (!actionButton_1 && (Time.time > nextButtonPress ||actionButton_2) && !dropWeapon)
+		{
+			if (action == ControlAxis.ACTION.PRESS)
+			{
+				inventory.GetWeapon(1).PressAttack(axis);
+				actionButton_2 = true;
+				nextButtonPress = Time.time + settings.buttonCooldown;
+
+			}
+			else if (action == ControlAxis.ACTION.HOLD)
+			{
+				inventory.GetWeapon(1).HoldAttack(axis);
+
+
+			}
+			else if (action == ControlAxis.ACTION.RELEASE)
+			{
+				inventory.GetWeapon(1).ReleaseAttack(axis);
+				actionButton_2 = false;
+			}
 		}
 	}
 

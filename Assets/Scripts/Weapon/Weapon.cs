@@ -148,16 +148,16 @@ public class Weapon : MonoBehaviour, MessagePassing
 		}
 	}*/
 
-    public virtual void HoldAttack(ControlButton button)
+	public virtual void HoldAttack(InputSystem button)
     {
     }
 
 
-    public virtual void PressAttack(ControlButton button)
+	public virtual void PressAttack(InputSystem button)
     {
     }
 
-    public virtual void ReleaseAttack(ControlButton button)
+	public virtual void ReleaseAttack(InputSystem button)
     {
     }
 

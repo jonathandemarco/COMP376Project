@@ -3,15 +3,15 @@ using System.Collections;
 
 public class NullWeapon : Weapon
 {
-    public override void PressAttack(ControlButton button)
+	public override void PressAttack(InputSystem button)
     {
         Debug.Log("NullWeapon");
     }
-    public override void HoldAttack(ControlButton button)
+	public override void HoldAttack(InputSystem button)
     {
         Debug.Log("NullWeapon");
     }
-        public override void ReleaseAttack(ControlButton button)
+	public override void ReleaseAttack(InputSystem button)
     {
         Debug.Log("NullWeapon");
     }

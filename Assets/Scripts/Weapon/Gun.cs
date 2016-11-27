@@ -21,7 +21,7 @@ public class Gun : Weapon {
         renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
     }
 
-    public override void PressAttack(ControlButton button) {
+	public override void PressAttack(InputSystem button) {
 		transform.localScale = new Vector3 (0.0f, 0.0f, 0.0f);
         for (int i = 0; i < renderers.Length; i++)
         {
@@ -29,7 +29,7 @@ public class Gun : Weapon {
         }
     }
 
-    public override void ReleaseAttack (ControlButton button) 
+	public override void ReleaseAttack (InputSystem button) 
 	{
 		Debug.Log ("Released");
 
@@ -42,7 +42,7 @@ public class Gun : Weapon {
     }
 
 
-	public override void HoldAttack (ControlButton button)
+	public override void HoldAttack (InputSystem button)
 	{
 		Vector3 diff = goalScale - transform.localScale;
 

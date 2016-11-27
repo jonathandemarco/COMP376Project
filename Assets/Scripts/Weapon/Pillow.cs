@@ -10,7 +10,7 @@ public class Pillow : Weapon {
 		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
 	}
 
-	public override void PressAttack(ControlButton button)
+	public override void PressAttack(InputSystem button)
 	{
 		Debug.Log("Swing Pillow");
 

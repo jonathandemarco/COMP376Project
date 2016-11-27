@@ -1,61 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public class InputSystem{
 
-public class ControlButton {
-	public string buttonCallName;
+	public string callName;
+	public int id;
+	public PlayerManager manager;
 
-	private int buttonID;
-	private PlayerManager manager;
+	public float timeAtPress;
+	public float timeAtLastPress;
+	public float holdTime;
+	public float netHoldTime;
+	public ACTION lastState;
 
-	private float timeAtPress;
-	private float timeAtLastPress;
-	private float holdTime;
-	private float netHoldTime;
-	private ACTION lastState;
+	public InputSystem(){}
 
-	public enum ACTION {PRESS,HOLD,RELEASE};
-
-	public ControlButton(string name,int id, PlayerManager m) {
-		setName(name);
-		setManager(m);
-		buttonID = id;
-	}
 	public void setName(string name) {
-		buttonCallName = name;
+		callName = name;
 	}
-	private void setManager(PlayerManager m) {
+	public void setManager(PlayerManager m) {
 		manager = m;
 	}
 
-
-	public void check() {
-
-		if (Input.GetButton(buttonCallName))
-		{
-			holdTime += Time.deltaTime;
-			netHoldTime += Time.deltaTime;
-			lastState = ACTION.HOLD;
-			manager.getButton(this);
-
-		}
-		if (Input.GetButtonDown(buttonCallName))
-		{
-			holdTime = 0;
-			timeAtPress = Time.time;
-			lastState = ACTION.PRESS;
-			manager.getButton(this);
-		}
-		if (Input.GetButtonUp(buttonCallName))
-		{
-			lastState = ACTION.RELEASE;
-			timeAtLastPress = timeAtPress;
-			manager.getButton(this);
-			holdTime = 0;
-		}
-
+	public virtual void check(){
 	}
 
+	public enum ACTION {PRESS,HOLD,RELEASE};
+
+	public void press(){
+		holdTime = 0;
+		timeAtPress = Time.time;
+		lastState = ACTION.PRESS;
+	}
+	public void hold(){
+		holdTime += Time.deltaTime;
+		netHoldTime += Time.deltaTime;
+		lastState = ACTION.HOLD;
+	}
+	public void release(){
+		lastState = ACTION.RELEASE;
+		timeAtLastPress = timeAtPress;
+	}
 	public float getTimeAtPress() {
 		return timeAtPress;
 	}
@@ -72,48 +57,82 @@ public class ControlButton {
 		netHoldTime = 0;
 	}
 	public int getID() {
-		return buttonID;
+		return id;
 	}
 	public ACTION getLastState() {
 		return lastState;
 	}
+
 }
-public class ControlJoysitck {
-    public string joystickCallName;
-    public float deadzone;
-    private PlayerManager manager;
-    private int stickID;
+public class ControlButton:InputSystem {
 
-    public ControlJoysitck(string name, int id, PlayerManager m)
+
+	public ControlButton(string name,int ID, PlayerManager m) {
+		setName(name);
+		setManager(m);
+		id = ID;
+	}
+
+
+
+	public override void check() {
+
+		if (Input.GetButton(callName))
+		{
+			hold ();
+			manager.getButton(this);
+
+		}
+		if (Input.GetButtonDown(callName))
+		{
+			press ();
+			manager.getButton(this);
+
+		}
+
+		if (Input.GetButtonUp(callName))
+		{
+			release ();
+			manager.getButton(this);
+
+		}
+
+	}
+
+
+}
+
+public class ControlAxis:InputSystem {
+
+	private bool wasPressed = false;
+	private float axisThreshold;
+	public ControlAxis(string name, int ID, PlayerManager m, float thresh)
     {
-        setName(name);
-        setManager(m);
-        stickID = id;
+		setName(name);
+		setManager(m);
+		id = ID;
+		axisThreshold = thresh;
     }
-    public void setName(string name)
+
+
+	public override void check()
     {
-        joystickCallName = name;
-    }
-    private void setManager(PlayerManager m)
-    {
-        manager = m;
-    }
+		float input = Input.GetAxis(callName);
+		if (input > axisThreshold && wasPressed == false) {
+			wasPressed = true;
+			press ();
+			Debug.Log ("PRESS");
+		}
+		if (input > axisThreshold && wasPressed == true) {
+			Debug.Log ("HOLD");
 
-    public void check()
-    {
-        float horizontal = Input.GetAxis(joystickCallName+"H");
-        float vertical = Input.GetAxis(joystickCallName + "V");
+		}
+		if (input < axisThreshold && wasPressed == true) {
+			wasPressed = false;
+			release ();
+			Debug.Log ("RELEASE");
 
-        Vector3 stickDirection = new Vector3(0, 0, 0);
-
-        if (Mathf.Abs(horizontal) > deadzone)
-            stickDirection += horizontal * Vector3.right;
-
-        if (Mathf.Abs(vertical) > deadzone)
-            stickDirection += horizontal * Vector3.forward;
-
-       // manager.getMessage(stickID, stickDirection);
-
+		}
     }
 
 }
@@ -122,6 +141,8 @@ public class PlayerControls : MonoBehaviour {
     public float moveSpeed;
     public float rotationSpeed;
     public int numOfButtons;
+	public int numOfAxes;
+	public float axisThreshold;
 
     private PlayerManager player;
 
@@ -134,11 +155,15 @@ public class PlayerControls : MonoBehaviour {
 
 
     private List<ControlButton> buttons;
+	private List<ControlAxis> axes;
+
 
     public void readInput() {
         horizontal = Input.GetAxis(joystickCallNameHorizontal);
         vertical = Input.GetAxis(joystickCallNameVertical);
         checkButtons();
+		checkAxes ();
+
 
     }
 
@@ -147,13 +172,18 @@ public class PlayerControls : MonoBehaviour {
         buttons = new List<ControlButton>();
         for (int i = 0; i < numOfButtons; i++)
         {
-            ControlButton b;
-            b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>());
+            ControlButton b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>());
             buttons.Add(b);
         }
-
-            joystickCallNameHorizontal = c + "H";
-            joystickCallNameVertical = c + "V";
+		axes = new List<ControlAxis>();
+		for (int i = 0; i < numOfAxes; i++)
+		{
+			ControlAxis a = new ControlAxis("" + c+"-AXIS-" + i, i, player.GetComponent<PlayerManager>(),axisThreshold);
+			axes.Add(a);
+		}
+		joystickCallNameHorizontal = ""+c+"H";
+		joystickCallNameVertical = ""+c+"V";
+			
     }
     public void setPlayer(PlayerManager p) {
         player = p;
@@ -189,7 +219,13 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
+	private void checkAxes(){
+		for (int i = 0; i <axes.Count;i++){
+			axes[i].check();
 
+		}
+
+	}
     private void checkButtons() {
         for (int i = 0; i <buttons.Count;i++){
             buttons[i].check();
