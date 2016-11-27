@@ -14,6 +14,15 @@ public class Sword : Weapon
 
     public override void PressAttack(ControlButton button)
     {
+		AudioSource audioSource = GetComponent<AudioSource> ();
+
+		int whichsound = Random.Range (0, 2);
+		if (whichsound == 0)
+			audioSource.clip = swordSound2;
+		else
+			audioSource.clip = attackSound;
+		audioSource.Play ();
+			
         Debug.Log("Swing");
 
 		// allowAttack() will tell us if the user is allowed to perform an attack
