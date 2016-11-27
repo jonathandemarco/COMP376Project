@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013942155914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: 1.5}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -223,11 +223,13 @@ MonoBehaviour:
   attackRate: 0
   abundance: 0
   lifetime: -1
+  durability: 0
   playerChar: 0
+  index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
-  latch: {fileID: 55025184}
+  latch: {fileID: 1000013942155914}
 --- !u!114 &114000011481845838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,12 +246,14 @@ MonoBehaviour:
   attackRate: 0
   abundance: 0
   lifetime: -1
+  durability: 0
   playerChar: 0
+  index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
-  origin: {fileID: 55062816}
-  destination: {fileID: 55062176}
+  origin: {fileID: 1000011523966986}
+  destination: {fileID: 1000013942155914}
   lineWidth: 0.25
 --- !u!114 &114000014290066470
 MonoBehaviour:
@@ -267,11 +271,13 @@ MonoBehaviour:
   attackRate: 2
   abundance: 0
   lifetime: -1
+  durability: 0
   playerChar: 0
+  index: 0
   impactSound: {fileID: 8300000, guid: 2420498bb7e9744478afb07b38118546, type: 3}
   attackSound: {fileID: 8300000, guid: 50b227197e552477f887f84c6ee24cdc, type: 3}
   weaponAnimator: {fileID: 0}
-  handle: {fileID: 54954656}
+  handle: {fileID: 1000011523966986}
   maxDistance: 10
 --- !u!120 &120000010046780286
 LineRenderer:

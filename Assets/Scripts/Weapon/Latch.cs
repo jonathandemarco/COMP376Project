@@ -9,18 +9,18 @@ public class Latch : Weapon {
 	private bool isUsed;
 	private bool isLaunched;
 	private bool collided;
-	private Vector3 initialDistance;
-	Vector3 movingDistance;
 	private Renderer [] renderers;
 	private float time;
+	private Vector3 initialLocal;
 
 	// Use this for initialization
 	void Start () {
 		isUsed = false;
 		isLaunched = false;
 		collided = false;
-		movingDistance = new Vector3(0, 0, maxDistance);
 		time = 0.0f;
+
+		initialLocal = transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -29,14 +29,14 @@ public class Latch : Weapon {
 		if (isUsed) {
 			if (isLaunched) {
 				time += Time.deltaTime;
-				if (time < 2.0f) {
-					transform.localPosition += movingDistance / 10;
+				if (time < 1.0f) {
+					transform.position += -handle.transform.right / 5;
 				} else {
 					Pull ();
 				}
 			} else {	
 				time -= Time.deltaTime;
-				if (time < 0.0f) {
+				if (time < 0.5f) {
 					for (int r = 0; r < renderers.Length; ++r) {
 						renderers [r].enabled = false;
 					}
@@ -45,13 +45,14 @@ public class Latch : Weapon {
 					collided = false;
 					time = 0.0f;
 				} else {
-					transform.localPosition += -movingDistance / 10;
+					transform.position += handle.transform.right / 2;
 				} 
 			}
 		}
 	}
 
 	public void Launch(Renderer [] rend){
+		transform.localPosition = initialLocal;
 		renderers = rend;
 		isUsed = true;
 		isLaunched = true;
