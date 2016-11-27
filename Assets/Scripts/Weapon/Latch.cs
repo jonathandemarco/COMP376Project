@@ -8,8 +8,7 @@ public class Latch : Weapon {
 
 	private bool isUsed;
 	private bool isLaunched;
-	private bool alreadyCollided;
-	private float time;
+	private bool collided;
 	private Vector3 initialDistance;
 	private Renderer [] renderers;
 
@@ -17,36 +16,33 @@ public class Latch : Weapon {
 	void Start () {
 		isUsed = false;
 		isLaunched = false;
-		alreadyCollided = false;
-		time = 0.0f;
-		initialDistance = handle.transform.localPosition - transform.localPosition;
+		collided = false;
+
+		initialDistance = handle.transform.position - transform.position;
+
 	}
 	
 	// Update is called once per frame
 	public override void Update () {
 	
 		if (isUsed) {
-			Vector3 currentDistance = handle.transform.localPosition - transform.localPosition;
+			Vector3 currentDistance = handle.transform.position - transform.position;
 			float distanceBetweenWep = (currentDistance - initialDistance).magnitude;
 
 			if (isLaunched && distanceBetweenWep < maxDistance) {
-				transform.position += -handle.transform.right * time;
-				time += Time.deltaTime;
+				transform.position += initialDistance * Time.deltaTime * 10.0f;
 			} else if (isLaunched && distanceBetweenWep >= maxDistance) {
-				// reached max distance
-				time = 0.0f;
-				time += Time.deltaTime;
 				Pull ();
-			} else if (!isLaunched && isUsed && distanceBetweenWep > 1.05f) {
-				transform.position += handle.transform.right * time;
-				time += Time.deltaTime;
-			} else if (!isLaunched && isUsed && distanceBetweenWep <= 1.05f){
-				for(int r = 0; r < renderers.Length; ++r){
+			} else if (!isLaunched && isUsed && currentDistance.magnitude > 1.0f) {
+				transform.position += -initialDistance * Time.deltaTime * 10.0f;
+			} else {
+				for (int r = 0; r < renderers.Length; ++r) {
 					renderers [r].enabled = false;
 				}
-				time = 0.0f;
+
 				isUsed = false;
-			}
+				collided = false;
+			} 
 		}
 	}
 
@@ -76,18 +72,18 @@ public class Latch : Weapon {
 			char colPlayerChar = getPlayerChar ();
 
 			if (manager.getPlayerChar () != colPlayerChar) {
-				if (weaponSound != null) {
+				if (impactSound != null) {
 					AudioSource audioSource = GetComponent<AudioSource> ();
 					if (audioSource != null) {
-						audioSource.clip = weaponSound;
+						audioSource.clip = impactSound;
 						audioSource.Play ();
 					}
 				}
 			}
-		} else if(!alreadyCollided && isLaunched){
-			time = 0.0f;
-			alreadyCollided = true;
+		} else if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain") && !collided){
+			collided = true;
 			Pull ();
 		}
 	}
+
 }
