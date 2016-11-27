@@ -12,6 +12,7 @@ public class Latch : Weapon {
 	private Vector3 initialDistance;
 	Vector3 movingDistance;
 	private Renderer [] renderers;
+	private float time;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,7 @@ public class Latch : Weapon {
 		collided = false;
 		initialDistance = handle.transform.position - transform.position;
 		movingDistance = new Vector3(0, 0, maxDistance);
+		time = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -27,32 +29,27 @@ public class Latch : Weapon {
 	
 		if (isUsed) {
 			float distanceBetweenWep = (handle.transform.position - transform.position).magnitude;
-
 			if (isLaunched) {
-				if (distanceBetweenWep < maxDistance) {
-					transform.position += movingDistance / 2;
-					movingDistance = movingDistance / 2;
-				} else if (distanceBetweenWep >= maxDistance) {	
-					movingDistance = new Vector3(0, 0, maxDistance);
+				time += Time.deltaTime;
+				if (distanceBetweenWep < maxDistance && time < 2.0f) {
+					transform.position += movingDistance / 10;
+				} else if (distanceBetweenWep >= maxDistance) {
 					Pull ();
 				}
+			} else {	
+				time -= Time.deltaTime;
+				if (time < 0.0f) {
+					for (int r = 0; r < renderers.Length; ++r) {
+						renderers [r].enabled = false;
+					}
+
+					isUsed = false;
+					collided = false;
+					time = 0.0f;
+				} else {
+					transform.position += -movingDistance / 10;
+				} 
 			}
-		}
-		else {			
-			if (movingDistance.magnitude < 2.0f) {
-				for (int r = 0; r < renderers.Length; ++r) {
-					renderers [r].enabled = false;
-				}
-
-				movingDistance = new Vector3(0, 0, maxDistance);
-
-				isUsed = false;
-				collided = false;
-			} 
-			else {
-				transform.position += -movingDistance / 2;
-				movingDistance = movingDistance / 2;
-			} 
 		}
 	}
 
