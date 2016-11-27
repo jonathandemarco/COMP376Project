@@ -125,6 +125,7 @@ public class Latch : Weapon {
 				}
 			}
 		} else if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain") && !collided){
+			Debug.Log ("Collided with Terrain");
 			MessagePassingHelper.passMessageOnCollision (this, col);
 			collided = true;
 			Pull ();

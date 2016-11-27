@@ -80,4 +80,28 @@ public class LaserGun : Weapon {
 			--count;
 		}
 	}
+
+	public override void OnCollisionEnter(Collision c)
+	{
+		Collider col = c.collider;
+
+		MessagePassingHelper.passMessageOnCollision (this, col);
+
+		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			Debug.Log("Boom");
+			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
+			char colPlayerChar = getPlayerChar();
+			if (manager.getPlayerChar() != colPlayerChar)
+			{
+				if (impactSound != null) {
+					AudioSource audioSource = GetComponent<AudioSource>();
+					if (audioSource != null) {
+						audioSource.clip = impactSound;
+						audioSource.Play ();
+					}
+				}
+			}
+		}
+	}
 }
