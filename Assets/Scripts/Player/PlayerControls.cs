@@ -6,6 +6,7 @@ public class InputSystem{
 	public string callName;
 	public int id;
 	public PlayerManager manager;
+	public PlayerControls controller;
 
 	public float timeAtPress;
 	public float timeAtLastPress;
@@ -20,6 +21,9 @@ public class InputSystem{
 	}
 	public void setManager(PlayerManager m) {
 		manager = m;
+	}
+	public void setController(PlayerControls c) {
+		controller = c;
 	}
 
 	public virtual void check(){
@@ -67,10 +71,11 @@ public class InputSystem{
 public class ControlButton:InputSystem {
 
 
-	public ControlButton(string name,int ID, PlayerManager m) {
+	public ControlButton(string name,int ID, PlayerManager m, PlayerControls c) {
 		setName(name);
 		setManager(m);
 		id = ID;
+		controller = c;
 	}
 
 
@@ -80,20 +85,20 @@ public class ControlButton:InputSystem {
 		if (Input.GetButton(callName))
 		{
 			hold ();
-			manager.getButton(this);
+			controller.getButton(this);
 
 		}
 		if (Input.GetButtonDown(callName))
 		{
 			press ();
-			manager.getButton(this);
+			controller.getButton(this);
 
 		}
 
 		if (Input.GetButtonUp(callName))
 		{
 			release ();
-			manager.getButton(this);
+			controller.getButton(this);
 
 		}
 
@@ -106,11 +111,13 @@ public class ControlAxis:InputSystem {
 
 	private bool wasPressed = false;
 	private float axisThreshold;
-	public ControlAxis(string name, int ID, PlayerManager m, float thresh)
+	public ControlAxis(string name, int ID, PlayerManager m,PlayerControls c, float thresh)
     {
 		setName(name);
 		setManager(m);
 		id = ID;
+		controller = c;
+	
 		axisThreshold = thresh;
     }
 
@@ -121,16 +128,18 @@ public class ControlAxis:InputSystem {
 		if (input > axisThreshold && wasPressed == false) {
 			wasPressed = true;
 			press ();
-			Debug.Log ("PRESS");
+			controller.getAxis (this);
 		}
 		if (input > axisThreshold && wasPressed == true) {
-			Debug.Log ("HOLD");
+			controller.getAxis (this);
+
 
 		}
 		if (input < axisThreshold && wasPressed == true) {
 			wasPressed = false;
 			release ();
-			Debug.Log ("RELEASE");
+			controller.getAxis (this);
+
 
 		}
     }
@@ -157,6 +166,9 @@ public class PlayerControls : MonoBehaviour {
     private List<ControlButton> buttons;
 	private List<ControlAxis> axes;
 
+	private bool actionButton_1 = false;
+	private bool actionButton_2 = false;
+	private float nextButtonPress = 0;
 
     public void readInput() {
         horizontal = Input.GetAxis(joystickCallNameHorizontal);
@@ -172,13 +184,13 @@ public class PlayerControls : MonoBehaviour {
         buttons = new List<ControlButton>();
         for (int i = 0; i < numOfButtons; i++)
         {
-            ControlButton b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>());
+            ControlButton b = new ControlButton("" + c + i, i, player.GetComponent<PlayerManager>(), this);
             buttons.Add(b);
         }
 		axes = new List<ControlAxis>();
 		for (int i = 0; i < numOfAxes; i++)
 		{
-			ControlAxis a = new ControlAxis("" + c+"-AXIS-" + i, i, player.GetComponent<PlayerManager>(),axisThreshold);
+			ControlAxis a = new ControlAxis("" + c+"-AXIS-" + i, i, player.GetComponent<PlayerManager>(),this, axisThreshold);
 			axes.Add(a);
 		}
 		joystickCallNameHorizontal = ""+c+"H";
@@ -189,6 +201,7 @@ public class PlayerControls : MonoBehaviour {
         player = p;
         setPlayerChar(p.getPlayerChar());
     }
+
 
     public void move() {
         if (!Mathf.Approximately(vertical, 0.0f) || !Mathf.Approximately(horizontal, 0.0f))
@@ -219,6 +232,7 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
+
 	private void checkAxes(){
 		for (int i = 0; i <axes.Count;i++){
 			axes[i].check();
@@ -233,5 +247,217 @@ public class PlayerControls : MonoBehaviour {
         }
 
     }
+
+
+	public void getButton(ControlButton button)
+	{
+		int buttonID = button.getID();
+		ControlButton.ACTION action = button.getLastState();
+		switch (buttonID)
+		{
+		case 0:
+			button0(button, action); // jump
+			break;
+		case 1:
+			button1(button, action); // dash
+			break;
+		case 2:
+			button2(button, action); 
+			break;
+		case 3:
+			button3(button, action);
+			break;
+		case 4:
+			button4(button, action);
+			break;
+		case 5:
+			button5(button, action);
+			break;
+		}
+	}
+
+
+	public void getAxis(ControlAxis axis)
+	{
+		int id = axis.getID();
+		ControlAxis.ACTION action = axis.getLastState();
+		switch (id) {
+		case 0:
+			axis0 (axis, action); // wep1
+			break;
+		case 1:
+			axis1 (axis, action); // wep2
+			break;
+		}
+	}
+
+	public void button0(ControlButton butto, ControlButton.ACTION action)
+	{
+		if (action == ControlButton.ACTION.PRESS)
+		{
+			player.jump();
+		}
+		else if (action == ControlButton.ACTION.HOLD)
+		{
+			//hold Button0;
+		}
+		else if (action == ControlButton.ACTION.RELEASE)
+		{
+			Rigidbody rb = GetComponentInParent<Rigidbody>();
+			if (rb.velocity.y > 0)
+				rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, rb.velocity.z);
+
+		}
+	}
+	public void button1(ControlButton button, ControlButton.ACTION action)
+	{
+		if (action == ControlButton.ACTION.PRESS)
+		{
+			//press Button1;
+			player.dash();
+		}
+		else if (action == ControlButton.ACTION.HOLD)
+		{
+			//hold Button1;
+		}
+		else if (action == ControlButton.ACTION.RELEASE)
+		{
+			//release Button1;
+		}
+	}
+	public void button2(ControlButton button, ControlButton.ACTION action)
+	{
+
+		if (!actionButton_2 && (Time.time > nextButtonPress || actionButton_1))
+		{
+			if (action == ControlButton.ACTION.PRESS)
+			{
+				player.getInventory().GetWeapon(0).PressAttack(button);
+				actionButton_1 = true;
+				nextButtonPress = Time.time + player.settings.buttonCooldown;
+			}
+			else if (action == ControlButton.ACTION.HOLD)
+			{
+				player.getInventory().GetWeapon(0).HoldAttack(button);
+
+
+			}
+			else if (action == ControlButton.ACTION.RELEASE)
+			{
+				player.getInventory().GetWeapon(0).ReleaseAttack(button);
+				actionButton_1 = false;
+			}
+		}
+
+	}
+	public void button3(ControlButton button, ControlButton.ACTION action)
+	{
+		if (!actionButton_1 && (Time.time > nextButtonPress ||actionButton_2))
+		{
+			if (action == ControlButton.ACTION.PRESS)
+			{
+				player.getInventory().GetWeapon(1).PressAttack(button);
+				actionButton_2 = true;
+				nextButtonPress = Time.time + player.settings.buttonCooldown;
+
+			}
+			else if (action == ControlButton.ACTION.HOLD)
+			{
+				player.getInventory().GetWeapon(1).HoldAttack(button);
+
+
+			}
+			else if (action == ControlButton.ACTION.RELEASE)
+			{
+				player.getInventory().GetWeapon(1).ReleaseAttack(button);
+				actionButton_2 = false;
+			}
+		}
+
+	}
+	public void button4(ControlButton button, ControlButton.ACTION action)
+	{
+		if (action == ControlButton.ACTION.PRESS)
+		{
+
+			player.drop(0);
+
+		}
+		else if (action == ControlButton.ACTION.HOLD)
+		{
+			//hold Button4;
+		}
+		else if (action == ControlButton.ACTION.RELEASE)
+		{
+			//release Button4;
+		}
+	}
+
+	public void button5(ControlButton button, ControlButton.ACTION action)
+	{
+		if (action == ControlButton.ACTION.PRESS)
+		{
+
+			player.drop(1);
+
+		}
+		else if (action == ControlButton.ACTION.HOLD)
+		{
+			//hold Button4;
+		}
+		else if (action == ControlButton.ACTION.RELEASE)
+		{
+			//release Button4;
+		}
+	}
+	public void axis0(ControlAxis axis, ControlAxis.ACTION action)
+	{
+		if (!actionButton_2 && (Time.time > nextButtonPress || actionButton_1))
+		{
+			if (action == ControlAxis.ACTION.PRESS)
+			{
+				player.getInventory().GetWeapon(0).PressAttack(axis);
+				actionButton_1 = true;
+				nextButtonPress = Time.time + player.settings.buttonCooldown;
+
+			}
+			else if (action == ControlAxis.ACTION.HOLD)
+			{
+				player.getInventory().GetWeapon(0).HoldAttack(axis);
+
+
+			}
+			else if (action == ControlAxis.ACTION.RELEASE)
+			{
+				player.getInventory().GetWeapon(0).ReleaseAttack(axis);
+				actionButton_1 = false;
+			}
+		}
+	}
+
+	public void axis1(ControlAxis axis, ControlAxis.ACTION action)
+	{
+		if (!actionButton_1 && (Time.time > nextButtonPress ||actionButton_2))
+		{
+			if (action == ControlAxis.ACTION.PRESS)
+			{
+				player.getInventory().GetWeapon(1).PressAttack(axis);
+				actionButton_2 = true;
+				nextButtonPress = Time.time + player.settings.buttonCooldown;
+				Debug.Log ("BOOYA");
+			}
+			else if (action == ControlAxis.ACTION.HOLD)
+			{
+				player.getInventory().GetWeapon(1).HoldAttack(axis);
+
+
+			}
+			else if (action == ControlAxis.ACTION.RELEASE)
+			{
+				player.getInventory().GetWeapon(1).ReleaseAttack(axis);
+				actionButton_2 = false;
+			}
+		}
+	}
 
 }
