@@ -9,15 +9,18 @@ public class PlayerSettings
     public float maxHeldTimeDash;
     public float dashCoolDownTime;
     public float jumpForce;
+	public float jumpFowardVelocity;
     public float jumpCooldownTime;
     public float moveSpeed;
     public float groundDragForce;
     public float airDragForce;
     public float airMoveForce;
     public float rotateSpeed;
+	public float maxSpeed;
     public int inventorySize;
 
     public float invinsibilityTime;
+	public float respawnInvisibleTime;
     public float invinsibilityFlickerRate;
     public float groundDistance;
     public float frontDistance;
@@ -67,17 +70,16 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     private float dashStopTime;
 
     private float nextJump = 0;
+	private float timeAtJump = 0;
 
     private float dashSpeedRatio;
 
     private Vector3 lastPosition;
+	private Vector3 frontVector;
 
-    Vector3 velocity;
+    Vector3 tempVelocity;
     private MeshRenderer mesh;
 
-    private bool actionButton_1, actionButton_2;
-    private float nextButtonPress = 0;
-    private bool dropWeapon = false;
 
 
     void Awake()
@@ -99,8 +101,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         grounded = true;
         health = maxHealth;
         score = 0;
-        actionButton_1 = false;
-        actionButton_2 = false;
+
     }
 
     // Update is called once per frame
@@ -117,8 +118,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     {
         if (!isEliminated)
         {
-            velocity = (transform.position - lastPosition) / Time.deltaTime;
+			tempVelocity = (transform.position - lastPosition) / Time.deltaTime;
             lastPosition = transform.position;
+			frontVector = tempVelocity.normalized;
             if (!isAlive)
             {
                 timeSinceDeath += Time.deltaTime;
@@ -243,6 +245,8 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         transform.position = getSpawnPoint();
         rb.velocity = new Vector3(0, 0, 0);
         enableModelRender(); // replace with mesh child
+		invulnerable = true;
+		nextDamage = Time.time + settings.respawnInvisibleTime;
         notify();
     }
 
@@ -258,26 +262,31 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     {
 
     }
-    private void jump()
+    public void jump()
     {
         if (checkGround() && Time.time > nextJump)
         {
+			timeAtJump = Time.time;
             nextJump = Time.time + settings.jumpCooldownTime;
-            rb.velocity = velocity;
-            rb.AddForce(Vector3.up * settings.jumpForce);
             grounded = false;
+			if (tempVelocity.magnitude != 0) {
+				rb.velocity = tempVelocity;
+
+			}
+			
+			rb.AddForce(Vector3.up * settings.jumpForce);
+			
         }
     }
     private void land()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+       rb.velocity/=2;
     }
     private bool checkGround()
     {
-        bool previousState = grounded;
         grounded = Physics.Raycast(transform.position, Vector3.down, GetComponentInParent<CapsuleCollider>().height * settings.groundDistance * transform.localScale.y);
 
-        if (previousState == false && grounded == true)
+		if (Time.time-timeAtJump>0.1 && grounded == true)
             land();
         return grounded;
     }
@@ -292,7 +301,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
     }
 
-    private void dash()
+    public void dash()
     {
         if (Time.time > nextDash)
         {
@@ -309,36 +318,16 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     }
 
     private void flipModelRender() {
-        /*
-        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            meshes[i].enabled = !meshes[i].enabled;
-        }
-        */
+
         mesh.enabled = !mesh.enabled;
     }
     private void enableModelRender()
     {
-        /*
-        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            meshes[i].enabled = true;
-        }
-        */
         mesh.enabled = true;
     }
     private void disableModelRender()
     {
         mesh.enabled = false;
-        /*
-        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            meshes[i].enabled = false;
-        }
-        */
     }
 
     private void manageStates()
@@ -381,6 +370,10 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         }
         else
             rb.drag = settings.airDragForce;
+
+		if (rb.velocity.magnitude > settings.maxSpeed) {
+			rb.velocity = rb.velocity.normalized * settings.maxSpeed;
+		}
     }
 
     public void drop(int index) {
@@ -388,155 +381,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         notify();
     }
 
-    public void getButton(ControlButton button)
-    {
-        int buttonID = button.getID();
-        ControlButton.ACTION action = button.getLastState();
-        switch (buttonID)
-        {
-            case 0:
-                button0(button, action);
-                break;
-            case 1:
-                button1(button, action);
-                break;
-            case 2:
-                button2(button, action);
-                break;
-            case 3:
-                button3(button, action);
-                break;
-            case 4:
-                button4(button, action);
-                break;
-			case 5:
-				button5(button, action);
-				break;
-        }
-    }
 
-
-    public void button0(ControlButton butto, ControlButton.ACTION action)
-    {
-        if (action == ControlButton.ACTION.PRESS)
-        {
-            jump();
-        }
-        else if (action == ControlButton.ACTION.HOLD)
-        {
-            //hold Button0;
-        }
-        else if (action == ControlButton.ACTION.RELEASE)
-        {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb.velocity.y > 0)
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, rb.velocity.z);
-
-        }
-    }
-    public void button1(ControlButton button, ControlButton.ACTION action)
-    {
-        if (action == ControlButton.ACTION.PRESS)
-        {
-            //press Button1;
-            dash();
-        }
-        else if (action == ControlButton.ACTION.HOLD)
-        {
-            //hold Button1;
-        }
-        else if (action == ControlButton.ACTION.RELEASE)
-        {
-            //release Button1;
-        }
-    }
-    public void button2(ControlButton button, ControlButton.ACTION action)
-    {
-        
-        if (!actionButton_2 && (Time.time > nextButtonPress || actionButton_1) && !dropWeapon)
-        {
-            if (action == ControlButton.ACTION.PRESS)
-            {
-                inventory.GetWeapon(0).PressAttack(button);
-                actionButton_1 = true;
-                nextButtonPress = Time.time + settings.buttonCooldown;
-            }
-            else if (action == ControlButton.ACTION.HOLD)
-            {
-                inventory.GetWeapon(0).HoldAttack(button);
-
-
-            }
-            else if (action == ControlButton.ACTION.RELEASE)
-            {
-                inventory.GetWeapon(0).ReleaseAttack(button);
-                actionButton_1 = false;
-            }
-        }
-
-    }
-    public void button3(ControlButton button, ControlButton.ACTION action)
-    {
-        if (!actionButton_1 && (Time.time > nextButtonPress ||actionButton_2) && !dropWeapon)
-        {
-            if (action == ControlButton.ACTION.PRESS)
-            {
-                inventory.GetWeapon(1).PressAttack(button);
-                actionButton_2 = true;
-                nextButtonPress = Time.time + settings.buttonCooldown;
-
-            }
-            else if (action == ControlButton.ACTION.HOLD)
-            {
-                inventory.GetWeapon(1).HoldAttack(button);
-
-
-            }
-            else if (action == ControlButton.ACTION.RELEASE)
-            {
-                inventory.GetWeapon(1).ReleaseAttack(button);
-                actionButton_2 = false;
-            }
-        }
-
-    }
-    public void button4(ControlButton button, ControlButton.ACTION action)
-    {
-        if (action == ControlButton.ACTION.PRESS)
-        {
-			Debug.Log ("DROPPING WEAPON 1 ");
-		
-			drop(0);
-
-        }
-        else if (action == ControlButton.ACTION.HOLD)
-        {
-            //hold Button4;
-        }
-        else if (action == ControlButton.ACTION.RELEASE)
-        {
-            //release Button4;
-        }
-    }
-
-	public void button5(ControlButton button, ControlButton.ACTION action)
-	{
-		if (action == ControlButton.ACTION.PRESS)
-		{
-			Debug.Log ("DROPPING WEAPON 2 ");
-
-			drop(1);
-
-		}
-		else if (action == ControlButton.ACTION.HOLD)
-		{
-			//hold Button4;
-		}
-		else if (action == ControlButton.ACTION.RELEASE)
-		{
-			//release Button4;
-		}
-	}
 
 	void MessagePassing.collisionWith(Collider c)
 	{

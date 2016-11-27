@@ -48,14 +48,14 @@ public class Vacuum : Weapon {
 	{
 		
 	}
-	public override void PressAttack(ControlButton button) {
+	public override void PressAttack(InputSystem button) {
 		for (int i = 0; i < renderers.Length; i++)
 		{
 			renderers[i].enabled = true;
 		}
 	}
 
-	public override void ReleaseAttack (ControlButton button) 
+	public override void ReleaseAttack (InputSystem button) 
 	{
 		Debug.Log ("Released");
 
@@ -67,7 +67,7 @@ public class Vacuum : Weapon {
 		gSource.mass = 0;
 	}
 
-	public override void HoldAttack (ControlButton button)
+	public override void HoldAttack (InputSystem button)
 	{
 		if(gSource.mass < maxSuction)
 			gSource.mass += suctionIncrement * Time.deltaTime;

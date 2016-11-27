@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Crate : MonoBehaviour {
 
+	public AudioClip crateHitsound;
 	public int IDValue; //To give the specefic item from database to player
 
 	public float delta = 1.5f;  // Amount to move left and right from the start point
@@ -37,7 +38,21 @@ public class Crate : MonoBehaviour {
 
 		if (c.collider.gameObject.layer == LayerMask.NameToLayer ("Terrain"))
 			grounded = true;
-		else if(c.collider.gameObject.layer == LayerMask.NameToLayer ("Crate"))
-			Destroy (c.gameObject);
+
+		if (c.collider.gameObject.layer == LayerMask.NameToLayer ("Player")) {
+
+			AudioSource audioSource = GetComponent<AudioSource> ();
+			audioSource.clip = crateHitsound;
+			audioSource.Play (); 
+
+			MeshRenderer[] arr = GetComponentsInChildren<MeshRenderer> ();
+			arr [0].enabled = false;
+			arr [1].enabled = false;
+
+			GetComponent<Collider> ().enabled = false;
+
+			Destroy (gameObject, crateHitsound.length);
+		}
+		
 	}
 }

@@ -10,7 +10,7 @@ public class Pillow : Weapon {
 		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
 	}
 
-	public override void PressAttack(ControlButton button)
+	public override void PressAttack(InputSystem button)
 	{
 		Debug.Log("Swing Pillow");
 
@@ -25,6 +25,7 @@ public class Pillow : Weapon {
 		EnableCollider();
 		startAnimation ();
 		// }
+
 	}
 
 	// called by animation of sword
@@ -36,6 +37,8 @@ public class Pillow : Weapon {
 			renderers[i].enabled = false;
 		}
 		stopAnimation ();
+		loseDurability(1);
+
 	}
 
 }

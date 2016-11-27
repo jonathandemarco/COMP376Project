@@ -12,8 +12,17 @@ public class Sword : Weapon
         renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
     }
 
-    public override void PressAttack(ControlButton button)
+	public override void PressAttack(InputSystem button)
     {
+		AudioSource audioSource = GetComponent<AudioSource> ();
+
+		int whichsound = Random.Range (0, 2);
+		if (whichsound == 0)
+			audioSource.clip = swordSound2;
+		else
+			audioSource.clip = attackSound;
+		audioSource.Play ();
+			
         Debug.Log("Swing");
 
 		// allowAttack() will tell us if the user is allowed to perform an attack
@@ -38,5 +47,7 @@ public class Sword : Weapon
             renderers[i].enabled = false;
         }
 		stopAnimation ();
+		loseDurability(1);
+
     }
 }

@@ -245,6 +245,9 @@ MonoBehaviour:
   attackRate: 1
   abundance: 0
   lifetime: -1
+  durability: 15
   playerChar: 0
-  weaponSound: {fileID: 8300000, guid: cbe8fe1752ebc9e49aec68d7ba13f04d, type: 3}
+  index: 0
+  impactSound: {fileID: 0}
+  attackSound: {fileID: 0}
   weaponAnimator: {fileID: 95000012923208580}

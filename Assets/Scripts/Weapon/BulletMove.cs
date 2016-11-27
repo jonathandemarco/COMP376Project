@@ -4,10 +4,10 @@ using System.Collections;
 public class BulletMove : MonoBehaviour
 {
 
-	float mExpirationTime = 5.0f;
+	public float mExpirationTime;
 	float mTimer = 0.0f;
-	float speed = 20.0f;
 	ParticleSystem.Particle[] m_Particles;
+	public float speed;
 
 	// Use this for initialization
 	void Start ()

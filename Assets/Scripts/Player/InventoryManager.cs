@@ -48,9 +48,11 @@ public class InventoryManager : MonoBehaviour
             if (inventory[i] == nullWeapon)
             {
                 inventory[i] = w;
-                break;
+				w.index = i;
+				return;
             }
         }
+		Destroy (w);
     }
     public Weapon GetWeapon(int i)
     {
@@ -92,6 +94,7 @@ public class InventoryManager : MonoBehaviour
             inventory[index] = nullWeapon;
             w.gameObject.SetActive(false);
 			Destroy (w.gameObject);
+			GetComponentInParent<PlayerManager> ().notify ();
         }
     }
     public void resetInventory(bool start) {

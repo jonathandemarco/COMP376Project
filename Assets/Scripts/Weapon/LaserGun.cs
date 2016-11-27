@@ -21,7 +21,7 @@ public class LaserGun : Weapon {
 		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
 	}
 
-	public override void PressAttack(ControlButton button) {
+	public override void PressAttack(InputSystem button) {
 		for (int i = 0; i < renderers.Length; i++)
 		{
 			renderers[i].enabled = true;
@@ -53,10 +53,16 @@ public class LaserGun : Weapon {
 			laser.RenderLine ();
 
 			count = 0;
+			loseDurability(1);
+
 		}
+
+		AudioSource audioSource = GetComponent<AudioSource> ();
+		audioSource.clip = attackSound;
+		audioSource.Play ();
 	}
 		
-	public override void ReleaseAttack (ControlButton button) 
+	public override void ReleaseAttack (InputSystem button) 
 	{
 		for (int i = 0; i < renderers.Length; i++)
 		{
