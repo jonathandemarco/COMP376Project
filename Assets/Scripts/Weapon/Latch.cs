@@ -6,14 +6,11 @@ public class Latch : Weapon {
 	public GameObject handle;
 	public float maxDistance;
 
-	GravitySource gSource;
-
 	private bool isUsed;
 	private bool isLaunched;
 	private bool collided;
 	private Renderer [] renderers;
 	private float time;
-	private Vector3 initialLocal;
 	private GameObject latchedObject;
 	private Transform parentOfLatchedObject;
 	private bool latchedOn;
@@ -25,25 +22,23 @@ public class Latch : Weapon {
 		collided = false;
 		latchedOn = false;
 		time = 0.0f;
-
-		initialLocal = transform.localPosition;
 		GetComponent<Collider> ().enabled = false;
 	}
-	
+
 	// Update is called once per frame
 	public override void Update () {
-	
+
 		if (isUsed) {
 			if (isLaunched) {
 				time += Time.deltaTime;
-				if (time < 1.0f) {
-					transform.position += -handle.transform.right / 5;
+				if (time < 0.75f) {
+					transform.position -= handle.transform.right / 2;
 				} else {
 					Pull ();
 				}
-			} else {	
+			} else {
 				time -= Time.deltaTime;
-				if (time < 0.20f) {
+				if ((handle.transform.position - transform.position).magnitude < 4.0f || time < 0.1f) {
 					for (int r = 0; r < renderers.Length; ++r) {
 						renderers [r].enabled = false;
 					}
@@ -54,6 +49,7 @@ public class Latch : Weapon {
 					collided = false;
 					time = 0.0f;
 
+					transform.position = handle.transform.position;
 
 					if (latchedOn) {
 						// reset the latched object to its initial parent
@@ -66,16 +62,20 @@ public class Latch : Weapon {
 						latchedOn = false;
 					}
 
+					transform.parent.GetComponent<Hook> ().resetState ();
 
 				} else {
-					transform.position += handle.transform.right / 4;
+					transform.position += handle.transform.right / 2;
 				} 
 			}
+		} else {
+			transform.position = handle.transform.position;
+			transform.localPosition = handle.transform.localPosition;
+			transform.localRotation = handle.transform.localRotation;
 		}
 	}
 
-	public void Launch(Renderer [] rend){		
-		transform.localPosition = initialLocal;
+	public void Launch(Renderer [] rend){
 		renderers = rend;
 		isUsed = true;
 		isLaunched = true;
@@ -94,7 +94,6 @@ public class Latch : Weapon {
 	{
 		Collider col = c.collider;
 
-		MessagePassingHelper.passMessageOnCollision (this, col);
 
 		if (col.gameObject.layer == LayerMask.NameToLayer ("Player")) {
 			Debug.Log ("Latched on");
@@ -102,6 +101,7 @@ public class Latch : Weapon {
 			char colPlayerChar = getPlayerChar ();
 
 			if (manager.getPlayerChar () != colPlayerChar) {
+				MessagePassingHelper.passMessageOnCollision (this, col);
 				if (!latchedOn) {
 					latchedOn = true;
 					latchedObject = c.gameObject;
@@ -125,10 +125,8 @@ public class Latch : Weapon {
 				}
 			}
 		} else if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain") && !collided){
+			MessagePassingHelper.passMessageOnCollision (this, col);
 			collided = true;
-			if (time < 0.5f) {
-				time += Time.deltaTime * 5;
-			}
 			Pull ();
 		}
 	}
