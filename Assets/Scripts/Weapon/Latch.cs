@@ -8,44 +8,51 @@ public class Latch : Weapon {
 
 	private bool isUsed;
 	private bool isLaunched;
-	private float time;
+	private bool collided;
 	private Vector3 initialDistance;
-	private Vector3 maxVectorDistance;
+	Vector3 movingDistance;
 	private Renderer [] renderers;
 
 	// Use this for initialization
 	void Start () {
 		isUsed = false;
 		isLaunched = false;
-		time = 0.0f;
-		initialDistance = handle.transform.localPosition - transform.localPosition;
+		collided = false;
+		initialDistance = handle.transform.position - transform.position;
+		movingDistance = new Vector3(0, 0, maxDistance);
 	}
 	
 	// Update is called once per frame
-	public override void Update () {	
+	public override void Update () {
 	
 		if (isUsed) {
-			Vector3 currentDistance = handle.transform.localPosition - transform.localPosition;
-			float distanceBetweenWep = (currentDistance - maxVectorDistance).magnitude;
+			float distanceBetweenWep = (handle.transform.position - transform.position).magnitude;
 
-			if (isLaunched && distanceBetweenWep < maxDistance) {
-				transform.position = handle.transform.forward * time;
-				time += Time.deltaTime;
-			} else if (isLaunched && distanceBetweenWep >= maxDistance) {
-				// reached max distance
-				time = 0.0f;
-				time += Time.deltaTime;
-				Pull ();
-			} else if (!isLaunched && isUsed && distanceBetweenWep > 0) {
-				transform.position = -handle.transform.forward * time;
-				time += Time.deltaTime;
-			} else if (!isLaunched && isUsed && distanceBetweenWep <= 0){
-				for(int r = 0; r < renderers.Length; ++r){
+			if (isLaunched) {
+				if (distanceBetweenWep < maxDistance) {
+					transform.position += movingDistance / 2;
+					movingDistance = movingDistance / 2;
+				} else if (distanceBetweenWep >= maxDistance) {	
+					movingDistance = new Vector3(0, 0, maxDistance);
+					Pull ();
+				}
+			}
+		}
+		else {			
+			if (movingDistance.magnitude < 2.0f) {
+				for (int r = 0; r < renderers.Length; ++r) {
 					renderers [r].enabled = false;
 				}
-				time = 0.0f;
+
+				movingDistance = new Vector3(0, 0, maxDistance);
+
 				isUsed = false;
-			}
+				collided = false;
+			} 
+			else {
+				transform.position += -movingDistance / 2;
+				movingDistance = movingDistance / 2;
+			} 
 		}
 	}
 
@@ -58,4 +65,35 @@ public class Latch : Weapon {
 	public void Pull(){
 		isLaunched = false;
 	}
+
+	public bool GetUse(){
+		return isUsed;
+	}
+
+	public override void OnCollisionEnter(Collision c)
+	{
+		Collider col = c.collider;
+
+		MessagePassingHelper.passMessageOnCollision (this, col);
+
+		if (col.gameObject.layer == LayerMask.NameToLayer ("Player")) {
+			Debug.Log ("Boom");
+			PlayerManager manager = col.gameObject.GetComponent<PlayerManager> ();
+			char colPlayerChar = getPlayerChar ();
+
+			if (manager.getPlayerChar () != colPlayerChar) {
+				if (impactSound != null) {
+					AudioSource audioSource = GetComponent<AudioSource> ();
+					if (audioSource != null) {
+						audioSource.clip = impactSound;
+						audioSource.Play ();
+					}
+				}
+			}
+		} else if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain") && !collided){
+			collided = true;
+			Pull ();
+		}
+	}
+
 }

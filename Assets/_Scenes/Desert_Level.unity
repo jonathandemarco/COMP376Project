@@ -2111,6 +2111,10 @@ MonoBehaviour:
   skyBoxBlendSpeed: 0.001
   warningTime: 3
   warningStep: 0.1
+  samples: 1000
+  radius: 5
+  bRadius: 5
+  maxHeight: 0.5
 --- !u!23 &764548089
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4860,7 +4864,8 @@ MonoBehaviour:
   abundance: 0
   lifetime: -1
   playerChar: 90
-  weaponSound: {fileID: 0}
+  impactSound: {fileID: 0}
+  attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!64 &1797255398
 MeshCollider:

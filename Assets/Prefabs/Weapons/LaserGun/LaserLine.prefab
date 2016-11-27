@@ -58,7 +58,8 @@ MonoBehaviour:
   abundance: 0
   lifetime: -1
   playerChar: 32
-  weaponSound: {fileID: 0}
+  impactSound: {fileID: 8300000, guid: 370c2c11e27114ec6b44886942c707c6, type: 3}
+  attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
   origin: {fileID: 0}
   destination: {fileID: 0}

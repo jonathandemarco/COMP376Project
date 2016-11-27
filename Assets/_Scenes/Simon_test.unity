@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692492, g: 0.4967869, b: 0.57508546, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -16518,7 +16518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &971209533
 Transform:
   m_ObjectHideFlags: 0
@@ -17165,7 +17165,8 @@ MonoBehaviour:
   abundance: 0
   lifetime: -1
   playerChar: 90
-  weaponSound: {fileID: 0}
+  impactSound: {fileID: 0}
+  attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
 --- !u!64 &995474324
 MeshCollider:
