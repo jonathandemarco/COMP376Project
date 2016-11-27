@@ -64,7 +64,7 @@ public class MenuController : MonoBehaviour {
 	public void LoadLevel(string level){
 		startSound.Play ();
 		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, 1, 300.0f, level);
-		Invoke ("LoadLevelAfterSoundEnd", 3.0f);
+		Invoke ("LoadLevelAfterSoundEnd", 2.0f);
 	}
 
 	public void LoadLevelAfterSoundEnd () {
