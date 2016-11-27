@@ -387,7 +387,10 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 	{
 		Vector3 direction = transform.position - c.transform.position;
 		if (c.gameObject.GetComponent<Weapon> ()) {
-			if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != getPlayerChar ()) {
+			if (c.gameObject.GetComponent<Latch> ().getPlayerChar () != getPlayerChar ()) {
+				takeDamage (c.gameObject.GetComponent<Latch> ().damage, new Vector3(0,0,0));
+			}
+			else if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != getPlayerChar ()) {
 				takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction);
 			}
 		}
