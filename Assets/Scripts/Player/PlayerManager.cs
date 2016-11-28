@@ -45,6 +45,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     public bool noSetup;
 
     public PlayerSettings settings;
+
+    public GameObject respawnEffect;
+
     private PlayerControls playerController;
 
     private InventoryManager inventory;
@@ -124,8 +127,13 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             if (!isAlive)
             {
                 timeSinceDeath += Time.deltaTime;
-                if (timeSinceDeath >= respawnTime)
+                if (timeSinceDeath >= respawnTime) {
                     respawn();
+                    GameObject obj = (GameObject)Instantiate(respawnEffect);
+                    
+                    obj.transform.position = transform.position - new Vector3(0, transform.position.y - 1, 0);
+                    Destroy(obj, 3.0f);
+                }
             }
             else
             {
