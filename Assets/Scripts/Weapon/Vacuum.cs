@@ -2,15 +2,17 @@
 using System.Collections;
 
 public class Vacuum : Weapon {
-	Renderer[] renderers;
 	GravitySource gSource;
 	public float maxSuction;
 	public float suctionIncrement;
+	public GameObject suctionPrefab;
+	public GameObject suctionEffect;
 
-	public void Start()
+	public override void Start()
 	{
+		base.Start ();
 		transform.localRotation = Quaternion.Euler (90, 0, 0);
-		renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+//		renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
 
 		gSource = new GravitySource (new GameObject("GravityCenter"), 0);
 		gSource.source.transform.SetParent (transform);
@@ -43,27 +45,18 @@ public class Vacuum : Weapon {
 
 		GravitationalForces.gravityCenters.Add (gSource);
 	}
-
-	public override void Update()
-	{
 		
-	}
 	public override void PressAttack(InputSystem button) {
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = true;
-		}
+		display ();
+		suctionEffect = Instantiate (suctionPrefab, transform.position + transform.forward, Quaternion.identity, transform) as GameObject;
 	}
 
 	public override void ReleaseAttack (InputSystem button) 
 	{
 		Debug.Log ("Released");
 
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = false;
-		}
-
+		hide ();
+		Destroy (suctionEffect);
 		gSource.mass = 0;
 	}
 
