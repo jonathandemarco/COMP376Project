@@ -112,7 +112,7 @@ public class MenuController : MonoBehaviour {
 		GameState.gameMode = GameMode.TIMER;
 		stockOption.SetActive (false);
 		GameState.winScore = 1;
-		GameState.playerLives = 1;
+		GameState.playerLives = -1;
 		GameState.gameTime = 1.0f;
 
 		updateModeText ();
@@ -141,7 +141,7 @@ public class MenuController : MonoBehaviour {
 
 			// hide stock option and clear stock
 			stockOption.SetActive(false);
-			GameState.playerLives = 0;
+			GameState.playerLives = -1;
 
 			// show timer option
 			timerOption.SetActive(true);
@@ -152,6 +152,7 @@ public class MenuController : MonoBehaviour {
 		else if (GameState.gameMode == GameMode.TIMER)
 		{
 			GameState.gameMode = GameMode.STOCK;
+			GameState.playerLives = 1;
 
 			// show stock option
 			stockOption.SetActive(true);
@@ -170,7 +171,7 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void decreaseStock(){
-		if (GameState.playerLives > 0) {
+		if (GameState.playerLives > 1) {
 			--GameState.playerLives;		
 			updateLifeText();
 		}
