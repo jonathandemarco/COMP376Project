@@ -110,9 +110,9 @@ public class MenuController : MonoBehaviour {
 		stockOption.SetActive (false);
 
 		gameMode.text = "TIMER";
-		roundNumber.text = GameState.winScore;
-		stockNumber.text = GameState.playerLives;
-		timeNumber.text = GameState.gameTime;
+		roundNumber.text = "" + GameState.winScore;
+		stockNumber.text = "" + GameState.playerLives;
+		timeNumber.text = "" + GameState.gameTime;
 
 		settingsButton.SetActive (false);
 		platforms.SetActive (false);
@@ -143,7 +143,7 @@ public class MenuController : MonoBehaviour {
 
 
 			gameMode.text = "TIMER";
-			timeNumber.text = GameState.gameTime;
+			timeNumber.text = "" + GameState.gameTime;
 		} 
 		else 
 		{
@@ -158,38 +158,38 @@ public class MenuController : MonoBehaviour {
 			GameState.gameTime = 0.0f;
 
 			gameMode.text = "STOCK";
-			stockNumber.text = GameState.playerLives;
+			stockNumber.text = "" + GameState.playerLives;
 		}
 	}
 
 	public void increaseStock(){
 		++GameState.playerCount;
-		stockNumber.text = GameState.playerCount;
+		stockNumber.text = "" + GameState.playerCount;
 	}
 
 	public void decreaseStock(){
 		--GameState.playerCount;
-		stockNumber.text = GameState.playerCount;
+		stockNumber.text = "" + GameState.playerCount;
 	}
 
 	public void increaseRounds(){
 		++GameState.winScore;
-		roundNumber.text = GameState.winScore;
+		roundNumber.text = "" + GameState.winScore;
 	}
 
 	public void decreaseRounds(){
 		--GameState.winScore;
-		roundNumber.text = GameState.winScore;
+		roundNumber.text = "" + GameState.winScore;
 	}
 
 	public void increaseTime(){
 		GameState.gameTime += 0.5f;
-		timeNumber.text = GameState.gameTime;
+		timeNumber.text = "" + GameState.gameTime;
 	}
 
 	public void decreaseTime(){
 		GameState.gameTime -= 0.5f;
-		timeNumber.text = GameState.gameTime;
+		timeNumber.text = "" + GameState.gameTime;
 	}
 
 	void AddPlayers(){
