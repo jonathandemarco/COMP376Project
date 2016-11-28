@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public enum GameMode {STOCK, TIMER};
 
-public class GameState {
+public class GameState : MonoBehaviour{
 
 	public static GameMode gameMode;
 	public static LevelManager currentLevelManager;
@@ -77,5 +77,4 @@ public class GameState {
         //load level levelName
         SceneManager.LoadScene(levelName);
 	}
-
 }
