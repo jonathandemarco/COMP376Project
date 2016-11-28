@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public class Sword : Weapon
 {
-    Renderer[] renderers;
 	public AudioClip swordSound2;
 
-    public void Start() {
+    public override void Start() {
+		base.Start ();
         GetComponent<Collider>().enabled = false;
-        renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+//        renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
     }
-
+		
 	public override void PressAttack(InputSystem button)
     {
 		AudioSource audioSource = GetComponent<AudioSource> ();
@@ -28,13 +28,10 @@ public class Sword : Weapon
 		// allowAttack() will tell us if the user is allowed to perform an attack
 		// function should check if the same button is pressed
 		// if(button.allowAttack()){
-			for (int i = 0; i < renderers.Length; i++)
-			{
-				renderers[i].enabled = true;
-			}			
+		display();
 
-			EnableCollider();
-			startAnimation ();
+		EnableCollider();
+		startAnimation ();
 		// }
     }
 
@@ -42,10 +39,7 @@ public class Sword : Weapon
     public void StopAttack()
     {
         DisableCollider();
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            renderers[i].enabled = false;
-        }
+		hide ();
 		stopAnimation ();
 		loseDurability(1);
 

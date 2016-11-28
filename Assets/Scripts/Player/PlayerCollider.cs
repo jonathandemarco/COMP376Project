@@ -62,10 +62,11 @@ public class PlayerCollider : MonoBehaviour, MessagePassing
 		Vector3 direction = transform.position - c.transform.position;
 		if (c.gameObject.layer == LayerMask.NameToLayer ("Weapon")) {
 			if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != GetComponent<PlayerManager> ().getPlayerChar ()) {
-				GetComponent<PlayerManager> ().takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction);
+                GameObject owner = c.gameObject.GetComponent<Weapon>().getPlayerOwner();
+                GetComponent<PlayerManager> ().takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction, owner);
 			}
 		} else if (c.gameObject.layer == LayerMask.NameToLayer ("HostileTerrain")) {
-			GetComponent<PlayerManager> ().takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction);
+			GetComponent<PlayerManager> ().takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction, null);
 		} else if (c.gameObject.layer == LayerMask.NameToLayer ("Crate")) {
 			if (inventoryManager.GetWeaponCount () < inventoryManager.maxInventorySize) {
 				//add the item to player's inventory

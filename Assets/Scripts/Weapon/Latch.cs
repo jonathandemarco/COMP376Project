@@ -9,14 +9,14 @@ public class Latch : Weapon {
 	private bool isUsed;
 	private bool isLaunched;
 	private bool collided;
-	private Renderer [] renderers;
 	private float time;
 	private GameObject latchedObject;
 	private Transform parentOfLatchedObject;
 	private bool latchedOn;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start ();
 		isUsed = false;
 		isLaunched = false;
 		collided = false;
@@ -27,7 +27,7 @@ public class Latch : Weapon {
 
 	// Update is called once per frame
 	public override void Update () {
-
+		base.Update ();
 		if (isUsed) {
 			if (isLaunched) {
 				time += Time.deltaTime;
@@ -39,9 +39,7 @@ public class Latch : Weapon {
 			} else {
 				time -= Time.deltaTime;
 				if ((handle.transform.position - transform.position).magnitude < 4.0f || time < 0.1f) {
-					for (int r = 0; r < renderers.Length; ++r) {
-						renderers [r].enabled = false;
-					}
+					hide ();
 
 					GetComponent<Collider> ().enabled = false;
 

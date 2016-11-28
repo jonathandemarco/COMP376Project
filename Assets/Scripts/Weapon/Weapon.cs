@@ -6,13 +6,12 @@ public enum WeaponType { Melee, Range };
 
 public class Weapon : MonoBehaviour, MessagePassing
 {
-
+	public Renderer[] renderers;
     public WeaponType type;
     public float damage;
     public float attackRate;
-	public float abundance;
-	public int lifetime = -1; // lifetime is probably the same as weapon durability, not sure;
 	public int durability;
+	public Vector3 goalScale;
 
     public char playerChar;
 	public int index;
@@ -21,8 +20,58 @@ public class Weapon : MonoBehaviour, MessagePassing
 	public AudioClip attackSound;
     public Animator weaponAnimator;
 
+	public bool onDisplayLoop;
+	public bool onHideLoop;
+
+    public GameObject playerOwner;
+
+	public virtual void Start()
+	{
+		onDisplayLoop = false;
+		onHideLoop = false;
+		goalScale = transform.localScale;
+		List<Renderer> tempRend = new List<Renderer> ();
+
+		renderers = GetComponentsInChildren<Renderer>();
+
+		if(GetComponent<Renderer> ())
+			tempRend.Add (GetComponent<Renderer> ());
+
+		if(renderers != null && renderers.Length > 0)
+			for (int i = 0; i < renderers.Length; i++) {
+				tempRend.Add (renderers [i]);
+			}
+				
+		renderers = tempRend.ToArray ();
+
+		for (int i = 0; i < renderers.Length; i++)
+		{
+			renderers[i].enabled = false;
+		}
+	}
+
     public virtual void Update()
     {
+		if (onDisplayLoop) {
+			Vector3 diff = goalScale - transform.localScale;
+
+			if (Mathf.Abs (1.0f - transform.localScale.magnitude / goalScale.magnitude) > 0.01f) {
+				transform.localScale += diff / 10.0f;
+			}
+			else
+				onDisplayLoop = false;
+		}
+		else if(onHideLoop)
+		{
+			transform.localScale /= 1.5f;
+
+			if (transform.localScale.magnitude < 0.001f) {
+				for (int i = 0; i < renderers.Length; i++) {
+					renderers [i].enabled = false;
+				}
+				onHideLoop = false;
+			}
+		}
     }
 
 	public virtual void playSound() {
@@ -117,40 +166,9 @@ public class Weapon : MonoBehaviour, MessagePassing
         }
     }
 
-/*	public virtual void OnTriggerEnter(Collider col){
-		
-		if(col.gameObject.GetComponent<PlayerManager> () != null)
-			(col.gameObject.GetComponent<PlayerManager> () as MessagePassing).collisionWith (col);
-		else if(col.gameObject.GetComponent<Weapon> () != null)
-			(col.gameObject.GetComponent<Weapon> () as MessagePassing).collisionWith (col);
-		else if(col.gameObject.GetComponent<HostileTerrain> () != null)
-			(col.gameObject.GetComponent<HostileTerrain> () as MessagePassing).collisionWith (col);
-
-		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
-		{
-			Debug.Log("Boom");
-			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
-			char colPlayerChar = getPlayerChar();
-
-			if (manager.getPlayerChar() != colPlayerChar)
-			{
-//				Vector3 direction = col.transform.position - transform.position;
-//				manager.takeDamage(damage, direction);
-//				Debug.Log (direction);
-
-				if (weaponSound != null) {
-					AudioSource audioSource = GetComponent<AudioSource>();
-					if (audioSource != null) {
-						audioSource.clip = weaponSound;
-						audioSource.Play ();
-					}
-				}
-			}
-		}
-	}*/
-
 	public virtual void HoldAttack(InputSystem button)
     {
+		
     }
 
 
@@ -166,14 +184,45 @@ public class Weapon : MonoBehaviour, MessagePassing
 	public void loseDurability(int d){
 		durability -= d;
 		Debug.Log ("Weapon broken");
-		if (durability <= 0)
+		if (durability <= 0) {
 			GetComponentInParent<InventoryManager> ().dropWeapon (index);
+		}
+		GetComponentInParent<PlayerManager> ().notify ();
+	}
+
+	public virtual void display()
+	{
+		transform.localScale = new Vector3 (0.0f, 0.0f, 0.0f);
+
+		for (int i = 0; i < renderers.Length; i++)
+		{
+			renderers[i].enabled = true;
+		}
+
+		onDisplayLoop = true;
+		onHideLoop = false;
+	}
+
+	public virtual void hide()
+	{
+		onHideLoop = true;
+		onDisplayLoop = false;
 	}
 
 	void MessagePassing.collisionWith(Collider c)
 	{
 		
 	}
+
+    public GameObject getPlayerOwner()
+    {
+        return playerOwner;
+    }
+
+    public void setPlayerOwner(GameObject playerOwner)
+    {
+        this.playerOwner = playerOwner;
+    }
 }
 
 

@@ -89,6 +89,12 @@ public class PlayerStatus : MonoBehaviour {
 				w.transform.localScale = new Vector3((float)Screen.width / 1000, (float)Screen.height / 1000, 1.5f) / maxSize;
 				Vector3 diff = 1.5f * (maxBounds + minBounds) / (2 * maxSize);
 				w.transform.localPosition = - new Vector3 (diff.x, diff.y, 5);
+
+				GameObject durability = Instantiate (textPrefab, new Vector3(w.transform.position.x, sphere.GetComponent<Renderer> ().bounds.min.y, w.transform.position.z), Quaternion.identity, transform) as GameObject;
+				durability.layer = LayerMask.NameToLayer ("HUD");
+				durability.transform.localScale = new Vector3 (0.4f * (float)Screen.width / 1000, 0.4f * (float)Screen.height / 1000, 1.0f);
+				TextMesh durabilityText = durability.GetComponent<TextMesh> ();
+				durabilityText.text = "" + weapons[i].durability;
 			}
 		}
 

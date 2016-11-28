@@ -16,10 +16,10 @@ GameObject:
   - 114: {fileID: 114000010619415440}
   - 82: {fileID: 82000012959048608}
   - 82: {fileID: 82000010668262494}
-  - 114: {fileID: 114000012954793830}
   - 135: {fileID: 135000010624722644}
   - 114: {fileID: 114000010591241058}
-  m_Layer: 10
+  - 114: {fileID: 114000011646948966}
+  m_Layer: 13
   m_Name: Meteor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450c2702b7500b34d837d54dcf438ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   speed: 15
   MeteorExplosionParticleSystem: {fileID: 198000012408644752, guid: ab69d8cdb694ec44e84a45d02b4f8484,
     type: 2}
@@ -344,7 +345,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3a0fd5be2a3fcea46aeeee98d9790939, type: 2}
   - {fileID: 2100000, guid: 9f663aa0d3dc3f44389306ed68c6c668, type: 2}
   meteorMesh: {fileID: 4300000, guid: 04bd492e0e5d35a48a3f6c6ac3f3eba6, type: 3}
---- !u!114 &114000012954793830
+--- !u!114 &114000011646948966
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -352,15 +353,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 164416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827cb530dd657d245b9ecbc4bbb93f39, type: 3}
+  m_Script: {fileID: 11500000, guid: f281290a8a8f9214d823241921f6a7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  damage: 25
-  attackRate: 0
-  playerChar: 90
-  weaponSound: {fileID: 0}
-  weaponAnimator: {fileID: 0}
+  damage: 100
 --- !u!135 &135000010624722644
 SphereCollider:
   m_ObjectHideFlags: 1

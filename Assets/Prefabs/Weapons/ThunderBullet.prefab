@@ -21,7 +21,6 @@ GameObject:
   - 4: {fileID: 4000012582623270}
   - 33: {fileID: 33000013602951506}
   - 23: {fileID: 23000010698174036}
-  - 114: {fileID: 114000011735470926}
   - 54: {fileID: 54000011246329248}
   - 135: {fileID: 135000011123294472}
   - 114: {fileID: 114000010134330696}
@@ -289,25 +288,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  damage: 75
+  damage: 0
   attackRate: 1.5
-  abundance: 0
-  lifetime: -1
+  durability: 0
+  goalScale: {x: 0, y: 0, z: 0}
   playerChar: 0
+  index: 0
   impactSound: {fileID: 8300000, guid: bd52c5181b48c4abd9b6e476931cf855, type: 3}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
---- !u!114 &114000011735470926
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013220311060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da4468167e5cc41d5af232959141dbce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  onDisplayLoop: 0
+  onHideLoop: 0
+  mExpirationTime: 5
+  speed: 50
 --- !u!135 &135000011123294472
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -326,7 +319,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013946464108}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -364,12 +357,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
-  scalingMode: 2
+  autoRandomSeed: 1
+  scalingMode: 0
+  randomSeed: 0
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -525,7 +519,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
     startSize:
-      scalar: 10
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
