@@ -37,6 +37,8 @@ public class InventoryManager : MonoBehaviour
 		w.transform.position = transform.position;
         w.transform.parent = transform;
 
+        w.setPlayerOwner(transform.parent.gameObject);
+
         Renderer[] renderers = w.gameObject.GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < renderers.Length; i++)
         {

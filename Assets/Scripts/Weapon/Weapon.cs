@@ -23,6 +23,8 @@ public class Weapon : MonoBehaviour, MessagePassing
 	public bool onDisplayLoop;
 	public bool onHideLoop;
 
+    public GameObject playerOwner;
+
 	public virtual void Start()
 	{
 		onDisplayLoop = false;
@@ -211,6 +213,16 @@ public class Weapon : MonoBehaviour, MessagePassing
 	{
 		
 	}
+
+    public GameObject getPlayerOwner()
+    {
+        return playerOwner;
+    }
+
+    public void setPlayerOwner(GameObject playerOwner)
+    {
+        this.playerOwner = playerOwner;
+    }
 }
 
 

@@ -35,6 +35,7 @@ public class Gun : Weapon {
 		if (damage > 0) {
 			bullet = Instantiate (mBulletPrefab, bulletSpawnPos.position, bulletSpawnPos.rotation) as GameObject;
 			bullet.GetComponent<Bullet> ().Setup (damage, maxDamage);
+            bullet.GetComponent<Bullet>().setPlayerOwner(getPlayerOwner());
 			bullet = null;
 			loseDurability ((int)((damage / maxDamage) * 5.0f));
 		}
