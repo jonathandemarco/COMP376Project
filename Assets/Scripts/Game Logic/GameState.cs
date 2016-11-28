@@ -77,4 +77,8 @@ public class GameState : MonoBehaviour{
         //load level levelName
         SceneManager.LoadScene(levelName);
 	}
+
+	public void reloadScene(){
+		SceneManager.LoadScene (level);
+	}
 }
