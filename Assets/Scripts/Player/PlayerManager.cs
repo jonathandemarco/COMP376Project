@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         canMove = true;
         charging = false;
         grounded = true;
-		health = GameState.playerLives;
+		health = maxHealth;
         score = 0;
     }
 

@@ -115,10 +115,10 @@ public class MenuController : MonoBehaviour {
 		GameState.playerLives = 1;
 		GameState.gameTime = 1.0f;
 
-		gameMode.text = "TIMER";
-		roundNumber.text = "" + GameState.winScore;
-		stockNumber.text = "" + GameState.playerLives;
-		timeNumber.text = "" + GameState.gameTime;
+		updateModeText ();
+		updateTimeText ();
+		updateLifeText ();
+		updateRoundText ();
 
 		loadLevelButton.SetActive (true);
 	}
@@ -146,9 +146,8 @@ public class MenuController : MonoBehaviour {
 			// show timer option
 			timerOption.SetActive(true);
 
-
-			gameMode.text = "TIMER";
-			timeNumber.text = "" + GameState.gameTime;
+			updateModeText();
+			updateTimeText();
 		} 
 		else if (GameState.gameMode == GameMode.TIMER)
 		{
@@ -159,47 +158,62 @@ public class MenuController : MonoBehaviour {
 
 			// hide timer option and clear time
 			timerOption.SetActive(false);
-			GameState.gameTime = 0.0f;
 
-			gameMode.text = "STOCK";
-			stockNumber.text = "" + GameState.playerLives;
+			updateModeText();
+			updateTimeText();
 		}
 	}
 
 	public void increaseStock(){
 		++GameState.playerLives;
-		stockNumber.text = "" + GameState.playerLives;
+		updateLifeText();
 	}
 
 	public void decreaseStock(){
 		if (GameState.playerLives > 0) {
 			--GameState.playerLives;		
-			stockNumber.text = "" + GameState.playerLives;
+			updateLifeText();
 		}
 	}
 
 	public void increaseRounds(){
 		++GameState.winScore;
-		roundNumber.text = "" + GameState.winScore;
+		updateRoundText();
 	}
 
 	public void decreaseRounds(){
 		if (GameState.winScore > 0) {
 			--GameState.winScore;
-			roundNumber.text = "" + GameState.winScore;
+			updateRoundText();
 		}
 	}
 
 	public void increaseTime(){
-		GameState.gameTime += 0.5f;
-		timeNumber.text = "" + GameState.gameTime;
+		GameState.gameTime += 1.0f;
+		updateTimeText ();
 	}
 
 	public void decreaseTime(){
 		if (GameState.gameTime > 0) {
-			GameState.gameTime -= 0.5f;
-			timeNumber.text = "" + GameState.gameTime;
+			GameState.gameTime -= 1.0f;
+			updateTimeText ();
 		}
+	}
+
+	void updateTimeText(){
+		timeNumber.text = "" + GameState.gameTime + " MIN";
+	}
+
+	void updateLifeText(){
+		stockNumber.text = "" + GameState.playerLives;
+	}
+
+	void updateRoundText(){
+		roundNumber.text = "" + GameState.winScore;
+	}
+
+	void updateModeText(){
+		gameMode.text = GameState.gameMode.ToString();
 	}
 
 	void AddPlayers(){
