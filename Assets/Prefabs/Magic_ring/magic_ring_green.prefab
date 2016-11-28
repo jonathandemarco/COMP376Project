@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 411704}
   - 198: {fileID: 19848346}
   - 199: {fileID: 19998220}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 01_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 457920}
   - 198: {fileID: 19824060}
   - 199: {fileID: 19992600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 467322}
   - 198: {fileID: 19848994}
   - 199: {fileID: 19961744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,8 +61,8 @@ GameObject:
   - 4: {fileID: 462424}
   - 198: {fileID: 19897728}
   - 199: {fileID: 19973216}
-  m_Layer: 0
-  m_Name: magic_ring_04
+  m_Layer: 9
+  m_Name: magic_ring_green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ GameObject:
   - 4: {fileID: 448152}
   - 198: {fileID: 19890492}
   - 199: {fileID: 19976706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - 4: {fileID: 438404}
   - 198: {fileID: 19819536}
   - 199: {fileID: 19999176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 02_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10631,7 +10631,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10675,7 +10675,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10719,7 +10719,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10763,7 +10763,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10807,7 +10807,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10851,7 +10851,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

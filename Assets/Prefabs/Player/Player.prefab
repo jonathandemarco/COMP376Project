@@ -373,7 +373,9 @@ MonoBehaviour:
     pushbackFactor: 100
     tapTime: 1
     buttonCooldown: 0.3
-  respawnEffect: {fileID: 100000, guid: 3c6519cf7319347b8a36a69c2173518c, type: 2}
+  respawnEffect: {fileID: 168292, guid: 13755b5fbb6b69b4c81b942c6e32a512, type: 2}
+  deathEffect: {fileID: 117696, guid: 046853cc0b2b7a7429cfdec1915e1640, type: 2}
+  killEffect: {fileID: 150362, guid: 8906de79e38d722448ed84e0c648ed37, type: 2}
 --- !u!136 &136000011085656156
 CapsuleCollider:
   m_ObjectHideFlags: 1

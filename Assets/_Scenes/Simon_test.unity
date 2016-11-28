@@ -17164,7 +17164,9 @@ MonoBehaviour:
   attackRate: 0
   abundance: 0
   lifetime: -1
+  durability: 0
   playerChar: 90
+  index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
