@@ -3,11 +3,10 @@ using System.Collections;
 
 public class Pillow : Weapon {
 
-	Renderer[] renderers;
-
-	public void Start() {
+	public override void Start() {
+		base.Start ();
 		GetComponent<Collider>().enabled = false;
-		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+//		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
 	}
 
 	public override void PressAttack(InputSystem button)
@@ -17,11 +16,7 @@ public class Pillow : Weapon {
 		// allowAttack() will tell us if the user is allowed to perform an attack
 		// function should check if the same button is pressed
 		// if(button.allowAttack()){
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = true;
-		}			
-
+		display();		
 		EnableCollider();
 		startAnimation ();
 		// }
@@ -32,13 +27,9 @@ public class Pillow : Weapon {
 	public void StopAttack()
 	{
 		DisableCollider();
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = false;
-		}
+		hide ();
 		stopAnimation ();
 		loseDurability(1);
-
 	}
 
 }

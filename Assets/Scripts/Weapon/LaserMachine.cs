@@ -15,6 +15,7 @@ public class LaserMachine : Weapon {
 
 	public override void OnCollisionEnter(Collision c)
 	{
+		// Why is there no message passing here?
 		Collider col = c.collider; 
 		collidedObject = col.gameObject.transform;
 		collisionPoint = collidedObject.position - c.contacts [0].point;

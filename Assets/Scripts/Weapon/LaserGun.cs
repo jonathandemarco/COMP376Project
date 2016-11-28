@@ -3,7 +3,6 @@ using System.Collections;
 
 public class LaserGun : Weapon {
 
-	Renderer[] renderers;
 	public GameObject laserMachinePrefab;
 	public GameObject laserRenderer;
 	public GameObject laserApparatusPrefab;
@@ -16,16 +15,14 @@ public class LaserGun : Weapon {
 
 	private int count;
 
-	void Start() {
+	public override void Start() {
+		base.Start ();
 		count = 0;
-		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+//		renderers = this.gameObject.GetComponentsInChildren<MeshRenderer>();
 	}
 
 	public override void PressAttack(InputSystem button) {
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = true;
-		}
+		display ();
 
 		GameObject machine = Instantiate (laserMachinePrefab, laserSpawn.position, laserSpawn.rotation) as GameObject;
 		machine.GetComponent<Rigidbody> ().AddForce (-transform.right * force);
@@ -54,7 +51,6 @@ public class LaserGun : Weapon {
 
 			count = 0;
 			loseDurability(1);
-
 		}
 
 		AudioSource audioSource = GetComponent<AudioSource> ();
@@ -64,9 +60,6 @@ public class LaserGun : Weapon {
 		
 	public override void ReleaseAttack (InputSystem button) 
 	{
-		for (int i = 0; i < renderers.Length; i++)
-		{
-			renderers[i].enabled = false;
-		}
+		hide ();
 	}
 }

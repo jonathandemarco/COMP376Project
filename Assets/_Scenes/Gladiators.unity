@@ -1348,9 +1348,9 @@ GameObject:
   - 4: {fileID: 1880740152}
   - 33: {fileID: 1880740151}
   - 64: {fileID: 1880740150}
-  - 114: {fileID: 1880740148}
   - 54: {fileID: 1880740149}
-  m_Layer: 10
+  - 114: {fileID: 1880740148}
+  m_Layer: 13
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,18 +1365,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1880740147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827cb530dd657d245b9ecbc4bbb93f39, type: 3}
+  m_Script: {fileID: 11500000, guid: f281290a8a8f9214d823241921f6a7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  damage: 100000
-  attackRate: 0
-  abundance: 0
-  lifetime: -1
-  playerChar: 90
-  impactSound: {fileID: 0}
-  attackSound: {fileID: 0}
-  weaponAnimator: {fileID: 0}
+  damage: 10000
 --- !u!54 &1880740149
 Rigidbody:
   m_ObjectHideFlags: 0

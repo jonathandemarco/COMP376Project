@@ -40,9 +40,7 @@ public class Latch : Weapon {
 		}
 		else {			
 			if (movingDistance.magnitude < 2.0f) {
- 				for (int r = 0; r < renderers.Length; ++r) {
-					renderers [r].enabled = false;
-				}
+				hide ();
 
 				movingDistance = new Vector3(0, 0, maxDistance);
 

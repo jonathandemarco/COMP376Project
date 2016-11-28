@@ -274,7 +274,7 @@ ConstantForce:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010970088310}
   m_Enabled: 1
-  m_Force: {x: 0, y: -20, z: 0}
+  m_Force: {x: 0, y: -100, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
@@ -292,8 +292,8 @@ MonoBehaviour:
   moveSpeed: 10
   rotationSpeed: 15
   numOfButtons: 6
-  numOfAxes: 2
-  axisThreshold: 0.6
+  numOfAxes: 0
+  axisThreshold: 0
 --- !u!114 &114000011200477298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,17 +355,17 @@ MonoBehaviour:
     maxHeldTimeDash: 3
     dashCoolDownTime: 0.8
     jumpForce: 1000
-    jumpFowardVelocity: 30
+    jumpFowardVelocity: 0
     jumpCooldownTime: 0.3
     moveSpeed: 10
     groundDragForce: 1
     airDragForce: 1
     airMoveForce: 300
     rotateSpeed: 10
-    maxSpeed: 50
+    maxSpeed: 0
     inventorySize: 2
     invinsibilityTime: 2
-    respawnInvisibleTime: 5
+    respawnInvisibleTime: 0
     invinsibilityFlickerRate: 0.05
     groundDistance: 0.51
     frontDistance: 1.3
