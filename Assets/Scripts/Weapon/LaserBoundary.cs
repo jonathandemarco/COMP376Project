@@ -15,6 +15,7 @@ public class LaserBoundary : Weapon {
 	void Start(){
 		lineRenderer = GetComponent<LineRenderer> ();
 		lineRenderer.enabled = false;
+
 	}
 
 	// Use this for initialization

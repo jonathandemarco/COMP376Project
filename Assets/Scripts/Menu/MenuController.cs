@@ -61,13 +61,12 @@ public class MenuController : MonoBehaviour {
 
 	public void LoadLevel(string level){
 		startSound.Play ();
-		lvl = level;
-		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, 3, 300.0f);
+		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, 1, 300.0f, level);
 		Invoke ("LoadLevelAfterSoundEnd", 3.0f);
 	}
 
 	public void LoadLevelAfterSoundEnd () {
-		SceneManager.LoadScene (lvl);
+		SceneManager.LoadScene ("xbox");
 	}
 
 	public void SetNumOfPlayers(int num){

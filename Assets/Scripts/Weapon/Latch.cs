@@ -9,48 +9,67 @@ public class Latch : Weapon {
 	private bool isUsed;
 	private bool isLaunched;
 	private bool collided;
-	private Vector3 initialDistance;
-	Vector3 movingDistance;
-	private Renderer [] renderers;
+	private float time;
+	private GameObject latchedObject;
+	private Transform parentOfLatchedObject;
+	private bool latchedOn;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start ();
 		isUsed = false;
 		isLaunched = false;
 		collided = false;
-		initialDistance = handle.transform.position - transform.position;
-		movingDistance = new Vector3(0, 0, maxDistance);
+		latchedOn = false;
+		time = 0.0f;
+		GetComponent<Collider> ().enabled = false;
 	}
-	
+
 	// Update is called once per frame
 	public override void Update () {
-	
+		base.Update ();
 		if (isUsed) {
-			float distanceBetweenWep = (handle.transform.position - transform.position).magnitude;
-
 			if (isLaunched) {
-				if (distanceBetweenWep < maxDistance) {
-					transform.position += movingDistance / 2;
-					movingDistance = movingDistance / 2;
-				} else if (distanceBetweenWep >= maxDistance) {	
-					movingDistance = new Vector3(0, 0, maxDistance);
+				time += Time.deltaTime;
+				if (time < 0.75f) {
+					transform.position -= handle.transform.right / 2;
+				} else {
 					Pull ();
 				}
+			} else {
+				time -= Time.deltaTime;
+				if ((handle.transform.position - transform.position).magnitude < 4.0f || time < 0.1f) {
+					hide ();
+
+					GetComponent<Collider> ().enabled = false;
+
+					isUsed = false;
+					collided = false;
+					time = 0.0f;
+
+					transform.position = handle.transform.position;
+
+					if (latchedOn) {
+						// reset the latched object to its initial parent
+						latchedObject.transform.parent = parentOfLatchedObject;
+
+						// reset the gameObject and the transforms
+						parentOfLatchedObject = null;
+						latchedObject = null;
+
+						latchedOn = false;
+					}
+
+					transform.parent.GetComponent<Hook> ().resetState ();
+
+				} else {
+					transform.position += handle.transform.right / 2;
+				} 
 			}
-		}
-		else {			
-			if (movingDistance.magnitude < 2.0f) {
-				hide ();
-
-				movingDistance = new Vector3(0, 0, maxDistance);
-
-				isUsed = false;
-				collided = false;
-			} 
-			else {
-				transform.position += -movingDistance / 2;
-				movingDistance = movingDistance / 2;
-			} 
+		} else {
+			transform.position = handle.transform.position;
+			transform.localPosition = handle.transform.localPosition;
+			transform.localRotation = handle.transform.localRotation;
 		}
 	}
 
@@ -58,6 +77,7 @@ public class Latch : Weapon {
 		renderers = rend;
 		isUsed = true;
 		isLaunched = true;
+		GetComponent<Collider> ().enabled = true;
 	}
 
 	public void Pull(){
@@ -72,14 +92,28 @@ public class Latch : Weapon {
 	{
 		Collider col = c.collider;
 
-		MessagePassingHelper.passMessageOnCollision (this, col);
 
 		if (col.gameObject.layer == LayerMask.NameToLayer ("Player")) {
-			Debug.Log ("Boom");
+			Debug.Log ("Latched on");
 			PlayerManager manager = col.gameObject.GetComponent<PlayerManager> ();
 			char colPlayerChar = getPlayerChar ();
 
-			if (manager.getPlayerChar () != colPlayerChar) {
+			if (manager.getPlayerChar () != colPlayerChar) 
+			{
+				MessagePassingHelper.passMessageOnCollision (this, col);
+				if (!latchedOn) {
+					latchedOn = true;
+					latchedObject = c.gameObject;
+					parentOfLatchedObject = c.gameObject.transform.parent;
+					c.gameObject.transform.parent = transform;
+
+					// Pull the player back
+					collided = true;
+					if (isLaunched) {
+						Pull ();
+					}
+				}
+
 				if (impactSound != null) {
 					AudioSource audioSource = GetComponent<AudioSource> ();
 					if (audioSource != null) {
@@ -89,9 +123,9 @@ public class Latch : Weapon {
 				}
 			}
 		} else if (col.gameObject.layer == LayerMask.NameToLayer ("Terrain") && !collided){
+			MessagePassingHelper.passMessageOnCollision (this, col);
 			collided = true;
 			Pull ();
 		}
 	}
-
 }

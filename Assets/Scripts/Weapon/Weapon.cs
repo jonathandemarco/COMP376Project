@@ -6,7 +6,7 @@ public enum WeaponType { Melee, Range };
 
 public class Weapon : MonoBehaviour, MessagePassing
 {
-	Renderer[] renderers;
+	public Renderer[] renderers;
     public WeaponType type;
     public float damage;
     public float attackRate;
