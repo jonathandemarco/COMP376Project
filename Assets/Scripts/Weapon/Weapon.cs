@@ -184,8 +184,10 @@ public class Weapon : MonoBehaviour, MessagePassing
 	public void loseDurability(int d){
 		durability -= d;
 		Debug.Log ("Weapon broken");
-		if (durability <= 0)
+		if (durability <= 0) {
 			GetComponentInParent<InventoryManager> ().dropWeapon (index);
+		}
+		GetComponentInParent<PlayerManager> ().notify ();
 	}
 
 	public virtual void display()
