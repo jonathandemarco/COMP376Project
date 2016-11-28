@@ -110,9 +110,9 @@ public class MenuController : MonoBehaviour {
 		stockOption.SetActive (false);
 
 		gameMode.text = "TIMER";
-		roundNumber = GameState.winScore;
-		stockNumber = GameState.playerLives;
-		timeNumber = GameState.gameTime;
+		roundNumber.text = GameState.winScore;
+		stockNumber.text = GameState.playerLives;
+		timeNumber.text = GameState.gameTime;
 
 		settingsButton.SetActive (false);
 		platforms.SetActive (false);
