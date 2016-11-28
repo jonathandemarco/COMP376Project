@@ -79,7 +79,7 @@ public class MenuController : MonoBehaviour {
 			swordStart.Play();
 		}
 
-		if (numOfPlayers > 1 && !settingsButton.activeSelf && !map1Button.activeSelf) {
+		if (numOfPlayers > 1 && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
 			settingsButton.SetActive(true);
 		}
 
@@ -97,6 +97,9 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void SetNumOfPlayers(){
+		settingsButton.SetActive (false);
+		platforms.SetActive (false);
+
 		swordSound2.Play();
 		GameState.playerCount = numOfPlayers;
 
@@ -108,25 +111,27 @@ public class MenuController : MonoBehaviour {
 		// default to timer option
 		GameState.gameMode = GameMode.TIMER;
 		stockOption.SetActive (false);
+		GameState.winScore = 1;
+		GameState.playerLives = 1;
+		GameState.gameTime = 1.0f;
 
 		gameMode.text = "TIMER";
 		roundNumber.text = "" + GameState.winScore;
 		stockNumber.text = "" + GameState.playerLives;
 		timeNumber.text = "" + GameState.gameTime;
 
-		settingsButton.SetActive (false);
-		platforms.SetActive (false);
-
 		loadLevelButton.SetActive (true);
 	}
 
 	public void SetMap(){
+		
+		settingGame.SetActive(false);
+		loadLevelButton.SetActive (false);
+
 		title.text = "Choose the area!";
 
 		map1Button.SetActive (true);
 		map2Button.SetActive (true);
-
-		loadLevelButton.SetActive (false);
 	}
 
 	public void alternateGameMode(){
@@ -145,7 +150,7 @@ public class MenuController : MonoBehaviour {
 			gameMode.text = "TIMER";
 			timeNumber.text = "" + GameState.gameTime;
 		} 
-		else 
+		else if (GameState.gameMode == GameMode.TIMER)
 		{
 			GameState.gameMode = GameMode.STOCK;
 
@@ -154,7 +159,6 @@ public class MenuController : MonoBehaviour {
 
 			// hide timer option and clear time
 			timerOption.SetActive(false);
-
 			GameState.gameTime = 0.0f;
 
 			gameMode.text = "STOCK";
@@ -163,13 +167,15 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void increaseStock(){
-		++GameState.playerCount;
-		stockNumber.text = "" + GameState.playerCount;
+		++GameState.playerLives;
+		stockNumber.text = "" + GameState.playerLives;
 	}
 
 	public void decreaseStock(){
-		--GameState.playerCount;
-		stockNumber.text = "" + GameState.playerCount;
+		if (GameState.playerLives > 0) {
+			--GameState.playerLives;		
+			stockNumber.text = "" + GameState.playerLives;
+		}
 	}
 
 	public void increaseRounds(){
@@ -178,8 +184,10 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void decreaseRounds(){
-		--GameState.winScore;
-		roundNumber.text = "" + GameState.winScore;
+		if (GameState.winScore > 0) {
+			--GameState.winScore;
+			roundNumber.text = "" + GameState.winScore;
+		}
 	}
 
 	public void increaseTime(){
@@ -188,8 +196,10 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void decreaseTime(){
-		GameState.gameTime -= 0.5f;
-		timeNumber.text = "" + GameState.gameTime;
+		if (GameState.gameTime > 0) {
+			GameState.gameTime -= 0.5f;
+			timeNumber.text = "" + GameState.gameTime;
+		}
 	}
 
 	void AddPlayers(){
