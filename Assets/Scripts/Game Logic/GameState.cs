@@ -10,6 +10,7 @@ public class GameState : MonoBehaviour{
 	public static GameMode gameMode;
 	public static LevelManager currentLevelManager;
 	public static int playerCount = 4;
+	public static int playerLives;
 	public static bool camFollow = true;
 	public static int winScore;
 	public static float gameTime;
@@ -49,9 +50,10 @@ public class GameState : MonoBehaviour{
         roundOverScene(winningPlayers);
     }
 
-	public static void initializeSettings(GameMode gameMode, int playerCount, int winScore, float gameTime, string level) {
+	public static void initializeSettings(GameMode gameMode, int playerCount, int playerLives, int winScore, float gameTime, string level) {
 		GameState.gameMode = gameMode;
 		GameState.playerCount = playerCount;
+		GameState.playerLives = playerLives;
 		GameState.winScore = winScore;
 		GameState.gameTime = gameTime;
         GameState.level = level;

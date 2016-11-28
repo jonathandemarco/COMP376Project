@@ -27,11 +27,22 @@ public class MenuController : MonoBehaviour {
 	public GameObject player4;
 
 	//Buttons appearing after Start has been pressed
-	public GameObject p2Button;
+	public GameObject settingsButton;
+	public GameObject loadLevelButton;
 
 	//choosing map buttons
 	public GameObject map1Button;
 	public GameObject map2Button;
+
+	//choosing setting buttons
+	public GameObject settingGame;
+	public GameObject stockOption;
+	public GameObject timerOption;
+
+	public Text gameMode;
+	public Text roundNumber;
+	public Text stockNumber;
+	public Text timeNumber;
 
 	public Text title;
 
@@ -61,15 +72,15 @@ public class MenuController : MonoBehaviour {
 
 			platforms.SetActive (true);
 
-			title.transform.position += new Vector3 (0, 150, 0);
-			title.text = "Join the battle dreamers!";
+			title.transform.position += new Vector3 (0, 200, 0);
+			title.text = "Join the battle!";
 			title.color = Color.white;
 
 			swordStart.Play();
 		}
 
-		if (numOfPlayers > 1 && !p2Button.activeSelf && !map1Button.activeSelf) {
-			p2Button.SetActive(true);
+		if (numOfPlayers > 1 && !settingsButton.activeSelf && !map1Button.activeSelf) {
+			settingsButton.SetActive(true);
 		}
 
 		AddPlayers ();
@@ -77,7 +88,7 @@ public class MenuController : MonoBehaviour {
 
 	public void LoadLevel(string level){
 		startSound.Play ();
-		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, 1, 300.0f, level);
+		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, GameState.playerLives, GameState.winScore, 300.0f, level);
 		Invoke ("LoadLevelAfterSoundEnd", 2.0f);
 	}
 
@@ -89,13 +100,96 @@ public class MenuController : MonoBehaviour {
 		swordSound2.Play();
 		GameState.playerCount = numOfPlayers;
 
-		p2Button.SetActive (false);
+		title.text = "Dream Settings: ";
+
+		// list out all the UI elements
+		settingGame.SetActive(true);
+
+		// default to timer option
+		GameState.gameMode = GameMode.TIMER;
+		stockOption.SetActive (false);
+
+		gameMode.text = "TIMER";
+		roundNumber = GameState.winScore;
+		stockNumber = GameState.playerLives;
+		timeNumber = GameState.gameTime;
+
+		settingsButton.SetActive (false);
 		platforms.SetActive (false);
 
+		loadLevelButton.SetActive (true);
+	}
+
+	public void SetMap(){
 		title.text = "Choose the area!";
 
 		map1Button.SetActive (true);
 		map2Button.SetActive (true);
+
+		loadLevelButton.SetActive (false);
+	}
+
+	public void alternateGameMode(){
+		if (GameState.gameMode == GameMode.STOCK) 
+		{
+			GameState.gameMode = GameMode.TIMER;
+
+			// hide stock option and clear stock
+			stockOption.SetActive(false);
+			GameState.playerLives = 0;
+
+			// show timer option
+			timerOption.SetActive(true);
+
+
+			gameMode.text = "TIMER";
+			timeNumber.text = GameState.gameTime;
+		} 
+		else 
+		{
+			GameState.gameMode = GameMode.STOCK;
+
+			// show stock option
+			stockOption.SetActive(true);
+
+			// hide timer option and clear time
+			timerOption.SetActive(false);
+
+			GameState.gameTime = 0.0f;
+
+			gameMode.text = "STOCK";
+			stockNumber.text = GameState.playerLives;
+		}
+	}
+
+	public void increaseStock(){
+		++GameState.playerCount;
+		stockNumber.text = GameState.playerCount;
+	}
+
+	public void decreaseStock(){
+		--GameState.playerCount;
+		stockNumber.text = GameState.playerCount;
+	}
+
+	public void increaseRounds(){
+		++GameState.winScore;
+		roundNumber.text = GameState.winScore;
+	}
+
+	public void decreaseRounds(){
+		--GameState.winScore;
+		roundNumber.text = GameState.winScore;
+	}
+
+	public void increaseTime(){
+		GameState.gameTime += 0.5f;
+		timeNumber.text = GameState.gameTime;
+	}
+
+	public void decreaseTime(){
+		GameState.gameTime -= 0.5f;
+		timeNumber.text = GameState.gameTime;
 	}
 
 	void AddPlayers(){
@@ -162,6 +256,9 @@ public class MenuController : MonoBehaviour {
 			isBlinking = false;
 		}
 	}
+
+
+
 
 
 }
