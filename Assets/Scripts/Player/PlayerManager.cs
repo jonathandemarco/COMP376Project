@@ -45,6 +45,11 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     public bool noSetup;
 
     public PlayerSettings settings;
+
+    public GameObject respawnEffect;
+    public GameObject deathEffect;
+    public GameObject killEffect;
+
     private PlayerControls playerController;
 
     private InventoryManager inventory;
@@ -101,7 +106,6 @@ public class PlayerManager : MonoBehaviour, MessagePassing
         grounded = true;
         health = maxHealth;
         score = 0;
-
     }
 
     // Update is called once per frame
@@ -124,8 +128,13 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             if (!isAlive)
             {
                 timeSinceDeath += Time.deltaTime;
-                if (timeSinceDeath >= respawnTime)
+                if (timeSinceDeath >= respawnTime) {
                     respawn();
+                    GameObject obj = (GameObject)Instantiate(respawnEffect);
+                    
+                    obj.transform.position = transform.position - new Vector3(0, transform.position.y - 1, 0);
+                    Destroy(obj, 3.0f);
+                }
             }
             else
             {
@@ -164,6 +173,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             rb.AddForce(direction.normalized * damage * settings.pushbackFactor);
             if (health <= 0)
             {
+                GameObject obj = (GameObject)Instantiate(deathEffect);
+                obj.transform.position = transform.position;
+                Destroy(obj, 3.0f);
                 health = 0;
                 die();
             }
@@ -388,15 +400,25 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 		Vector3 direction = transform.position - c.transform.position;
 		if (c.gameObject.GetComponent<Weapon> ()) {
 			if (c.gameObject.GetComponent<Latch> () != null && c.gameObject.GetComponent<Latch> ().getPlayerChar () != getPlayerChar ()) {
-				takeDamage (c.gameObject.GetComponent<Latch> ().damage, new Vector3(0,0,0));
+				takeDamage (c.gameObject.GetComponent<Latch> ().damage, new Vector3(0,0,0));           
 			}
 			else if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != getPlayerChar ()) {
 				takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction);
 			}
-		}
+            notifyIfDead(c.gameObject);
+        }
 		else if (c.gameObject.GetComponent<HostileTerrain> ()) {
 			Debug.Log (direction);
 			takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction);
 		}
 	}
+
+    void notifyIfDead(GameObject obj) {
+        if (health <= 0)
+        {
+            GameObject effect = (GameObject)Instantiate(killEffect, obj.transform);
+            effect.transform.position = obj.transform.position;
+            Destroy(effect, 3.0f);
+        }
+    }
 }
