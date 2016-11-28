@@ -367,8 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ee602922051ef479a4325e7d24259d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1920451880}
-  speed: 10
+  cameraRot: {fileID: 1920451880}
+  speed: 15
 --- !u!1 &430062741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,8 +1058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ee602922051ef479a4325e7d24259d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1920451880}
-  speed: 10
+  cameraRot: {fileID: 1920451880}
+  speed: 15
 --- !u!1 &790574420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,8 +2010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ee602922051ef479a4325e7d24259d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1920451880}
-  speed: 10
+  cameraRot: {fileID: 1920451880}
+  speed: 15
 --- !u!1 &1462857680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,8 +2286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ee602922051ef479a4325e7d24259d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1920451880}
-  speed: 10
+  cameraRot: {fileID: 1920451880}
+  speed: 15
 --- !u!4 &1906956224
 Transform:
   m_ObjectHideFlags: 0
