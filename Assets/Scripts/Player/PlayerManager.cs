@@ -162,7 +162,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
 
 
-    public void takeDamage(float damage, Vector3 direction)
+    public void takeDamage(float damage, Vector3 direction, GameObject playerOwner)
     {
         if (!invulnerable)
         {
@@ -173,6 +173,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             rb.AddForce(direction.normalized * damage * settings.pushbackFactor);
             if (health <= 0)
             {
+                notifyIfDead(playerOwner);
                 GameObject obj = (GameObject)Instantiate(deathEffect);
                 obj.transform.position = transform.position;
                 Destroy(obj, 3.0f);
@@ -399,25 +400,26 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 	{
 		Vector3 direction = transform.position - c.transform.position;
 		if (c.gameObject.GetComponent<Weapon> ()) {
-			if (c.gameObject.GetComponent<Latch> () != null && c.gameObject.GetComponent<Latch> ().getPlayerChar () != getPlayerChar ()) {
-				takeDamage (c.gameObject.GetComponent<Latch> ().damage, new Vector3(0,0,0));           
+            GameObject playerOwner = c.gameObject.GetComponent<Weapon>().getPlayerOwner();
+            if (c.gameObject.GetComponent<Latch> () != null && c.gameObject.GetComponent<Latch> ().getPlayerChar () != getPlayerChar ()) {
+                takeDamage (c.gameObject.GetComponent<Latch> ().damage, new Vector3(0,0,0), playerOwner);           
 			}
 			else if (c.gameObject.GetComponent<Weapon> ().getPlayerChar () != getPlayerChar ()) {
-				takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction);
+				takeDamage (c.gameObject.GetComponent<Weapon> ().damage, direction, playerOwner);
 			}
-            notifyIfDead(c.gameObject);
         }
 		else if (c.gameObject.GetComponent<HostileTerrain> ()) {
 			Debug.Log (direction);
-			takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction);
+			takeDamage (c.gameObject.GetComponent<HostileTerrain> ().damage, direction, null);
 		}
 	}
 
     void notifyIfDead(GameObject obj) {
-        if (health <= 0)
+        if (health <= 0 && obj != null)
         {
             GameObject effect = (GameObject)Instantiate(killEffect, obj.transform);
             effect.transform.position = obj.transform.position;
+            
             Destroy(effect, 3.0f);
         }
     }
