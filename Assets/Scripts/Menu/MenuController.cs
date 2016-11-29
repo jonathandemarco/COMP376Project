@@ -124,7 +124,7 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void SetMap(){
-		
+		swordSound2.Play();
 		settingGame.SetActive(false);
 		loadLevelButton.SetActive (false);
 
