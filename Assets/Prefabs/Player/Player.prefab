@@ -452,7 +452,7 @@ MonoBehaviour:
   deathEffect: {fileID: 117696, guid: 046853cc0b2b7a7429cfdec1915e1640, type: 2}
   killEffect: {fileID: 150362, guid: 8906de79e38d722448ed84e0c648ed37, type: 2}
   deathSound: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
-  respawnSound: {fileID: 0}
+  respawnSound: {fileID: 8300000, guid: 5fc0f1943adee43b291fe1a0832e79a0, type: 3}
 --- !u!136 &136000011085656156
 CapsuleCollider:
   m_ObjectHideFlags: 1
