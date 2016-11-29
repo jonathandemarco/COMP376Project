@@ -27,9 +27,10 @@ GameObject:
   - 33: {fileID: 3300006}
   - 23: {fileID: 2300006}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 114000011293537728}
   m_Layer: 9
   m_Name: PalmTree_dual_leafs_1sided
-  m_TagString: Untagged
+  m_TagString: PalmLeaves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,3 +199,18 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
+--- !u!114 &114000011293537728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1b7011617aec3428ef028ee3baece7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coconutPrefab: {fileID: 1000013101743846, guid: 8e90660f3a49a494d9bb86a3b56db502,
+    type: 2}
+  period: 10
+  maxOffset: 5
