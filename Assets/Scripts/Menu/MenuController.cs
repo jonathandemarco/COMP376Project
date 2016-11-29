@@ -79,7 +79,7 @@ public class MenuController : MonoBehaviour {
 			swordStart.Play();
 		}
 
-		if (numOfPlayers > 0 && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
+		if (numOfPlayers > 0 && hasPressedStart && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
 			settingsButton.SetActive(true);
 		}
 

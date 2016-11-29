@@ -6,13 +6,13 @@ using System;
 
 public class RoundUI : MonoBehaviour {
 
-	public Text scoreText;
     public GameObject statsP1;
     public GameObject statsP2;
     public GameObject statsP3;
     public GameObject statsP4;
 
 	public GameObject[] players;
+	public Text firstPlaceText;
 
 	public Text mapSelection;
 	public float tTime;
@@ -99,9 +99,22 @@ public class RoundUI : MonoBehaviour {
                 break;
         }
 
+		int count = 0;
 		for(int i = 0; i < GameState.playerCount; i++){
 			if(GameState.accumScoreList[i] == maxScore){
-				players [i].transform.localPosition = players [i].transform.localPosition + new Vector3(0,0,-400.0f);
+				// scale the player with highest score
+				players [i].transform.localScale = players [i].transform.localScale + new Vector3(50.0f, 50.0f, 50.0f);
+
+				// place leader text on the character
+				firstPlaceText.text = "Leader";
+				firstPlaceText.rectTransform.position += new Vector3(200 * (i + 1), 0, 0);
+				++count;
+			}
+
+			if (count > 1) {
+				// set the leader text on the side
+				firstPlaceText.text = "Leaders";
+				firstPlaceText.rectTransform.position = new Vector3 (-400, 150, 0);
 			}
 		}
 
