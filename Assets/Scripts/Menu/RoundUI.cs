@@ -17,11 +17,17 @@ public class RoundUI : MonoBehaviour {
 	public Text mapSelection;
 	public float tTime;
 
+	public AudioClip desert;
+	public AudioClip forest;
+	public AudioClip islands;
+
 	private int maxScore;
 
 	// Set the player text in the canvas
 	void Start () {
 		print (GameState.accumScoreList.Count);
+
+		playMusic ();
 
         Stats playerStats;
         /*If you're wondering why there's a try catch, there's a retarded bug 
@@ -134,5 +140,25 @@ public class RoundUI : MonoBehaviour {
     {
         GameState.loadScene(name);
     }
+
+	public void playMusic() {
+		AudioSource audioSource = GetComponent<AudioSource> ();
+		if (GameState.level == "Simon_test") {
+			if (forest != null) {
+				audioSource.clip = forest;
+				audioSource.Play ();
+			}
+		} else if (GameState.level == "Desert_Level") {
+			if (desert != null) {
+				audioSource.clip = desert;
+				audioSource.Play ();
+			}
+		} else if (GameState.level == "Gladiators") {
+			if (islands != null) {
+				audioSource.clip = islands;
+				audioSource.Play ();
+			}
+		}
+	}
 		
 }
