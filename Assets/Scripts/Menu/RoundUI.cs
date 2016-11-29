@@ -98,6 +98,7 @@ public class RoundUI : MonoBehaviour {
                 } catch (Exception e){}
                 break;
         }
+		Debug.Log ("Player count " + GameState.playerCount);
 
 		int count = 0;
 		for(int i = 0; i < GameState.playerCount; i++){
