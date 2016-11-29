@@ -16,7 +16,6 @@ public class Latch : Weapon {
 
 	// Use this for initialization
 	public override void Start () {
-		base.Start ();
 		isUsed = false;
 		isLaunched = false;
 		collided = false;
@@ -27,20 +26,17 @@ public class Latch : Weapon {
 
 	// Update is called once per frame
 	public override void Update () {
-		base.Update ();
 		if (isUsed) {
 			if (isLaunched) {
 				time += Time.deltaTime;
-				if (time < 0.75f) {
+				if (time < 0.5f) {
 					transform.position -= handle.transform.right / 2;
 				} else {
 					Pull ();
 				}
 			} else {
 				time -= Time.deltaTime;
-				if ((handle.transform.position - transform.position).magnitude < 4.0f || time < 0.1f) {
-					hide ();
-
+				if ((handle.transform.position - transform.position).magnitude < 3.5f || time < 0.1f) {
 					GetComponent<Collider> ().enabled = false;
 
 					isUsed = false;
@@ -61,6 +57,7 @@ public class Latch : Weapon {
 					}
 
 					transform.parent.GetComponent<Hook> ().resetState ();
+					transform.parent.GetComponent<Hook> ().hide ();
 
 				} else {
 					transform.position += handle.transform.right / 2;
@@ -73,8 +70,7 @@ public class Latch : Weapon {
 		}
 	}
 
-	public void Launch(Renderer [] rend){
-		renderers = rend;
+	public void Launch(){
 		isUsed = true;
 		isLaunched = true;
 		GetComponent<Collider> ().enabled = true;
