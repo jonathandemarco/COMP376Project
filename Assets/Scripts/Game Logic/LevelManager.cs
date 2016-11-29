@@ -1,6 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public class Stats
+{
+    public int kills = 0;
+    public int deaths = 0;
+
+    public Stats()
+    {
+        kills = 0;
+        deaths = 0;
+    }
+}
+
 public class LevelManager : MonoBehaviour {
 	public GameObject cratePrefab;
 	public GameObject playerPrefab;
@@ -8,6 +20,8 @@ public class LevelManager : MonoBehaviour {
 	public GameObject WeaponDatabase;
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
+
+    public List<Stats> statsList = new List<Stats>();
 
     //TODO: populate these from specific level manager
     public List<Vector3> initialSpawnsList = new List<Vector3>(); //initial player spawns
@@ -138,7 +152,8 @@ public class LevelManager : MonoBehaviour {
 				playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(64 + i));
 			
 			playersList.Add(playerObj);
-		}
+            statsList.Add(new Stats());
+        }
 	}
 
     private void endRound(List<int> winningPlayers)
@@ -225,4 +240,63 @@ public class LevelManager : MonoBehaviour {
 			}
 		}
 	}
+
+    public void increaseKill(char playerChar)
+    {
+        int playerIndex = -1;
+        switch (playerChar)
+        {
+            case 'K':
+                playerIndex = 0;
+                break;
+            case 'A':
+                playerIndex = 1;
+                break;
+            case 'B':
+                playerIndex = 2;
+                break;
+            case 'C':
+                playerIndex = 3;
+                break;
+
+        }
+        if (playerIndex >= 0)
+        {
+            statsList[playerIndex].kills++;
+        }
+        logKillsDeaths();
+    }
+
+    public void increaseDeath(char playerChar)
+    {
+        int playerIndex = -1;
+        switch(playerChar)
+        {
+            case 'K':
+                playerIndex = 0;
+                break;
+            case 'A':
+                playerIndex = 1;
+                break;
+            case 'B':
+                playerIndex = 2;
+                break;
+            case 'C':
+                playerIndex = 3;
+                break;
+
+        }
+        if (playerIndex >= 0)
+        {
+            statsList[playerIndex].deaths++;
+        }
+    }
+
+    public void logKillsDeaths()
+    {
+        for(int i = 0; i < playersList.Count; i++)
+        {
+            Debug.Log("Player " + i + ": " + statsList[i].kills + "-" + statsList[i].deaths);
+        }
+    }
 }

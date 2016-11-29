@@ -173,7 +173,12 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             rb.AddForce(direction.normalized * damage * settings.pushbackFactor);
             if (health <= 0)
             {
-                notifyIfDead(playerOwner);
+                if (playerOwner == null) {
+                    GameState.currentLevelManager.increaseDeath(getPlayerChar());
+                }
+                else {
+                    notifyIfDead(playerOwner);
+                }
                 GameObject obj = (GameObject)Instantiate(deathEffect);
                 obj.transform.position = transform.position;
                 Destroy(obj, 3.0f);
@@ -421,6 +426,10 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             effect.transform.position = obj.transform.position;
             
             Destroy(effect, 3.0f);
+
+            char killerChar = ((PlayerManager)obj.GetComponent(typeof(PlayerManager))).getPlayerChar();
+            GameState.currentLevelManager.increaseKill(killerChar);
+            GameState.currentLevelManager.increaseDeath(getPlayerChar());
         }
     }
 }
