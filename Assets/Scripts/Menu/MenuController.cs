@@ -73,7 +73,7 @@ public class MenuController : MonoBehaviour {
 			platforms.SetActive (true);
 
 			title.transform.position += new Vector3 (0, 200, 0);
-			title.text = "Join the battle!";
+			title.text = "Join the sleepover!";
 			title.color = Color.white;
 
 			swordStart.Play();
@@ -103,7 +103,7 @@ public class MenuController : MonoBehaviour {
 		swordSound2.Play();
 		GameState.playerCount = numOfPlayers;
 
-		title.text = "Dream Settings: ";
+		title.text = "Fight Settings: ";
 
 		// list out all the UI elements
 		settingGame.SetActive(true);
@@ -128,7 +128,7 @@ public class MenuController : MonoBehaviour {
 		settingGame.SetActive(false);
 		loadLevelButton.SetActive (false);
 
-		title.text = "Choose the area!";
+		title.text = "Choose the room!";
 
 		map1Button.SetActive (true);
 		map2Button.SetActive (true);
