@@ -27,6 +27,7 @@ public class LaserGun : Weapon {
 		GameObject machine = Instantiate (laserMachinePrefab, laserSpawn.position, laserSpawn.rotation) as GameObject;
 		machine.GetComponent<Rigidbody> ().AddForce (-transform.right * force);
 		machine.GetComponent<LaserMachine> ().setPlayerChar (getPlayerChar ());
+		machine.GetComponent<LaserMachine> ().setPlayerOwner(this.getPlayerOwner());
 		count++;
 
 		if (count == 1) {
@@ -36,6 +37,7 @@ public class LaserGun : Weapon {
 			// the machine will be paired up
 			machine.GetComponent<LaserMachine> ().IsPairedUp ();
 			machine.GetComponent<LaserMachine> ().setPlayerChar (getPlayerChar ());
+			machine.GetComponent<LaserMachine> ().setPlayerOwner (this.getPlayerOwner ());
 
 			// set the machine as a child of the laser apparatus
 			machine.transform.parent = laserApparatus.transform;
@@ -43,6 +45,7 @@ public class LaserGun : Weapon {
 			// create the line renderer
 			laserLine = Instantiate (laserRenderer, laserRenderer.transform.position + transform.position, laserRenderer.transform.rotation, laserApparatus.transform) as GameObject;
 			laserLine.GetComponent<LaserBoundary> ().setPlayerChar (getPlayerChar ());
+			laserLine.GetComponent<LaserBoundary> ().setPlayerOwner (this.getPlayerOwner ());
 
 			// get the script in order to assign origin
 			laser = laserLine.GetComponent<LaserBoundary> ();
