@@ -221,7 +221,10 @@ public class LevelManager : MonoBehaviour {
 	public void incrementSkyboxBlend(float blendFactor) {
 		
 		blendFactor = skyboxIsIncrement ? blendFactor : blendFactor * -1;
-		float newBlend = RenderSettings.skybox.GetFloat ("_Blend") + blendFactor;
+		
+		if(RenderSettings.skybox.GetFloat ("_Blend") != null){		
+			float newBlend = RenderSettings.skybox.GetFloat ("_Blend") + blendFactor;
+		
 
 		if (newBlend > 1.0f) {
 			newBlend = 1.0f;
@@ -232,6 +235,7 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		RenderSettings.skybox.SetFloat("_Blend", newBlend);
+		}
 	}
 
 	public void setUpSpawnPoints()
