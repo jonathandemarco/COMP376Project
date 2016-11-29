@@ -49,6 +49,9 @@ public class Vacuum : Weapon {
 	public override void PressAttack(InputSystem button) {
 		display ();
 		suctionEffect = Instantiate (suctionPrefab, transform.position + transform.forward, Quaternion.identity, transform) as GameObject;
+		AudioSource audio = GetComponent<AudioSource> ();
+		audio.clip = attackSound;
+		audio.Play ();
 	}
 
 	public override void ReleaseAttack (InputSystem button) 
