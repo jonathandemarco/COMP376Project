@@ -9,6 +9,7 @@ TagManager:
   - Weapon Database
   - PlayerModel
   - Lazer
+  - Bullet
   layers:
   - Default
   - TransparentFX

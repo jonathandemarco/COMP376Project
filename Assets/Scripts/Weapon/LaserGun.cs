@@ -9,6 +9,8 @@ public class LaserGun : Weapon {
 	public Transform laserSpawn;
 	public float force;
 
+	public AudioClip secondLazerShoot;
+
 	private GameObject laserApparatus;
 	private GameObject laserLine;
 	private LaserBoundary laser;
@@ -50,6 +52,11 @@ public class LaserGun : Weapon {
 			// get the script in order to assign origin
 			laser = laserLine.GetComponent<LaserBoundary> ();
 			laser.origin = machine.transform;
+
+			//Plays the first shooting sound
+			AudioSource audioSource = GetComponent<AudioSource> ();
+			audioSource.clip = attackSound;
+			audioSource.Play ();
 		}
 
 		else if (count == 2) {
@@ -62,11 +69,11 @@ public class LaserGun : Weapon {
 
 			count = 0;
 			loseDurability(1);
-		}
 
-		AudioSource audioSource = GetComponent<AudioSource> ();
-		audioSource.clip = attackSound;
-		audioSource.Play ();
+			AudioSource audioSource = GetComponent<AudioSource> ();
+			audioSource.clip = secondLazerShoot;
+			audioSource.Play ();
+		}
 	}
 		
 	public override void ReleaseAttack (InputSystem button) 

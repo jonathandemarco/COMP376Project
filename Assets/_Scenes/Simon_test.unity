@@ -17159,17 +17159,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827cb530dd657d245b9ecbc4bbb93f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderers: []
   type: 0
   damage: 100000
   attackRate: 0
-  abundance: 0
-  lifetime: -1
   durability: 0
+  goalScale: {x: 0, y: 0, z: 0}
   playerChar: 90
   index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
+  onDisplayLoop: 0
+  onHideLoop: 0
+  playerOwner: {fileID: 0}
 --- !u!64 &995474324
 MeshCollider:
   m_ObjectHideFlags: 0
