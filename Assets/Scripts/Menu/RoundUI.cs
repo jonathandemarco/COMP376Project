@@ -111,10 +111,10 @@ public class RoundUI : MonoBehaviour {
 				++count;
 			}
 
-			if (count > 1) {
+			if (count > 0) {
 				// set the leader text on the side
 				firstPlaceText.text = "Leaders";
-				firstPlaceText.rectTransform.position = new Vector3 (-400, 150, 0);
+				firstPlaceText.rectTransform.position = new Vector3 (-410, 150, 0);
 			}
 		}
 
