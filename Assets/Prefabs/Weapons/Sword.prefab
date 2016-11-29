@@ -362,17 +362,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f5ddd352b4f354390c11b544fdbb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderers: []
   type: 0
   damage: 20
   attackRate: 1
-  abundance: 0
-  lifetime: -1
-  durability: 8
+  durability: 12
+  goalScale: {x: 0, y: 0, z: 0}
   playerChar: 0
   index: 0
   impactSound: {fileID: 8300000, guid: 2420498bb7e9744478afb07b38118546, type: 3}
   attackSound: {fileID: 8300000, guid: e0ff4d7ba05e542288324a3fd5835596, type: 3}
   weaponAnimator: {fileID: 95000011504620284}
+  onDisplayLoop: 0
+  onHideLoop: 0
+  playerOwner: {fileID: 0}
   swordSound2: {fileID: 8300000, guid: 50b227197e552477f887f84c6ee24cdc, type: 3}
 --- !u!136 &136000011256177654
 CapsuleCollider:

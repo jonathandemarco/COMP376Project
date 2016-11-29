@@ -34,6 +34,7 @@ public class MenuController : MonoBehaviour {
 	//choosing map buttons
 	public GameObject map1Button;
 	public GameObject map2Button;
+	public GameObject map3Button;
 
 	//choosing setting buttons
 	public GameObject settingGame;
@@ -135,6 +136,7 @@ public class MenuController : MonoBehaviour {
 
 		map1Button.SetActive (true);
 		map2Button.SetActive (true);
+		map3Button.SetActive (true);
 	}
 
 	public void alternateGameMode(){

@@ -168,7 +168,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 
     public void takeDamage(float damage, Vector3 direction, GameObject playerOwner)
     {
-        if (!invulnerable)
+		if (!invulnerable || playerOwner.tag == "DeathPlane")
         {
             invulnerable = true;
             nextDamage = Time.time + settings.invinsibilityTime;
