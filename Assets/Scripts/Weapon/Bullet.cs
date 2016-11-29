@@ -33,4 +33,15 @@ public class Bullet : Weapon {
 	public void setExpirationTime(float ex) {
 		mExpirationTime = ex;
 	}
+
+	public override void OnCollisionEnter(Collision c)
+	{
+		base.OnCollisionEnter (c);
+		GetComponent<MeshRenderer>().enabled = false;
+		transform.GetChild (0).gameObject.SetActive (false);
+
+		Destroy (gameObject, 2.0f);
+	}
 }
+	
+

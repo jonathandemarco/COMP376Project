@@ -54,7 +54,6 @@ public class PlayerCollider : MonoBehaviour, MessagePassing
 			//Destroy (col.gameObject);
 			notify ();
 		}
-		
 	}
 	
 	void MessagePassing.collisionWith(Collider c)
