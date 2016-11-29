@@ -99,6 +99,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     }
     void Start()
     {
+        numLives = GameState.playerLives;
         isEliminated = false;
         isAlive = true;
         canMove = true;
