@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692492, g: 0.4967869, b: 0.57508546, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -10985,8 +10985,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.72}
+  m_Center: {x: 0, y: 0, z: -0.13}
 --- !u!33 &678407571
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16518,7 +16518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &971209533
 Transform:
   m_ObjectHideFlags: 0
@@ -17159,17 +17159,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827cb530dd657d245b9ecbc4bbb93f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderers: []
   type: 0
   damage: 100000
   attackRate: 0
-  abundance: 0
-  lifetime: -1
   durability: 0
+  goalScale: {x: 0, y: 0, z: 0}
   playerChar: 90
   index: 0
   impactSound: {fileID: 0}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 0}
+  onDisplayLoop: 0
+  onHideLoop: 0
+  playerOwner: {fileID: 0}
 --- !u!64 &995474324
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18206,7 +18209,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.1}
 --- !u!33 &1055920375
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -29949,7 +29952,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.1}
 --- !u!33 &1547506402
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -36156,8 +36159,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.72}
+  m_Center: {x: 0, y: 0, z: -0.13}
 --- !u!33 &1870847445
 MeshFilter:
   m_ObjectHideFlags: 0
