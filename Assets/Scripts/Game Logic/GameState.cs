@@ -17,6 +17,7 @@ public class GameState : MonoBehaviour{
 	public static List<int> accumScoreList = new List<int>();
     public static string level;
     public static List<Stats> roundStats = new List<Stats>();
+    public static int winner;
 
 	//returns index of winning player or -1
 	public static List<int> isGameOver() {
@@ -73,8 +74,8 @@ public class GameState : MonoBehaviour{
     }
 
     private static void gameOverScene(List<int> winningPlayers) {
-       
-		SceneManager.LoadScene("GameOver");
+        winner = winningPlayers[0] + 1;
+        SceneManager.LoadScene("GameOver");
     }
 
 	public static void loadScene(string levelName) {        
