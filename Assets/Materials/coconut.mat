@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: coconut
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
+  m_Shader: {fileID: 4800000, guid: 466466a0175d2e340b26817200194fc0, type: 3}
+  m_ShaderKeywords: _EMISSION _VERTEXCOLOR
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -90,6 +90,9 @@ Material:
       second: 0.5
     - first:
         name: _GlossyReflections
+      second: 1
+    - first:
+        name: _IntensityVC
       second: 1
     - first:
         name: _Metallic
