@@ -50,6 +50,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     public GameObject deathEffect;
     public GameObject killEffect;
 
+    public AudioClip deathSound;
+    public AudioClip respawnSound;
+
     private PlayerControls playerController;
 
     private InventoryManager inventory;
@@ -185,6 +188,12 @@ public class PlayerManager : MonoBehaviour, MessagePassing
                 Destroy(obj, 3.0f);
                 health = 0;
                 die();
+                
+                if(deathSound != null) {
+                    AudioSource audioSource = GetComponent<AudioSource>();
+                    audioSource.clip = deathSound;
+                    audioSource.Play();
+                }
             }
             notify();
         }
@@ -267,6 +276,12 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 		invulnerable = true;
 		nextDamage = Time.time + settings.respawnInvisibleTime;
         notify();
+        if (respawnSound != null)
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.clip = respawnSound;
+            audioSource.Play();
+        }
     }
 
     private Vector3 getSpawnPoint()
