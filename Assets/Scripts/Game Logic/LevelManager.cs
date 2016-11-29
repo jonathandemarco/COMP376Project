@@ -21,8 +21,6 @@ public class LevelManager : MonoBehaviour {
 	private List<GameObject> playersList = new List<GameObject> ();
 	private float timeLeft = 300.0f;
 
-    public List<Stats> statsList = new List<Stats>();
-
     //TODO: populate these from specific level manager
     public List<Vector3> initialSpawnsList = new List<Vector3>(); //initial player spawns
     public List<Vector3> allSpawnsList = new List<Vector3>(); //available spawn points in level
@@ -152,7 +150,6 @@ public class LevelManager : MonoBehaviour {
 				playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(64 + i));
 			
 			playersList.Add(playerObj);
-            statsList.Add(new Stats());
         }
 	}
 
@@ -262,9 +259,8 @@ public class LevelManager : MonoBehaviour {
         }
         if (playerIndex >= 0)
         {
-            statsList[playerIndex].kills++;
+            GameState.roundStats[playerIndex].kills++;
         }
-        logKillsDeaths();
     }
 
     public void increaseDeath(char playerChar)
@@ -288,15 +284,16 @@ public class LevelManager : MonoBehaviour {
         }
         if (playerIndex >= 0)
         {
-            statsList[playerIndex].deaths++;
+            GameState.roundStats[playerIndex].deaths++;
         }
+        logKillsDeaths();
     }
 
     public void logKillsDeaths()
     {
         for(int i = 0; i < playersList.Count; i++)
         {
-            Debug.Log("Player " + i + ": " + statsList[i].kills + "-" + statsList[i].deaths);
+            Debug.Log("Player " + i + ": " + GameState.roundStats[i].kills + "-" + GameState.roundStats[i].deaths);
         }
     }
 }

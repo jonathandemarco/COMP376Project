@@ -16,6 +16,7 @@ public class GameState : MonoBehaviour{
 	public static float gameTime;
 	public static List<int> accumScoreList = new List<int>();
     public static string level;
+    public static List<Stats> roundStats = new List<Stats>();
 
 	//returns index of winning player or -1
 	public static List<int> isGameOver() {
@@ -61,6 +62,7 @@ public class GameState : MonoBehaviour{
 
         for (int i = 0; i < playerCount; i++) {
             accumScoreList.Add(0);
+            roundStats.Add(new Stats());
         }
     }
 		
@@ -75,12 +77,26 @@ public class GameState : MonoBehaviour{
 		SceneManager.LoadScene("GameOver");
     }
 
-	public void loadScene(string levelName) {
+	public static void loadScene(string levelName) {        
+        //reset stats
+        roundStats.Clear();
+        for (int i = 0; i < playerCount; i++)
+        {
+            roundStats.Add(new Stats());
+        }
+
         //load level levelName
         SceneManager.LoadScene(levelName);
 	}
 
-	public void reloadScene(){
-		SceneManager.LoadScene (level);
+	public static void reloadScene(){
+        //reset stats
+        roundStats.Clear();
+        for (int i = 0; i < playerCount; i++)
+        {
+            roundStats.Add(new Stats());
+        }
+
+        SceneManager.LoadScene (level);
 	}
 }
