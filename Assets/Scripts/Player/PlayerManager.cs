@@ -50,6 +50,9 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     public GameObject deathEffect;
     public GameObject killEffect;
 
+    public AudioClip deathSound;
+    public AudioClip respawnSound;
+
     private PlayerControls playerController;
 
     private InventoryManager inventory;
@@ -99,6 +102,7 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     }
     void Start()
     {
+        numLives = GameState.playerLives;
         isEliminated = false;
         isAlive = true;
         canMove = true;
@@ -173,12 +177,23 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             rb.AddForce(direction.normalized * damage * settings.pushbackFactor);
             if (health <= 0)
             {
-                notifyIfDead(playerOwner);
+                if (playerOwner == null) {
+                    GameState.currentLevelManager.increaseDeath(getPlayerChar());
+                }
+                else {
+                    notifyIfDead(playerOwner);
+                }
                 GameObject obj = (GameObject)Instantiate(deathEffect);
                 obj.transform.position = transform.position;
                 Destroy(obj, 3.0f);
                 health = 0;
                 die();
+                
+                if(deathSound != null) {
+                    AudioSource audioSource = GetComponent<AudioSource>();
+                    audioSource.clip = deathSound;
+                    audioSource.Play();
+                }
             }
             notify();
         }
@@ -261,6 +276,12 @@ public class PlayerManager : MonoBehaviour, MessagePassing
 		invulnerable = true;
 		nextDamage = Time.time + settings.respawnInvisibleTime;
         notify();
+        if (respawnSound != null)
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.clip = respawnSound;
+            audioSource.Play();
+        }
     }
 
     private Vector3 getSpawnPoint()
@@ -421,6 +442,10 @@ public class PlayerManager : MonoBehaviour, MessagePassing
             effect.transform.position = obj.transform.position;
             
             Destroy(effect, 3.0f);
+
+            char killerChar = ((PlayerManager)obj.GetComponent(typeof(PlayerManager))).getPlayerChar();
+            GameState.currentLevelManager.increaseKill(killerChar);
+            GameState.currentLevelManager.increaseDeath(getPlayerChar());
         }
     }
 }

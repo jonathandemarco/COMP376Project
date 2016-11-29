@@ -12,11 +12,11 @@ public class Latch : Weapon {
 	private float time;
 	private GameObject latchedObject;
 	private Transform parentOfLatchedObject;
+	private Vector3 originalScaleOfObject;
 	private bool latchedOn;
 
 	// Use this for initialization
 	public override void Start () {
-		base.Start ();
 		isUsed = false;
 		isLaunched = false;
 		collided = false;
@@ -27,20 +27,17 @@ public class Latch : Weapon {
 
 	// Update is called once per frame
 	public override void Update () {
-		base.Update ();
 		if (isUsed) {
 			if (isLaunched) {
 				time += Time.deltaTime;
-				if (time < 0.75f) {
-					transform.position -= handle.transform.right / 2;
+				if (time < 0.5f) {
+					transform.position -= handle.transform.right / 3;
 				} else {
 					Pull ();
 				}
 			} else {
 				time -= Time.deltaTime;
-				if ((handle.transform.position - transform.position).magnitude < 4.0f || time < 0.1f) {
-					hide ();
-
+				if ((handle.transform.position - transform.position).magnitude < 3.5f || time < 0.1f) {
 					GetComponent<Collider> ().enabled = false;
 
 					isUsed = false;
@@ -52,6 +49,7 @@ public class Latch : Weapon {
 					if (latchedOn) {
 						// reset the latched object to its initial parent
 						latchedObject.transform.parent = parentOfLatchedObject;
+						latchedObject.transform.localScale = originalScaleOfObject;
 
 						// reset the gameObject and the transforms
 						parentOfLatchedObject = null;
@@ -61,9 +59,10 @@ public class Latch : Weapon {
 					}
 
 					transform.parent.GetComponent<Hook> ().resetState ();
+					transform.parent.GetComponent<Hook> ().hide ();
 
 				} else {
-					transform.position += handle.transform.right / 2;
+					transform.position += handle.transform.right;
 				} 
 			}
 		} else {
@@ -73,8 +72,7 @@ public class Latch : Weapon {
 		}
 	}
 
-	public void Launch(Renderer [] rend){
-		renderers = rend;
+	public void Launch(){
 		isUsed = true;
 		isLaunched = true;
 		GetComponent<Collider> ().enabled = true;
@@ -105,6 +103,7 @@ public class Latch : Weapon {
 					latchedOn = true;
 					latchedObject = c.gameObject;
 					parentOfLatchedObject = c.gameObject.transform.parent;
+					originalScaleOfObject = latchedObject.transform.localScale;
 					c.gameObject.transform.parent = transform;
 
 					// Pull the player back

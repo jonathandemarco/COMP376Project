@@ -240,14 +240,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d07d78f9352d14e98328803e48d0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderers: []
   type: 0
   damage: 10
   attackRate: 1
-  abundance: 0
-  lifetime: -1
   durability: 15
+  goalScale: {x: 0, y: 0, z: 0}
   playerChar: 0
   index: 0
-  impactSound: {fileID: 0}
+  impactSound: {fileID: 8300000, guid: cbe8fe1752ebc9e49aec68d7ba13f04d, type: 3}
   attackSound: {fileID: 0}
   weaponAnimator: {fileID: 95000012923208580}
+  onDisplayLoop: 0
+  onHideLoop: 0
+  playerOwner: {fileID: 0}
