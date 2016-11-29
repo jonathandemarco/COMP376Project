@@ -12,6 +12,7 @@ public class Latch : Weapon {
 	private float time;
 	private GameObject latchedObject;
 	private Transform parentOfLatchedObject;
+	private Vector3 originalScaleOfObject;
 	private bool latchedOn;
 
 	// Use this for initialization
@@ -30,7 +31,7 @@ public class Latch : Weapon {
 			if (isLaunched) {
 				time += Time.deltaTime;
 				if (time < 0.5f) {
-					transform.position -= handle.transform.right / 2;
+					transform.position -= handle.transform.right / 3;
 				} else {
 					Pull ();
 				}
@@ -48,6 +49,7 @@ public class Latch : Weapon {
 					if (latchedOn) {
 						// reset the latched object to its initial parent
 						latchedObject.transform.parent = parentOfLatchedObject;
+						latchedObject.transform.localScale = originalScaleOfObject;
 
 						// reset the gameObject and the transforms
 						parentOfLatchedObject = null;
@@ -60,7 +62,7 @@ public class Latch : Weapon {
 					transform.parent.GetComponent<Hook> ().hide ();
 
 				} else {
-					transform.position += handle.transform.right / 2;
+					transform.position += handle.transform.right;
 				} 
 			}
 		} else {
@@ -101,6 +103,7 @@ public class Latch : Weapon {
 					latchedOn = true;
 					latchedObject = c.gameObject;
 					parentOfLatchedObject = c.gameObject.transform.parent;
+					originalScaleOfObject = latchedObject.transform.localScale;
 					c.gameObject.transform.parent = transform;
 
 					// Pull the player back

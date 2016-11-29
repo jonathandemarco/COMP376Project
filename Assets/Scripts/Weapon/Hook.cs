@@ -12,6 +12,7 @@ public class Hook : Weapon {
 		inUse = false;
 		latchWep = latch.GetComponent<Latch> ();
 		latchWep.setPlayerChar (getPlayerChar ());
+		latchWep.setPlayerOwner (getPlayerOwner ());
 	}
 
 	public override void PressAttack(InputSystem button) {
