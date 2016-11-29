@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Islands
   m_Shader: {fileID: 4800000, guid: 466466a0175d2e340b26817200194fc0, type: 3}
-  m_ShaderKeywords: _EMISSION _VERTEXCOLOR
+  m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _VERTEXCOLOR
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap:
@@ -112,7 +112,7 @@ Material:
       second: 0.02
     - first:
         name: _SmoothnessTextureChannel
-      second: 0
+      second: 1
     - first:
         name: _SpecularHighlights
       second: 1
