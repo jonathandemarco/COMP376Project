@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour {
 	AudioSource swordSound2;
 	AudioSource startSound;
 	AudioSource swordStart;
+	AudioSource buttonSound;
 
 	//Input pressed by players
 	public bool player1Start;
@@ -58,9 +59,11 @@ public class MenuController : MonoBehaviour {
 	void Start(){
 		InvokeRepeating("BlinkText", 0.0f, 0.6f);
 		uiSounds = GetComponents<AudioSource>();
-		swordStart = uiSounds[0];
-		startSound = uiSounds[1];
-		swordSound2 = uiSounds[2];
+		swordStart = uiSounds [0];
+		startSound = uiSounds [1];
+		swordSound2 = uiSounds [2];
+		// 3 is the menu song
+		buttonSound = uiSounds [4];
 	}
 
 	void Update(){
@@ -135,6 +138,7 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void alternateGameMode(){
+		buttonSound.Play ();
 		if (GameState.gameMode == GameMode.STOCK) 
 		{
 			GameState.gameMode = GameMode.TIMER;
@@ -168,36 +172,42 @@ public class MenuController : MonoBehaviour {
 	public void increaseStock(){
 		++GameState.playerLives;
 		updateLifeText();
+		buttonSound.Play ();
 	}
 
 	public void decreaseStock(){
 		if (GameState.playerLives > 1) {
 			--GameState.playerLives;		
 			updateLifeText();
+			buttonSound.Play ();
 		}
 	}
 
 	public void increaseRounds(){
 		++GameState.winScore;
 		updateRoundText();
+		buttonSound.Play ();
 	}
 
 	public void decreaseRounds(){
-		if (GameState.winScore > 0) {
+		if (GameState.winScore > 1) {
 			--GameState.winScore;
 			updateRoundText();
+			buttonSound.Play ();
 		}
 	}
 
 	public void increaseTime(){
 		GameState.gameTime += 1.0f;
 		updateTimeText ();
+		buttonSound.Play ();
 	}
 
 	public void decreaseTime(){
 		if (GameState.gameTime > 1) {
 			GameState.gameTime -= 1.0f;
 			updateTimeText ();
+			buttonSound.Play ();
 		}
 	}
 

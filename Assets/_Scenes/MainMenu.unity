@@ -1312,7 +1312,7 @@ Prefab:
     - target: {fileID: 114000010763928918, guid: 5d06dab9c6ef16a42995b7eef8b475c9,
         type: 2}
       propertyPath: m_Text
-      value: forest
+      value: freaky forest
       objectReference: {fileID: 0}
     - target: {fileID: 114000011457885476, guid: 5d06dab9c6ef16a42995b7eef8b475c9,
         type: 2}
@@ -1691,7 +1691,7 @@ Prefab:
     - target: {fileID: 114000010763928918, guid: 5d06dab9c6ef16a42995b7eef8b475c9,
         type: 2}
       propertyPath: m_Text
-      value: Desert
+      value: Danger Desert
       objectReference: {fileID: 0}
     - target: {fileID: 224000013524986210, guid: 5d06dab9c6ef16a42995b7eef8b475c9,
         type: 2}
@@ -3633,6 +3633,7 @@ GameObject:
   - 82: {fileID: 1405238421}
   - 82: {fileID: 1405238423}
   - 82: {fileID: 1405238424}
+  - 82: {fileID: 1405238425}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -3772,7 +3773,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e0ff4d7ba05e542288324a3fd5835596, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3920,7 +3921,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 55d985171d013449789334c22d17297b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3971,7 +3972,81 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &1405238425
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1405238418}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4bd60a58d515d444eb6acfe62352fce4, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.75
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
     m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
