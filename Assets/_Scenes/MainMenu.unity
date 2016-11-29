@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2109,7 +2109,7 @@ Prefab:
     - target: {fileID: 114000012581089406, guid: fbb36b8ce37e52b49914e1781bd04c4d,
         type: 2}
       propertyPath: m_FontData.m_FontStyle
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000012581089406, guid: fbb36b8ce37e52b49914e1781bd04c4d,
         type: 2}
@@ -2358,7 +2358,7 @@ Prefab:
     - target: {fileID: 114000012581089406, guid: fbb36b8ce37e52b49914e1781bd04c4d,
         type: 2}
       propertyPath: m_FontData.m_FontStyle
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000012581089406, guid: fbb36b8ce37e52b49914e1781bd04c4d,
         type: 2}
@@ -2718,7 +2718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3424,7 +3424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4506,7 +4506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016ee72f3c770414e95565722666aaed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factor: 25
+  factor: 10
   sky: {fileID: 2100000, guid: 7d1430089afb5854892670b854d1d684, type: 2}
   speed: 5
 --- !u!1 &2003794858

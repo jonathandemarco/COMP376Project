@@ -146,8 +146,8 @@ public class MenuController : MonoBehaviour {
 			// show timer option
 			timerOption.SetActive(true);
 
-			updateModeText();
-			updateTimeText();
+			updateModeText ();
+			updateTimeText ();
 		} 
 		else if (GameState.gameMode == GameMode.TIMER)
 		{
@@ -160,8 +160,8 @@ public class MenuController : MonoBehaviour {
 			// hide timer option and clear time
 			timerOption.SetActive(false);
 
-			updateModeText();
-			updateTimeText();
+			updateLifeText ();
+			updateModeText ();
 		}
 	}
 
@@ -195,7 +195,7 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void decreaseTime(){
-		if (GameState.gameTime > 0) {
+		if (GameState.gameTime > 1) {
 			GameState.gameTime -= 1.0f;
 			updateTimeText ();
 		}
