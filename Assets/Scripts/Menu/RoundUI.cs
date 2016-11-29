@@ -12,15 +12,16 @@ public class RoundUI : MonoBehaviour {
     public GameObject statsP3;
     public GameObject statsP4;
 
+	public GameObject[] players;
+
+	public Text mapSelection;
+	public float tTime;
+
+	private int maxScore;
+
 	// Set the player text in the canvas
 	void Start () {
-	
-		scoreText.text = "Kills/Deaths: \n\nScore: \n\n";
-
 		print (GameState.accumScoreList.Count);
-		for (int i = 0; i < GameState.playerCount; i++) {
-            scoreText.text += "Player " + (i + 1) + ": " + GameState.accumScoreList [i] + "\n";           
-        }
 
         Stats playerStats;
         /*If you're wondering why there's a try catch, there's a retarded bug 
@@ -30,39 +31,88 @@ public class RoundUI : MonoBehaviour {
         {
             case 4:
                 try {
-                    statsP4.SetActive(true);
-                    Text textStats = statsP4.transform.GetChild(0).GetComponent<Text>();
+					Text killdeath = statsP4.transform.GetChild(0).GetComponent<Text>();
+					Text score = statsP4.transform.GetChild(1).GetComponent<Text>();
                     playerStats = GameState.roundStats[3];
-                    textStats.text = playerStats.kills + "-" + playerStats.deaths;
+
+					killdeath.text = playerStats.kills + "-" + playerStats.deaths;
+					score.text = "" + GameState.accumScoreList [3];
+
+					if(GameState.accumScoreList[3] > maxScore){
+						maxScore = GameState.accumScoreList[3];
+					}
+
+					statsP4.SetActive(true);
+					players[3].SetActive(true);
                 } catch (Exception e) { }
                 goto case 3;
             case 3:
                 try{
-                    statsP3.SetActive(true);
-                    Text textStats = statsP3.transform.GetChild(0).GetComponent<Text>();
+					Text killdeath = statsP3.transform.GetChild(0).GetComponent<Text>();
+					Text score = statsP3.transform.GetChild(1).GetComponent<Text>();
                     playerStats = GameState.roundStats[2];
-                    textStats.text = playerStats.kills + "-" + playerStats.deaths;
+
+					killdeath.text = playerStats.kills + "-" + playerStats.deaths;
+					score.text = "" + GameState.accumScoreList [2];
+
+					if(GameState.accumScoreList[2] > maxScore){
+						maxScore = GameState.accumScoreList[2];
+					}					
+
+					statsP3.SetActive(true);
+					players[2].SetActive(true);
                 } catch (Exception e) { }
                 goto case 2;
             case 2:
                 try {
-                    statsP2.SetActive(true);
-                    Text textStats = statsP2.transform.GetChild(0).GetComponent<Text>();
+					Text killdeath = statsP2.transform.GetChild(0).GetComponent<Text>();
+					Text score = statsP2.transform.GetChild(1).GetComponent<Text>();
                     playerStats = GameState.roundStats[1];
-                    textStats.text = playerStats.kills + "-" + playerStats.deaths;
+
+					killdeath.text = playerStats.kills + "-" + playerStats.deaths;
+					score.text = "" + GameState.accumScoreList [1];
+
+					if(GameState.accumScoreList[1] > maxScore){
+						maxScore = GameState.accumScoreList[1];
+					}				
+
+					statsP2.SetActive(true);
+					players[1].SetActive(true);
                 } catch (Exception e){}
                 goto case 1;
             case 1:
                 try {
-                    statsP1.SetActive(true);
-                    Text textStats = statsP1.transform.GetChild(0).GetComponent<Text>();
+					Text killdeath = statsP1.transform.GetChild(0).GetComponent<Text>();
+					Text score = statsP1.transform.GetChild(1).GetComponent<Text>();
                     playerStats = GameState.roundStats[0];
-                    textStats.text = playerStats.kills + "-" + playerStats.deaths;
+
+					killdeath.text = playerStats.kills + "-" + playerStats.deaths;
+					score.text = "" + GameState.accumScoreList [0];
+
+					if(GameState.accumScoreList[0] > maxScore){
+						maxScore = GameState.accumScoreList[0];
+					}					
+
+					statsP1.SetActive(true);
+					players[0].SetActive(true);
                 } catch (Exception e){}
                 break;
         }
 
+		for(int i = 0; i < GameState.playerCount; i++){
+			if(GameState.accumScoreList[i] == maxScore){
+				players [i].transform.localPosition = players [i].transform.localPosition + new Vector3(0,0,-400.0f);
+			}
+		}
+
     }
+
+	public void Update(){
+		if (mapSelection != null) {
+			mapSelection.color = new Color (mapSelection.color.r, mapSelection.color.g, mapSelection.color.b, Mathf.PingPong (Time.time, 1));
+			tTime += Time.deltaTime;
+		}
+	}
 
     public void loadScene(string name)
     {

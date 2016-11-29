@@ -79,7 +79,7 @@ public class MenuController : MonoBehaviour {
 			swordStart.Play();
 		}
 
-		if (numOfPlayers > 1 && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
+		if (numOfPlayers > 0 && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
 			settingsButton.SetActive(true);
 		}
 
@@ -89,7 +89,7 @@ public class MenuController : MonoBehaviour {
 	public void LoadLevel(string level){
 		startSound.Play ();
 		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, GameState.playerLives, GameState.winScore, 300.0f, level);
-		Invoke ("LoadLevelAfterSoundEnd", 2.0f);
+		Invoke ("LoadLevelAfterSoundEnd", 1.0f);
 	}
 
 	public void LoadLevelAfterSoundEnd () {
@@ -112,7 +112,7 @@ public class MenuController : MonoBehaviour {
 		GameState.gameMode = GameMode.TIMER;
 		stockOption.SetActive (false);
 		GameState.winScore = 1;
-		GameState.playerLives = -1;
+		GameState.playerLives = 0;
 		GameState.gameTime = 1.0f;
 
 		updateModeText ();
@@ -141,7 +141,7 @@ public class MenuController : MonoBehaviour {
 
 			// hide stock option and clear stock
 			stockOption.SetActive(false);
-			GameState.playerLives = -1;
+			GameState.playerLives = 0;
 
 			// show timer option
 			timerOption.SetActive(true);
