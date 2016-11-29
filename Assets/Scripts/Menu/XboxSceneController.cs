@@ -20,7 +20,7 @@ public class XboxSceneController : MonoBehaviour {
 
         tTime += Time.deltaTime;
 
-        if (tTime > 7.0f)
+        if (tTime > 5.0f)
         {
             SceneManager.LoadScene(GameState.level);
         }

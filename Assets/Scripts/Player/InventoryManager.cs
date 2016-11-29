@@ -109,6 +109,7 @@ public class InventoryManager : MonoBehaviour
         }
         Weapon w = (Weapon)Instantiate(database.GetWeaponAt(0), new Vector3(0, 0, 0), Quaternion.LookRotation(gameObject.transform.right, gameObject.transform.up));
         w.setPlayerChar(GetComponentInParent<PlayerManager>().getPlayerChar());
+        w.setPlayerOwner(transform.parent.gameObject);
         w.transform.position = transform.position;
         w.transform.parent = transform;
         inventory[0] = w;
