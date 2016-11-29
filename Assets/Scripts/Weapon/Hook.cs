@@ -20,6 +20,7 @@ public class Hook : Weapon {
 			display ();
 			latchWep.Launch ();
 			inUse = true;
+			loseDurability (1);
 		}
 	}
 
