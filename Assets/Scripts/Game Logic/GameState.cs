@@ -84,6 +84,8 @@ public class GameState : MonoBehaviour{
             roundStats.Add(new Stats());
         }
 
+		level = levelName;
+
         //load level levelName
         SceneManager.LoadScene(levelName);
 	}
