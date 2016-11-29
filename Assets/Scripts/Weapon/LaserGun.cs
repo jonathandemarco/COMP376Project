@@ -15,6 +15,8 @@ public class LaserGun : Weapon {
 	private GameObject laserLine;
 	private LaserBoundary laser;
 
+	public AudioClip laserShoot2;
+
 	private int count;
 
 	public override void Start() {
@@ -68,6 +70,11 @@ public class LaserGun : Weapon {
 				// get the script in order to assign origin
 				laser = laserLine.GetComponent<LaserBoundary> ();
 				laser.origin = machine.transform;
+
+				AudioSource audioSource = GetComponent<AudioSource> ();
+				audioSource.clip = attackSound;
+				audioSource.Play ();
+
 			} else if (count == 2) {
 				// enable the life time count down
 				laserApparatus.GetComponent<LaserApparatus> ().Charge ();
@@ -79,13 +86,13 @@ public class LaserGun : Weapon {
 				count = 0;
 				loseDurability (1);
 
+				AudioSource audioSource = GetComponent<AudioSource> ();
+				audioSource.clip = laserShoot2;
+				audioSource.Play ();
+
 				// create timer for shooting
 				canShoot = false;
 			}
-
-			AudioSource audioSource = GetComponent<AudioSource> ();
-			audioSource.clip = attackSound;
-			audioSource.Play ();
 		}
 	}
 		
