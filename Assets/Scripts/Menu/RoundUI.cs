@@ -23,8 +23,6 @@ public class RoundUI : MonoBehaviour {
 	void Start () {
 		print (GameState.accumScoreList.Count);
 
-		firstPlaceText.rectTransform.position = new Vector3 (-340, 190, 0);
-
         Stats playerStats;
         /*If you're wondering why there's a try catch, there's a retarded bug 
          where statsPX is both equal to null and not null at the same time 
@@ -107,18 +105,18 @@ public class RoundUI : MonoBehaviour {
 				// scale the player with highest score
 				players [i].transform.localScale = players [i].transform.localScale + new Vector3(50.0f, 50.0f, 50.0f);
 
-				firstPlaceText.rectTransform.position = new Vector3 (-340, 190, 0);
+				firstPlaceText.transform.localPosition = new Vector3 (-410, -165, 0);
 
 				// place leader text on the character
 				firstPlaceText.text = "Leader";
-				firstPlaceText.rectTransform.position += new Vector3(200 * (i + 1), 0, 0);
+				firstPlaceText.transform.localPosition += new Vector3(200 * (i + 1), 0, 0);
 				++count;
 			}
 
 			if (count > 1) {
 				// set the leader text on the side
 				firstPlaceText.text = "Leaders";
-				firstPlaceText.rectTransform.position = new Vector3 (-410, 150, 0);
+				firstPlaceText.transform.localPosition = new Vector3 (-410, -165, 0);
 			}
 		}
 
