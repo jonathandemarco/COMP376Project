@@ -247,6 +247,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 156723891}
   - 114: {fileID: 156723890}
+  - 82: {fileID: 156723892}
   m_Layer: 0
   m_Name: RoundController
   m_TagString: Untagged
@@ -277,6 +278,9 @@ MonoBehaviour:
   firstPlaceText: {fileID: 622811144}
   mapSelection: {fileID: 1609075397}
   tTime: 1
+  desert: {fileID: 8300000, guid: b88871ec3f84b4c07acd97bea40a0695, type: 3}
+  forest: {fileID: 8300000, guid: 84258d74ed6814299ac0fc2c71437b90, type: 3}
+  islands: {fileID: 8300000, guid: 9df4f6d9980d44ab1a6d4890e3fac89a, type: 3}
 --- !u!4 &156723891
 Transform:
   m_ObjectHideFlags: 0
@@ -290,6 +294,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!82 &156723892
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156723889}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &179853546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1664,9 @@ MonoBehaviour:
   firstPlaceText: {fileID: 0}
   mapSelection: {fileID: 0}
   tTime: 0
+  desert: {fileID: 0}
+  forest: {fileID: 0}
+  islands: {fileID: 0}
 --- !u!114 &1059287622
 MonoBehaviour:
   m_ObjectHideFlags: 0
