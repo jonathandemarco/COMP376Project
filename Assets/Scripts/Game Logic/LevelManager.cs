@@ -1,6 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public class Stats
+{
+    public int kills = 0;
+    public int deaths = 0;
+
+    public Stats()
+    {
+        kills = 0;
+        deaths = 0;
+    }
+}
+
 public class LevelManager : MonoBehaviour {
 	public float itemDropProb;
 	public GameObject cratePrefab;
@@ -144,7 +156,7 @@ public class LevelManager : MonoBehaviour {
 				playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(64 + i));
 			
 			playersList.Add(playerObj);
-		}
+        }
 	}
 
     private void endRound(List<int> winningPlayers)
@@ -231,7 +243,7 @@ public class LevelManager : MonoBehaviour {
 			}
 		}
 	}
-
+		
 	void updateSkybox () {
 		incrementSkyboxBlend (skyBoxBlendSpeed);
 	}
@@ -243,4 +255,63 @@ public class LevelManager : MonoBehaviour {
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
 		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 10, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
 	}
+
+    public void increaseKill(char playerChar)
+    {
+        int playerIndex = -1;
+        switch (playerChar)
+        {
+            case 'K':
+                playerIndex = 0;
+                break;
+            case 'A':
+                playerIndex = 1;
+                break;
+            case 'B':
+                playerIndex = 2;
+                break;
+            case 'C':
+                playerIndex = 3;
+                break;
+
+        }
+        if (playerIndex >= 0)
+        {
+            GameState.roundStats[playerIndex].kills++;
+        }
+    }
+
+    public void increaseDeath(char playerChar)
+    {
+        int playerIndex = -1;
+        switch(playerChar)
+        {
+            case 'K':
+                playerIndex = 0;
+                break;
+            case 'A':
+                playerIndex = 1;
+                break;
+            case 'B':
+                playerIndex = 2;
+                break;
+            case 'C':
+                playerIndex = 3;
+                break;
+
+        }
+        if (playerIndex >= 0)
+        {
+            GameState.roundStats[playerIndex].deaths++;
+        }
+        logKillsDeaths();
+    }
+
+    public void logKillsDeaths()
+    {
+        for(int i = 0; i < playersList.Count; i++)
+        {
+            Debug.Log("Player " + i + ": " + GameState.roundStats[i].kills + "-" + GameState.roundStats[i].deaths);
+        }
+    }
 }

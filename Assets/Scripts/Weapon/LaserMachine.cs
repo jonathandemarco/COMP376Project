@@ -16,7 +16,7 @@ public class LaserMachine : Weapon {
 		if (isAlone) {
 			lifeTime += Time.deltaTime;
 
-			if (lifeTime > 5.0f) {
+			if (lifeTime > 3.0f) {
 				// decrease the count of the machines by getting the LaserGun component
 				transform.parent.GetComponent<LaserGun> ().decreaseNumOfMachines ();
 
@@ -41,16 +41,20 @@ public class LaserMachine : Weapon {
 		// Disable the collider so it is not affected by the laser line
 
 		gameObject.GetComponent<Collider>().enabled = false;
-		gameObject.GetComponent<Rigidbody>().isKinematic = true;
-		transform.position = collidedObject.position - collisionPoint;
 
 		MessagePassingHelper.passMessageOnCollision (this, col);
 
 		if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
+
 			Debug.Log("Boom");
 			PlayerManager manager = col.gameObject.GetComponent<PlayerManager>();
 			char colPlayerChar = getPlayerChar();
+
+			if (manager.getPlayerChar () == getPlayerChar ()) {
+				return;
+			}
+
 			if (impactSound != null) {
 				AudioSource audioSource = GetComponent<AudioSource>();
 				if (audioSource != null) {

@@ -41,6 +41,7 @@ GameObject:
   - 114: {fileID: 114000011200477298}
   - 114: {fileID: 114000012966837738}
   - 75: {fileID: 75000013766880942}
+  - 82: {fileID: 82000010388207184}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -278,6 +279,80 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!82 &82000010388207184
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010970088310}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000010828973274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,6 +451,8 @@ MonoBehaviour:
   respawnEffect: {fileID: 168292, guid: 13755b5fbb6b69b4c81b942c6e32a512, type: 2}
   deathEffect: {fileID: 117696, guid: 046853cc0b2b7a7429cfdec1915e1640, type: 2}
   killEffect: {fileID: 150362, guid: 8906de79e38d722448ed84e0c648ed37, type: 2}
+  deathSound: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
+  respawnSound: {fileID: 8300000, guid: 5fc0f1943adee43b291fe1a0832e79a0, type: 3}
 --- !u!136 &136000011085656156
 CapsuleCollider:
   m_ObjectHideFlags: 1

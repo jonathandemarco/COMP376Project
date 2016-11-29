@@ -102,11 +102,7 @@ Material:
     m_Floats:
     - first:
         name: _Blend
-<<<<<<< HEAD
-      second: 0.68119043
-=======
-      second: 0.45511517
->>>>>>> 0844bfeb4405c35513330dbc8551479d5f5f52b7
+      second: 0.71319824
     - first:
         name: _Exposure
       second: 1

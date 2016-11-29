@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour {
 	AudioSource swordSound2;
 	AudioSource startSound;
 	AudioSource swordStart;
+	AudioSource buttonSound;
 
 	//Input pressed by players
 	public bool player1Start;
@@ -58,9 +59,11 @@ public class MenuController : MonoBehaviour {
 	void Start(){
 		InvokeRepeating("BlinkText", 0.0f, 0.6f);
 		uiSounds = GetComponents<AudioSource>();
-		swordStart = uiSounds[0];
-		startSound = uiSounds[1];
-		swordSound2 = uiSounds[2];
+		swordStart = uiSounds [0];
+		startSound = uiSounds [1];
+		swordSound2 = uiSounds [2];
+		// 3 is the menu song
+		buttonSound = uiSounds [4];
 	}
 
 	void Update(){
@@ -73,13 +76,13 @@ public class MenuController : MonoBehaviour {
 			platforms.SetActive (true);
 
 			title.transform.position += new Vector3 (0, 200, 0);
-			title.text = "Join the battle!";
+			title.text = "Join the sleepover!";
 			title.color = Color.white;
 
 			swordStart.Play();
 		}
 
-		if (numOfPlayers > 1 && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
+		if (numOfPlayers > 0 && hasPressedStart && !settingsButton.activeSelf && !map1Button.activeSelf && !loadLevelButton.activeSelf) {
 			settingsButton.SetActive(true);
 		}
 
@@ -89,7 +92,7 @@ public class MenuController : MonoBehaviour {
 	public void LoadLevel(string level){
 		startSound.Play ();
 		GameState.initializeSettings (GameMode.STOCK, GameState.playerCount, GameState.playerLives, GameState.winScore, 300.0f, level);
-		Invoke ("LoadLevelAfterSoundEnd", 2.0f);
+		Invoke ("LoadLevelAfterSoundEnd", 1.0f);
 	}
 
 	public void LoadLevelAfterSoundEnd () {
@@ -103,7 +106,7 @@ public class MenuController : MonoBehaviour {
 		swordSound2.Play();
 		GameState.playerCount = numOfPlayers;
 
-		title.text = "Dream Settings: ";
+		title.text = "Fight Settings: ";
 
 		// list out all the UI elements
 		settingGame.SetActive(true);
@@ -124,17 +127,18 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void SetMap(){
-		
+		swordSound2.Play();
 		settingGame.SetActive(false);
 		loadLevelButton.SetActive (false);
 
-		title.text = "Choose the area!";
+		title.text = "Choose the room!";
 
 		map1Button.SetActive (true);
 		map2Button.SetActive (true);
 	}
 
 	public void alternateGameMode(){
+		buttonSound.Play ();
 		if (GameState.gameMode == GameMode.STOCK) 
 		{
 			GameState.gameMode = GameMode.TIMER;
@@ -146,8 +150,8 @@ public class MenuController : MonoBehaviour {
 			// show timer option
 			timerOption.SetActive(true);
 
-			updateModeText();
-			updateTimeText();
+			updateModeText ();
+			updateTimeText ();
 		} 
 		else if (GameState.gameMode == GameMode.TIMER)
 		{
@@ -160,44 +164,50 @@ public class MenuController : MonoBehaviour {
 			// hide timer option and clear time
 			timerOption.SetActive(false);
 
-			updateModeText();
-			updateTimeText();
+			updateLifeText ();
+			updateModeText ();
 		}
 	}
 
 	public void increaseStock(){
 		++GameState.playerLives;
 		updateLifeText();
+		buttonSound.Play ();
 	}
 
 	public void decreaseStock(){
 		if (GameState.playerLives > 1) {
 			--GameState.playerLives;		
 			updateLifeText();
+			buttonSound.Play ();
 		}
 	}
 
 	public void increaseRounds(){
 		++GameState.winScore;
 		updateRoundText();
+		buttonSound.Play ();
 	}
 
 	public void decreaseRounds(){
-		if (GameState.winScore > 0) {
+		if (GameState.winScore > 1) {
 			--GameState.winScore;
 			updateRoundText();
+			buttonSound.Play ();
 		}
 	}
 
 	public void increaseTime(){
 		GameState.gameTime += 1.0f;
 		updateTimeText ();
+		buttonSound.Play ();
 	}
 
 	public void decreaseTime(){
-		if (GameState.gameTime > 0) {
+		if (GameState.gameTime > 1) {
 			GameState.gameTime -= 1.0f;
 			updateTimeText ();
+			buttonSound.Play ();
 		}
 	}
 
