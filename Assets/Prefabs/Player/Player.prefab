@@ -109,7 +109,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 4.229, y: 15.829, z: 19.798}
   m_Children:
   - {fileID: 4000010356518438}
   - {fileID: 4000011597554614}
@@ -367,8 +367,8 @@ MonoBehaviour:
   moveSpeed: 10
   rotationSpeed: 15
   numOfButtons: 6
-  numOfAxes: 0
-  axisThreshold: 0
+  numOfAxes: 2
+  axisThreshold: 0.6
 --- !u!114 &114000011200477298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,7 +437,7 @@ MonoBehaviour:
     airDragForce: 1
     airMoveForce: 300
     rotateSpeed: 10
-    maxSpeed: 0
+    maxSpeed: 10
     inventorySize: 2
     invinsibilityTime: 2
     respawnInvisibleTime: 0

@@ -29,7 +29,7 @@ public class Pillow : Weapon {
 		DisableCollider();
 		hide ();
 		stopAnimation ();
-		loseDurability(1);
+		loseDurability(0);
 	}
 
 }

@@ -256,9 +256,10 @@ public class PlayerManager : MonoBehaviour, MessagePassing
     private void die()
     {
         isAlive = false;
-        numLives--;
+		if(numLives!=-1)
+       		numLives--;
         timeSinceDeath = 0;
-        if (numLives <= 0)
+        if (numLives == 0)
             isEliminated = true;
         notify();
         disableModelRender(); // replace with mesh child
