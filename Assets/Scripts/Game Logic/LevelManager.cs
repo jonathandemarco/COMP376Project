@@ -311,16 +311,4 @@ public class LevelManager : MonoBehaviour {
 			Debug.Log("Player " + i + ": " + GameState.roundStats[i].kills + "-" + GameState.roundStats[i].deaths);
 		}
 	}
-
-	void updateSkybox () {
-		incrementSkyboxBlend (skyBoxBlendSpeed);
-	}
-
-	void spawnCrate()
-	{
-		Vector3 min = GetComponent<Renderer> ().bounds.min;
-		Vector3 max = GetComponent<Renderer> ().bounds.max;
-		Vector3 size = GetComponent<Renderer> ().bounds.size;
-		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 10, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
-	}
 }
