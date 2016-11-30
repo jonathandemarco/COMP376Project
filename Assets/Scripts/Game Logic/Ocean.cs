@@ -90,6 +90,11 @@ public class Ocean : MonoBehaviour {
 				vertices = new Vector3[originalVertices.Count];
 				for (int i = 0; i < originalVertices.Count; i++) {
 					vertices [i] = originalVertices [i];
+					float distance = (tectonicPlate - originalVertices [i]).magnitude * 50;
+					Vector3 diff = currentVertices [i] - tectonicPlate;
+					diff = Quaternion.Euler (0, 0, 1.0f / (1.0f + Mathf.Pow(distance, 4))) * diff;
+					diff += tectonicPlate;
+					uv [i] = uv [i] + new Vector2(tectonicPlate.x, tectonicPlate.z);
 				}
 
 				GetComponent<MeshFilter> ().mesh.vertices = vertices;
@@ -108,6 +113,8 @@ public class Ocean : MonoBehaviour {
 					float distance2 = (tectonicPlate - originalVertices [i]).magnitude;
 					diff = Quaternion.Euler (0, 0, 1.0f / (1.0f + Mathf.Pow(distance, 4))) * diff;
 					vertices [i] = diff + tectonicPlate + new Vector3 (0, 0, 0.1f / (1.0f + Mathf.Pow (distance, 4)));
+					diff += tectonicPlate;
+					uv [i] = uv [i] + new Vector2(tectonicPlate.x, tectonicPlate.z);
 				} else {
 					vertices [i] = currentVertices [i];
 				}
@@ -129,6 +136,8 @@ public class Ocean : MonoBehaviour {
 					Vector3 diff = currentVertices [i] - tectonicPlate;
 					diff = Quaternion.Euler (0, 0, 4.0f / (1.0f + Mathf.Pow(distance, 4))) * diff;
 					vertices [i] = diff + tectonicPlate;
+					diff += tectonicPlate;
+					uv [i] = uv [i] + new Vector2(tectonicPlate.x, tectonicPlate.z);
 					//				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.5f / (1 + Mathf.Pow (distance, 8)));
 				} else {
 					vertices [i] = currentVertices [i];
@@ -148,6 +157,7 @@ public class Ocean : MonoBehaviour {
 			bool done = true;
 			for (int i = 0; i < originalVertices.Count; i++) {
 				vertices [i] = currentVertices [i] + (originalVertices [i] - currentVertices [i]) / 10;
+				uv [i] = uv [i] + (originalUV [i] - uv [i]) / 10;
 				if (done && (vertices [i] - originalVertices [i]).magnitude > 0.001f)
 					done = false;
 			}

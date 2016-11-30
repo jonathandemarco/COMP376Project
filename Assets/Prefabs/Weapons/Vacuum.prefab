@@ -4186,7 +4186,8 @@ MonoBehaviour:
   weaponAnimator: {fileID: 0}
   onDisplayLoop: 0
   onHideLoop: 0
-  maxSuction: 800
+  playerOwner: {fileID: 0}
+  maxSuction: 1200
   suctionIncrement: 400
   suctionPrefab: {fileID: 1000013413167600, guid: ee652d890a0ccfa428da969884cacb62,
     type: 2}
