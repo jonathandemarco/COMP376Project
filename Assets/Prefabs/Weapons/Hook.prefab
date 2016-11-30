@@ -287,7 +287,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -388,7 +388,7 @@ MonoBehaviour:
   type: 1
   damage: 75
   attackRate: 0
-  durability: 100
+  durability: 8
   goalScale: {x: 0, y: 0, z: 0}
   playerChar: 0
   index: 0
