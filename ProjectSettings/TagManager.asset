@@ -10,6 +10,8 @@ TagManager:
   - PlayerModel
   - Lazer
   - Bullet
+  - PalmLeaves
+  - DeathPlane
   layers:
   - Default
   - TransparentFX
