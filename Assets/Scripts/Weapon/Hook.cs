@@ -20,6 +20,11 @@ public class Hook : Weapon {
 			display ();
 			latchWep.Launch ();
 			inUse = true;
+			loseDurability (1);
+
+			AudioSource audioSource = GetComponent<AudioSource> ();
+			audioSource.clip = attackSound;
+			audioSource.Play ();
 		}
 	}
 

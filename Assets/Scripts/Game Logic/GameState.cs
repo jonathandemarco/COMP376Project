@@ -68,10 +68,8 @@ public class GameState : MonoBehaviour{
     }
 		
     private static void roundOverScene(List<int> winningPlayers){    
-		
 		SceneManager.LoadScene("RoundOver");
-
-    }
+   }
 
     private static void gameOverScene(List<int> winningPlayers) {
         winner = winningPlayers[0] + 1;
@@ -85,6 +83,8 @@ public class GameState : MonoBehaviour{
         {
             roundStats.Add(new Stats());
         }
+
+		level = levelName;
 
         //load level levelName
         SceneManager.LoadScene(levelName);
