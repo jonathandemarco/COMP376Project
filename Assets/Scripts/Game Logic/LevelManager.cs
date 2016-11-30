@@ -126,10 +126,10 @@ public class LevelManager : MonoBehaviour {
 			for(int i = 0; i < playersList.Count; i++) {
 				PlayerManager script = (PlayerManager) playersList [i].GetComponent (typeof(PlayerManager));
 				if (topScore == -1) {
-					topScore = script.getScore ();
+					topScore = GameState.roundStats[i].kills;
 				} 
-				else if (script.getScore () > topScore) {
-					topScore = script.getScore ();
+				else if (GameState.roundStats[i].kills > topScore) {
+					topScore = GameState.roundStats[i].kills;
 				}
 			}
 
@@ -137,7 +137,7 @@ public class LevelManager : MonoBehaviour {
 
 			for (int i = 0; i < playersList.Count; i++) {
 				PlayerManager script = (PlayerManager) playersList [i].GetComponent (typeof(PlayerManager));
-				if (script.getScore () == topScore) {
+				if (GameState.roundStats[i].kills == topScore) {
 					winningplayers.Add(i);
 				}
 			}
