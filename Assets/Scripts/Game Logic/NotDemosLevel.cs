@@ -3,19 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class NotDemosLevel : LevelManager {
-	public float itemDropProb;
 	public float meteorProb;
 	public float deformationProb;
-	public GameObject meteorShowerPrefab;
-	public float skyBoxBlendSpeed;
+	public List<GameObject> disasterPoints;
+	public GameObject disasterPtPrefab;
+	public GameObject[] palmTreePrefabs;
+	public GameObject spawnPointPrefab;
 	List<Vector3> originalVertices;
-	float animationTime;
-	public float warningTime;
-	public float warningStep;
-	private float earthquakeAnimTime;
-	private GravitySource gSource;
-	bool deformation = false;
-	Vector3 tectonicPlate;
+	List<GameObject> palmTrees;
 
 	public int samples = 1000;
 	public int radius = 5;
@@ -24,11 +19,31 @@ public class NotDemosLevel : LevelManager {
 	// Use this for initialization
 
 	override public void Start () {
-		base.Start ();
-		animationTime = 0;
-//		setUpMesh (50);
+		
+		setUpMesh (50);
 
-		RenderSettings.skybox = skyboxMat;
+		initialSpawnsList = new List<Vector3> ();
+		allSpawnsList = new List<Vector3> ();
+
+		for (int i = 0; i < palmTrees.Count; i++) {
+			{
+				bool found = true;
+				for(int j = 0; j < allSpawnsList.Count; j++)
+				{
+					if ((palmTrees [i].transform.position - allSpawnsList [j]).magnitude < 20) {
+						found = false;
+						break;
+					}
+				}
+
+				if (found) {
+					GameObject o = Instantiate (spawnPointPrefab, palmTrees [i].transform.position + new Vector3(2.0f, 10.0f, 0), Quaternion.identity, transform) as GameObject;
+					o.name = "SpawnPoint";
+				}
+			}
+		}
+
+		base.Start ();
 	}
 	
 	// Update is called once per frame
@@ -38,105 +53,10 @@ public class NotDemosLevel : LevelManager {
 		if (1 - Random.Range (0.0f, 1.0f) < meteorProb)
 			spawnMeteorShower ();
 
-		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
-			spawnCrate ();
-
-		if (1 - Random.Range (0.0f, 1.0f) < deformationProb)
-			deformation = true;
-
-		updateSkybox ();
-
-		if (animationTime == 0.0f && deformation) {
-			animationTime += Time.deltaTime;
-			tectonicPlate = new Vector3 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f), 0);
-			gSource = new GravitySource (new GameObject("GravityCenter"), 900);
-			gSource.source.transform.position = transform.TransformPoint (tectonicPlate) - new Vector3 (0, 5, 0);
-			gSource.source.transform.SetParent (transform);
-			GravitationalForces.gravityCenters.Add (gSource);
-		}
-
-		if (animationTime > 0.0f && animationTime < warningTime) {
-			transform.position = new Vector3 (transform.position.x, -Mathf.Sin (animationTime / 10), transform.position.z);
-			if (earthquakeAnimTime > warningStep) {
-				earthquakeAnimTime = 0;
-
-				Vector3[] vertices = new Vector3[originalVertices.Count];
-				for (int i = 0; i < originalVertices.Count; i++) {
-//					float distance = (tectonicPlate - originalVertices [i]).magnitude * 10;
-//					if(distance < 0.5f * animationTime)
-//						vertices [i] = originalVertices [i] + new Vector3 (0, 0, Random.Range(0.0f, 1.0f) / (1 + Mathf.Pow(distance, 2)));
-//					else
-					vertices [i] = originalVertices [i];
-				}
-
-				GetComponent<MeshFilter> ().mesh.vertices = vertices;
-				GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
-			}
-
-			animationTime += Time.deltaTime;
-			earthquakeAnimTime += Time.deltaTime;
-		} else if (animationTime > warningTime && animationTime < warningTime + 1.0f) {
-			Vector3[] vertices = new Vector3[originalVertices.Count];
-			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
-			for (int i = 0; i < originalVertices.Count; i++) {
-				float distance = (tectonicPlate - originalVertices [i]).magnitude * 50;
-				if (distance < 15) {
-					Vector3 diff = currentVertices [i] - tectonicPlate;
-					float distance2 = (tectonicPlate - originalVertices [i]).magnitude;
-					diff = Quaternion.Euler (0, 0, 20.0f / (0.1f + Mathf.Pow(distance, 4))) * diff;
-					vertices [i] = diff + tectonicPlate + new Vector3 (0, 0, 1.0f / (1.0f + Mathf.Pow (distance, 2)));
-				} else {
-					vertices [i] = currentVertices [i];
-				}
-//				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.5f / (1 + Mathf.Pow (distance, 8)));
-			}
-
-			GetComponent<MeshFilter> ().mesh.vertices = vertices;
-			GetComponent<MeshFilter> ().mesh.RecalculateBounds ();
-			GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
-			GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
-			animationTime += Time.deltaTime;
-		} else if (animationTime >= warningTime + 1.0f && animationTime < warningTime + 5.0f) {
-			
-			Vector3[] vertices = new Vector3[originalVertices.Count];
-			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
-			for (int i = 0; i < originalVertices.Count; i++) {
-				float distance = (tectonicPlate - originalVertices [i]).magnitude * 50;
-				if (distance < 15) {
-					Vector3 diff = currentVertices [i] - tectonicPlate;
-					diff = Quaternion.Euler (0, 0, 20.0f / (1.0f + Mathf.Pow(distance, 4))) * diff;
-					vertices [i] = diff + tectonicPlate;
-					//				vertices [i] = currentVertices [i] - new Vector3 (0, 0, 0.5f / (1 + Mathf.Pow (distance, 8)));
-				} else {
-					vertices [i] = currentVertices [i];
-				}
-			}
-
-			GetComponent<MeshFilter> ().mesh.vertices = vertices;
-			GetComponent<MeshFilter> ().mesh.RecalculateBounds ();
-			GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
-			GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
-
-			animationTime += Time.deltaTime;
-		}
-		else if (animationTime >= warningTime + 5.0f && animationTime < warningTime + 6.0f) {
-			Vector3[] vertices = new Vector3[originalVertices.Count];
-			Vector3[] currentVertices = GetComponent<MeshFilter> ().mesh.vertices;
-			for (int i = 0; i < originalVertices.Count; i++) {
-				vertices [i] = currentVertices [i] + (originalVertices [i] - currentVertices [i]) / 10;
-			}
-
-			GetComponent<MeshFilter> ().mesh.vertices = vertices;
-			GetComponent<MeshFilter> ().mesh.RecalculateBounds ();
-			GetComponent<MeshFilter> ().mesh.RecalculateNormals ();
-			GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
-			animationTime += Time.deltaTime;
-		}
-		else if (animationTime >= warningTime + 6.0f) {
-			animationTime = 0;
-			deformation = false;
-			GravitationalForces.gravityCenters.Remove (gSource);
-			Destroy (gSource.source);
+		if (1 - Random.Range (0.0f, 1.0f) < deformationProb) {
+			Ocean ocean = GetComponentInChildren<Ocean> ();
+			ocean.disasterPoint = disasterPoints [Random.Range (0, disasterPoints.Count)].transform.position;
+			ocean.deformation = true;
 		}
 	}
 
@@ -145,7 +65,6 @@ public class NotDemosLevel : LevelManager {
 		float increment = maxHeight / (float)samples;
 
 		float[,] heightMap = new float[resolution + 1, resolution + 1];
-		//Vector2[] points = {new Vector2((float)resolution / 2, (float)resolution / 5), new Vector2((float)resolution / 5, 4.0f * resolution / 5), new Vector2(4.0f * resolution / 5, 4.0f * resolution / 5) };
 		List<Vector2> points = new List<Vector2>();
 
 		for(int a = 0; a < samples; a++)
@@ -157,7 +76,6 @@ public class NotDemosLevel : LevelManager {
 							if(Mathf.Abs(heightMap[k, l]) < maxHeight)
 								heightMap [k, l] -= increment;
 		}
-
 
 		float avgHeight = 0;
 		float max = -Mathf.Infinity;
@@ -173,6 +91,10 @@ public class NotDemosLevel : LevelManager {
 
 		avgHeight /= Mathf.Pow (resolution + 1, 2);
 
+		palmTrees = new List<GameObject> ();
+		disasterPoints = new List<GameObject> ();
+
+
 		MeshFilter meshFilter = GetComponent<MeshFilter> ();
 		meshFilter.mesh = new Mesh ();
 
@@ -186,7 +108,8 @@ public class NotDemosLevel : LevelManager {
 		{
 			for (int i = 0; i <= resolution; i++) {
 				vertices.Add (new Vector3 (((float)i / (float)resolution) - 0.5f, ((float)j / (float)resolution) - 0.5f, (heightMap [i, j] - avgHeight) * 15));
-				colors.Add (Color.Lerp(new Color32(255, 255, 0, 255), Color.green, Mathf.Pow(Mathf.Abs((heightMap [i, j] - avgHeight) * 8.0f) / max, 6)));
+				colors.Add (Color.Lerp(new Color(1.0f, 1.0f, 0.0f, 1.0f), Color.green, Mathf.Pow(Mathf.Abs((heightMap [i, j] - avgHeight) * 8.0f) / max, 6)));
+
 				heightMap [i, j] = (heightMap [i, j] - avgHeight) * 15;
 				uv.Add (new Vector2((float)i / (float)resolution, (float)j / (float)resolution));
 				originalVertices.Add (vertices[vertices.Count - 1]);
@@ -199,6 +122,32 @@ public class NotDemosLevel : LevelManager {
 					triangles.Add (vertices.Count - resolution - 2);
 					triangles.Add (vertices.Count - resolution - 3);
 				}
+
+				Vector3 currPt = transform.TransformPoint (vertices [vertices.Count - 1]);
+
+				if (colors [colors.Count - 1].r < 0.1f && currPt.y > 0) {
+					bool secluded = true;
+
+					for(int k = 0; k < palmTrees.Count; k++)
+					{
+						if ((currPt - palmTrees [k].transform.position).magnitude < 5.0f) {
+							secluded = false;
+							break;
+						}
+					}
+
+					if (secluded) {
+						palmTrees.Add (Instantiate (palmTreePrefabs [Random.Range (0, palmTreePrefabs.Length)], currPt, Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), transform) as GameObject);
+						palmTrees [palmTrees.Count - 1].transform.localScale /= 200.0f;
+					}
+				}
+					
+				if (colors [colors.Count - 1].r > 0.98f && currPt.y >= 0 && i > resolution * 0.1f && j > resolution * 0.1f && i < resolution * 0.9f && j < resolution * 0.9f) {
+					disasterPoints.Add (Instantiate(disasterPtPrefab, currPt, Quaternion.identity, transform) as GameObject);
+				}
+
+				if (colors [colors.Count - 1].r > 0.8)
+					colors [colors.Count - 1] = new Color32(0, 0, 0, 0);
 			}
 		}
 			
@@ -208,33 +157,13 @@ public class NotDemosLevel : LevelManager {
 		meshFilter.mesh.triangles = triangles.ToArray();
 		meshFilter.mesh.RecalculateBounds ();
 		meshFilter.mesh.RecalculateNormals ();
-
-//		GetComponent<MeshCollider> ().sharedMesh = GetComponent<MeshFilter> ().mesh;
-
-		TerrainData newTerrain = new TerrainData ();
-		newTerrain.heightmapResolution = resolution + 1;
-		newTerrain.SetHeights (0, 0, heightMap);
-		GetComponent<TerrainCollider> ().terrainData = newTerrain;
-		GetComponent<TerrainCollider> ().enabled = true;
-	}
-
-	void spawnCrate()
-	{
-		Vector3 min = GetComponent<Renderer> ().bounds.min;
-		Vector3 max = GetComponent<Renderer> ().bounds.max;
-		Vector3 size = GetComponent<Renderer> ().bounds.size;
-		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 20, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
 	}
 
 	void spawnMeteorShower() {
-		Vector3 min = GetComponent<Renderer> ().bounds.min;
+/*		Vector3 min = GetComponent<Renderer> ().bounds.min;
 		Vector3 max = GetComponent<Renderer> ().bounds.max;
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
 		MeteorShower script = (MeteorShower) Instantiate (meteorShowerPrefab).GetComponent(typeof (MeteorShower));
 		script.setCastPoint (new Vector3 (Random.Range (min.x + size.x * 0.1f, max.x - size.x * 0.1f), 0, Random.Range (min.z + size.z * 0.1f, max.z - size.z * 0.1f)));
-	}
-
-	void updateSkybox () {
-		incrementSkyboxBlend (skyBoxBlendSpeed);
-	}
+*/	}
 }

@@ -1,19 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Stats
-{
-    public int kills = 0;
-    public int deaths = 0;
-
-    public Stats()
-    {
-        kills = 0;
-        deaths = 0;
-    }
-}
-
 public class LevelManager : MonoBehaviour {
+	public float itemDropProb;
 	public GameObject cratePrefab;
 	public GameObject playerPrefab;
 	public GameObject HUDPrefab;
@@ -25,6 +14,7 @@ public class LevelManager : MonoBehaviour {
     public List<Vector3> initialSpawnsList = new List<Vector3>(); //initial player spawns
     public List<Vector3> allSpawnsList = new List<Vector3>(); //available spawn points in level
 	public Material skyboxMat;
+	public float skyBoxBlendSpeed;
 
 	private bool skyboxIsIncrement = true;
 
@@ -40,7 +30,7 @@ public class LevelManager : MonoBehaviour {
 		addPlayersToScene (GameState.playerCount);
 		Instantiate (WeaponDatabase);
         Instantiate(HUDPrefab);
-        //RenderSettings.skybox = skyboxMat;
+        RenderSettings.skybox = skyboxMat;
     }
 
     // Update is called once per frame
@@ -55,6 +45,10 @@ public class LevelManager : MonoBehaviour {
 			endRound (winningPlayers);
 		}
 
+		if (1 - Random.Range (0.0f, 1.0f) < itemDropProb)
+			spawnCrate ();
+
+		updateSkybox ();
 	}
 
 	
@@ -150,7 +144,7 @@ public class LevelManager : MonoBehaviour {
 				playerObj.GetComponent<PlayerManager> ().setPlayerChar ((char)(64 + i));
 			
 			playersList.Add(playerObj);
-        }
+		}
 	}
 
     private void endRound(List<int> winningPlayers)
@@ -238,62 +232,15 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-    public void increaseKill(char playerChar)
-    {
-        int playerIndex = -1;
-        switch (playerChar)
-        {
-            case 'K':
-                playerIndex = 0;
-                break;
-            case 'A':
-                playerIndex = 1;
-                break;
-            case 'B':
-                playerIndex = 2;
-                break;
-            case 'C':
-                playerIndex = 3;
-                break;
+	void updateSkybox () {
+		incrementSkyboxBlend (skyBoxBlendSpeed);
+	}
 
-        }
-        if (playerIndex >= 0)
-        {
-            GameState.roundStats[playerIndex].kills++;
-        }
-    }
-
-    public void increaseDeath(char playerChar)
-    {
-        int playerIndex = -1;
-        switch(playerChar)
-        {
-            case 'K':
-                playerIndex = 0;
-                break;
-            case 'A':
-                playerIndex = 1;
-                break;
-            case 'B':
-                playerIndex = 2;
-                break;
-            case 'C':
-                playerIndex = 3;
-                break;
-
-        }
-        if (playerIndex >= 0)
-        {
-            GameState.roundStats[playerIndex].deaths++;
-        }
-        logKillsDeaths();
-    }
-
-    public void logKillsDeaths()
-    {
-        for(int i = 0; i < playersList.Count; i++)
-        {
-            Debug.Log("Player " + i + ": " + GameState.roundStats[i].kills + "-" + GameState.roundStats[i].deaths);
-        }
-    }
+	void spawnCrate()
+	{
+		Vector3 min = GetComponent<Renderer> ().bounds.min;
+		Vector3 max = GetComponent<Renderer> ().bounds.max;
+		Vector3 size = GetComponent<Renderer> ().bounds.size;
+		Instantiate (cratePrefab, new Vector3 (Random.Range(min.x + size.x * 0.1f, max.x - size.x * 0.1f), 10, Random.Range(min.z + size.z * 0.1f, max.z - size.z * 0.1f)), Quaternion.identity);
+	}
 }
