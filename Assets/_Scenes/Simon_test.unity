@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -25580,6 +25580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5c5bd3ac31d714cbe4ddac9eb5190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDropProb: 0.001
   cratePrefab: {fileID: 1000013879583652, guid: 1ca2c1ee1e9f5fe41bcc4844fb05069d,
     type: 2}
   playerPrefab: {fileID: 1000010970088310, guid: 02c28e658769f234185a9e6b1c921f8c,
@@ -25594,7 +25595,6 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   skyboxMat: {fileID: 0}
-  itemDropProb: 0.001
   skyBoxBlendSpeed: 0
 --- !u!23 &1379588397
 MeshRenderer:
@@ -25729,7 +25729,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
