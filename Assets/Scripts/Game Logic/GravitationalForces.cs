@@ -33,7 +33,7 @@ public class GravitationalForces : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		foreach (GravitySource g in gravityCenters) {
-			if (!isAncestor (g.source.transform))
+			if (g != null && !isAncestor (g.source.transform))
 			{	
 				g.forceCalculation (g, transform);
 
