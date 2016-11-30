@@ -1424,7 +1424,7 @@ MonoBehaviour:
   type: 1
   damage: 0
   attackRate: 1
-  durability: 8
+  durability: 4
   goalScale: {x: 0, y: 0, z: 0}
   playerChar: 0
   index: 0
@@ -1439,5 +1439,5 @@ MonoBehaviour:
     type: 2}
   mBulletPrefab: {fileID: 1000013220311060, guid: 616fa47eab5f04d05a80915f15e6636d,
     type: 2}
-  maxDamage: 100
+  maxDamage: 60
   chargingRate: 20

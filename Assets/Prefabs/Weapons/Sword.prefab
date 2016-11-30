@@ -366,7 +366,7 @@ MonoBehaviour:
   type: 0
   damage: 20
   attackRate: 1
-  durability: 8
+  durability: 12
   goalScale: {x: 0, y: 0, z: 0}
   playerChar: 0
   index: 0

@@ -18,7 +18,8 @@ public class LaserMachine : Weapon {
 
 			if (lifeTime > 3.0f) {
 				// decrease the count of the machines by getting the LaserGun component
-				transform.parent.GetComponent<LaserGun> ().decreaseNumOfMachines ();
+				if(transform.parent.GetComponent<LaserGun> ()!=null)
+					transform.parent.GetComponent<LaserGun> ().decreaseNumOfMachines ();
 
 				// TODO: initiate explosion
 
