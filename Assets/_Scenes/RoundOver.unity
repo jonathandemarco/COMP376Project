@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   factor: 25
-  sky: {fileID: 2100000, guid: 7d1430089afb5854892670b854d1d684, type: 2}
+  sky: {fileID: 2100000, guid: 0676e912ec97af9428afde2ff8f97b18, type: 2}
   speed: 5
 --- !u!81 &951462597
 AudioListener:
