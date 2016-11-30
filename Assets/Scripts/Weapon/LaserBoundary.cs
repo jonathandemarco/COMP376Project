@@ -12,7 +12,7 @@ public class LaserBoundary : Weapon {
 	private CapsuleCollider capsule;
 	private bool isComplete;
 
-	void Start(){
+	public override void Start(){
 		lineRenderer = GetComponent<LineRenderer> ();
 		lineRenderer.enabled = false;
 
@@ -40,5 +40,9 @@ public class LaserBoundary : Weapon {
 		capsule.direction = 2; // z-axis for easier lookAt orientation... apparently it helps!
 
 		isComplete = true;
+	}
+
+	public void machineDestroyed(){
+		isComplete = false;
 	}
 }

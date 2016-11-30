@@ -6,7 +6,7 @@ public class LaserMachine : Weapon {
 	private float lifeTime;
 	private bool isAlone;
 
-	void Start(){
+	public override void Start(){
 		isAlone = true;
 		lifeTime = 0.0f;
 	}
@@ -68,5 +68,13 @@ public class LaserMachine : Weapon {
 
 	public void IsPairedUp(){
 		isAlone = false;
+	}
+
+	public void OnDestroy(){
+		if (transform.parent.GetComponent<LaserApparatus> () != null) {
+			Destroy (transform.parent.gameObject);
+		} else if (transform.parent.GetComponent<LaserGun> () != null) {
+			transform.parent.GetComponent<LaserGun> ().decreaseNumOfMachines ();
+		}
 	}
 }
